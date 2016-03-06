@@ -1,4 +1,4 @@
-exports.loadContext = function (callback) {
+exports.loadContext = (callback) => {
   let context = require.context('./pages', true)
   if (module.hot) {
     module.hot.accept(context.id, () => {
