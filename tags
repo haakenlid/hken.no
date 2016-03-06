@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BlogIndex	pages/index.js	/^const BlogIndex = ({ route }) => {$/;"	r
+Header	pages/_template.js	/^const Header = ({ frontpage }) => {$/;"	r
+Html	html.js	/^export default class Html extends React.Component {$/;"	r
+MarkdownWrapper	wrappers/md.js	/^const MarkdownWrapper = ({ route }) => {$/;"	r
+ReadNext	components/ReadNext.js	/^const ReadNext = ({ post, pages }) => {$/;"	r
+Template	pages/_template.js	/^const Template = ({ location, children }) => ($/;"	r
+body	components/ReadNext.js	/^    const body = prune(html.replace(\/<[^>]*>\/g, ''), 200)$/;"	r
+headerLink	pages/_template.js	/^  const headerLink = ($/;"	r
+html	components/ReadNext.js	/^    const html = nextPost.data.body$/;"	r
+linkTo	components/ReadNext.js	/^    const linkTo = {$/;"	r
+pageLinks	pages/index.js	/^  const pageLinks = []$/;"	r
+post	wrappers/md.js	/^  const post = route.page.data$/;"	r
+sortedPages	pages/index.js	/^  const sortedPages = sortBy(route.pages, (page) =>$/;"	r
+title	pages/index.js	/^      const title = access(page, 'data.title') || page.path$/;"	r
