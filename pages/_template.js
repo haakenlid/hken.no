@@ -25,7 +25,6 @@ const Template = ({ location, children }) => (
 Template.propTypes = {
   children: React.PropTypes.any,
   location: React.PropTypes.object,
-  //  route: React.PropTypes.object,
 }
 
 export default Template

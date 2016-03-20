@@ -45,4 +45,4 @@ Html.propTypes = {
   title: React.PropTypes.string,
 }
 
-Html.defaultProps = { body: '' }
+Html.defaultProps = { body: '<p>hello</p>' }

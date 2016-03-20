@@ -1,10 +1,9 @@
+const getContext = () => require.context('./pages', true)
+
 exports.loadContext = (callback) => {
-  let context = require.context('./pages', true)
+  const context = getContext()
   if (module.hot) {
-    module.hot.accept(context.id, () => {
-      context = require.context('./pages', true)
-      return callback(context)
-    })
+    module.hot.accept(context.id, () => callback(getContext()))
   }
   return callback(context)
 }

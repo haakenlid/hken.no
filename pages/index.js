@@ -12,6 +12,7 @@ const BlogIndex = ({ route }) => {
     access(page, 'data.date')
   ).reverse()
   sortedPages.forEach((page) => {
+    console.log(page)
     if (access(page, 'file.ext') === 'md') {
       const title = access(page, 'data.title') || page.path
       pageLinks.push(
