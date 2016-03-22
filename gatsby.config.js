@@ -16,5 +16,6 @@ module.exports = (config, env) => {
     cfg.loader = '../loaders/ipynb-loader'
     return cfg
   })
+  config.merge({resolve: { extensions: ['ipynb']}})
   return config
 }

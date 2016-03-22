@@ -16,7 +16,7 @@
     "gatsby"
   ],
   "author": "Håken Lid",
-  "license": "n/a",
+  "license": "CC-BY-4.0",
   "dependencies": {
     "babel-plugin-transform-decorators": "^6.6.5",
     "gatsby": "^0.8.5",

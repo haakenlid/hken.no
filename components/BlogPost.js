@@ -13,7 +13,7 @@ const BlogPost = ({ post, children, route }) => (
     <section className="blogpost">
       <h1>{post.title || 'no title'}</h1>
       { post.readNext && <ReadNext post={post} pages={route.pages} /> }
-      <div>Posted {moment(post.date || new Date.now()
+      <div>Posted {moment(post.date || Date.now()
                          ).format('MMMM D, YYYY')}</div>
       { children }
       <footer>
