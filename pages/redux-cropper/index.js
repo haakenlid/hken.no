@@ -1,30 +1,41 @@
 import React from 'react'
+import BlogPost from 'components/BlogPost'
 
-export default class ReactComponent extends React.Component {
-  constructor () {
+const metadata = {
+  title: "React Redux image cropping",
+  date: "2016-05-01",
+  layout: "post",
+  readNext: "/image-cropping/",
+  path: "/redux-cropper/",
+}
+
+class Thing extends React.Component {
+  constructor() {
     super()
     this.state = { count: 0 }
     this.handlePlusClick = this.handlePlusClick.bind(this)
     this.handleMinusClick = this.handleMinusClick.bind(this)
   }
-
-  handlePlusClick () {
+  handlePlusClick() {
     this.setState({ count: this.state.count + 1 })
   }
-
-  handleMinusClick () {
+  handleMinusClick() {
     this.setState({ count: this.state.count - 1 })
   }
-
-  render () {
+  render() {
     return (
-      <div>
-        <h1>React.js components</h1>
-        <h3>Counter example</h3>
+      <BlogPost post={metadata} route={this.props.route}>
+        <h3>Counter Hurra</h3>
         <p>{this.state.count}</p>
         <button onClick={this.handlePlusClick}>+</button>
         <button onClick={this.handleMinusClick}>-</button>
-      </div>
+      </BlogPost>
     )
   }
 }
+
+Thing.propTypes = {
+  route: React.PropTypes.object,
+}
+Thing.metadata = () => metadata
+export default Thing

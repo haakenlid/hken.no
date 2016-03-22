@@ -13,7 +13,6 @@ import cv2
 import base64
 ```
 
-
 Welcome to image cropping
 -------------------------
 

@@ -1,3 +1,5 @@
 blogTitle = "håken.no"
 authorName = "Håken Lid"
+authorAvatar = "/hken.png"
+authorAbout = "is a rockstar"
 linkPrefix = ""

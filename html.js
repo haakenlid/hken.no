@@ -4,7 +4,7 @@ import { link } from 'gatsby-helpers'
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Html extends React.Component {
-  render () {
+  render() {
     const { favicon, body } = this.props
     let title = DocumentTitle.rewind()
     if (this.props.title) {
@@ -29,8 +29,11 @@ export default class Html extends React.Component {
           <link rel="shortcut icon" href={favicon} />
           {cssLink}
         </head>
-        <body className="landing-page">
-          <div id="react-mount" dangerouslySetInnerHTML={{ __html: body }} />
+        <body>
+          <div
+            id="react-mount"
+            dangerouslySetInnerHTML={{ __html: body }}
+          />
           <script src={link('/bundle.js')} />
         </body>
       </html>
@@ -45,4 +48,4 @@ Html.propTypes = {
   title: React.PropTypes.string,
 }
 
-Html.defaultProps = { body: '<p>hello</p>' }
+Html.defaultProps = { body: '<div>loading ...</div>' }

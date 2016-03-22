@@ -1,7 +1,7 @@
 import frontMatter from 'front-matter'
 import markdownIt from 'markdown-it'
 import hljs from 'highlight.js'
-import objectAssign from 'object-assign'
+import fs from 'fs'
 
 const highlight = (str, lang) => {
   if ((lang !== null) && hljs.getLanguage(lang)) {
@@ -26,13 +26,21 @@ const md = markdownIt({
   highlight,
 })
 
-module.exports = function (content) {
+const readMeta = (filePath) => {
+  const metaPath = filePath.replace(/\.\S+/, '.meta')
+  try {
+    const data = fs.readFileSync(metaPath, 'utf8')
+    return frontMatter(data)
+  } catch (e) {
+    return { attributes: {} }
+  }
+}
+
+module.exports = function metaLoader(content) {
   this.cacheable()
   const meta = frontMatter(content)
   const body = md.render(meta.body)
-  const result = objectAssign({}, meta.attributes, {
-    body,
-  })
-  this.value = result
+  const meta2 = readMeta(this.resourcePath)
+  const result = { ...meta.attributes, ...meta2.attributes, body }
   return `module.exports = ${JSON.stringify(result)}`
 }
