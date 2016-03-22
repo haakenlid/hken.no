@@ -1,3 +1,4 @@
 node_modules/
 gatsby-starter-*/
 public/
+*checkpoint.ipynb
