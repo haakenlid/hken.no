@@ -1,0 +1,39 @@
+$ease:     ease-in-out;
+$speed:             8s;
+$stroke-width:       3; 
+
+$path-length:     8024;
+$monogram-start:  .000;
+$monogram-end:    .447;
+$face-start:      .542;
+$face-end:        .946;
+
+@mixin line($start, $end) {
+  $offset:   $start * -$path-length;
+  $stroke:   $end * $path-length + $offset;
+  $gap:      $path-length - $stroke;
+  
+  stroke-dashoffset: $offset;
+  stroke-dasharray: $stroke $gap;
+}
+
+@keyframes monogram-loop {
+  000% { @include line($monogram-start,   $monogram-end  )}
+  050% { @include line($face-start,       $face-end      )}
+  100% { @include line($monogram-start+1, $monogram-end+1)}
+}
+
+svg {
+  background: #111;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0.5em;
+  box-sizing: border-box;
+  #face-monogram {
+    stroke-width: $stroke-width;
+    fill-opacity: 0;
+    stroke: #FFF;
+    animation: monogram-loop $speed infinite $ease; 
+  }
+}

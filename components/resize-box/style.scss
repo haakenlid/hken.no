@@ -1,0 +1,94 @@
+
+html, body{
+  height: 100%;
+  padding: 0;
+}
+$dash: 8px;
+@keyframes ants {
+  0% {stroke-dashoffset: 0px;}
+  100% {stroke-dashoffset: 6 * $dash;}
+}
+$marching-ants: ants 1s infinite linear;
+
+#app {
+  padding: 1em;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid #aaa;
+  background: #bbb; 
+  .canvas {
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    height: 100%;
+    width: 100%;
+  }
+  .box {
+    position: absolute;
+    &:hover rect.dashed {
+      animation: $marching-ants;
+    }
+    svg{
+      rect{
+        stroke-width: 1px;
+        fill: none;
+        stroke: #fff;
+        &.dashed {
+          stroke-dasharray: $dash;
+          stroke: #000;
+        }
+      }
+    }
+   }
+  .grabbing { 
+    cursor: move;
+    cursor: grabbing;
+  }
+  .move { 
+    cursor: move;
+    cursor: grab;
+  }
+  .top, .bottom { 
+    cursor: ns-resize }
+  .left, .right { 
+    cursor: ew-resize }
+  .top.left, .bottom.right {
+    cursor: nwse-resize }
+  .top.right, .bottom.left {
+    cursor: nesw-resize }
+  }
+  .handle {
+    $handleSize: 20%;
+    background: #ff3;
+    opacity: 0.0;
+    position: absolute;
+    min-width: $handleSize;
+    min-height: $handleSize;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    &.left {
+      left: -$handleSize / 2;
+      right: unset;
+    }
+    &.right {
+      right: -$handleSize / 2;
+      left: unset;
+    }
+    &.top {
+      top: -$handleSize / 2;
+      bottom: unset;
+    }
+    &.bottom {
+      cursor: ns-resize;
+      bottom: -$handleSize / 2;
+      top: unset;
+    }
+    &.top, &.bottom{ 
+      &.left, &.right { 
+        z-index: 2000;
+      }
+    }
+  }

@@ -29,10 +29,11 @@ const md = markdownIt({
 // TODO make this less hacky!
 const cellToMarkdown = (cell, language) => {
   if (cell.cell_type === 'markdown') {
-    cell.rendered_markdown = md.render(cell.source.join(''))
+    cell.rendered_markdown = md.render(cell.source.join('').trim())
   } else {
     // Code blocks in markdown can start with ~~~<language name> for highnlighting
-    cell.rendered_source = md.render(`~~~${language}\n${cell.source.join('')}\n~~~`)
+    cell.rendered_source = md.render(
+      `~~~${language}\n${cell.source.join('').trim()}\n~~~`)
     if (cell.outputs.length > 0) {
       const output = cell.outputs[0]
       let content = ''
@@ -46,7 +47,8 @@ const cellToMarkdown = (cell, language) => {
         default:
           content = `unknown output data_type\n\n${JSON.stringify(output)}`
       }
-      cell.rendered_output = md.render(`~~~\n${content}\n~~~`)
+      cell.rendered_output = md.render(
+        `~~~\n${content.trim()}\n~~~`)
     }
   }
 }
@@ -59,7 +61,7 @@ module.exports = function jupyterLoader(content) {
   const meta = {
     date: '1970-01-01',
     layout: 'post',
-    title: filename.match(/([^./]+)(\..*)$/)[1].replace(/[ _]+/g, ' '),
+    title: filename.match(/([^./]+)(\.[^.]*)$/)[1].replace(/[ _]+/g, ' '),
     path: `/${filename.toLowerCase().replace(/[ _]+/g, '-')}/`,
   }
   const language = notebook.metadata.kernelspec.language
