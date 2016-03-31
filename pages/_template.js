@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { link } from 'gatsby-helpers'
 import { config } from 'config'
 
-import '../css/styles.css'
+import '../css/styles.scss'
 
 const Header = ({ frontpage }) => {
   const headerLink = (

@@ -1,0 +1,66 @@
+@import "github-gist";
+
+$header-font: 'Roboto Slab', serif;
+$body-font: 'Roboto', serif;
+$code-font: 'Roboto Mono', monospace;
+$body-color: #505050;
+$code-background: #f7f7f7;
+
+body {
+  font-family: $body-font;
+  font-weight: 300;
+  font-size: 15px;
+  padding: 0 2rem;
+}
+p {
+  color: $body-color;
+  font-size: .9rem;
+  line-height: 1.4;
+  margin: .5em 0 1em 0;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: $header-font;
+  font-weight: 300;
+  margin: 1em 0 .2em 0;
+  padding-bottom: .2em;
+  border-bottom: 1px solid #eee;
+}
+a {
+  color: rgb(42,93,173);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+blockquote {
+  padding-left: 16.875px;
+  border-left: 6px solid lightgray;
+  margin-left: 10.875px;
+  margin-right: 0;
+  padding-right: 0;
+}
+pre, code {
+  font-family: $code-font;
+  font-weight: 400;
+  /* background: $code-background; */
+  /* border-radius: .3em; */
+}
+.cell-code {
+  margin: 1rem 0;
+}
+.cell-markdown {
+  /* margin: 0 .5rem; */
+}
+pre {
+  background: $code-background; 
+  padding: .5rem 1rem;
+  font-size: .8rem;
+  margin: 0;
+  &.cell-output {
+    background: none;
+    color: #666;
+  }
+  code {
+    background: none;
+  }
+}

@@ -15,6 +15,13 @@ export default class Html extends React.Component {
     if (process.env.NODE_ENV === 'production') {
       cssLink = <link rel="stylesheet" href={link('/styles.css')} />
     }
+    const googleFonts = (
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab:300|Roboto:300,300italic"
+        rel="stylesheet"
+        type="text/css"
+      />
+    )
 
     return (
       <html lang="en">
@@ -27,6 +34,7 @@ export default class Html extends React.Component {
           />
           <title>{this.props.title}</title>
           <link rel="shortcut icon" href={favicon} />
+          {googleFonts}
           {cssLink}
         </head>
         <body>

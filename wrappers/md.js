@@ -1,6 +1,5 @@
 import React from 'react'
 import BlogPost from 'components/BlogPost'
-import '../css/zenburn.css'
 
 const MarkdownWrapper = ({ route }) => {
   const post = route.page.data

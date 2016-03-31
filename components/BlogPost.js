@@ -6,8 +6,6 @@ import { config } from 'config'
 import ReadNext from 'components/ReadNext'
 import Byline from 'components/Byline'
 
-import '../css/zenburn.css'
-
 const BlogPost = ({ post, children, route }) => (
   <DocumentTitle title={`${post.title} | ${config.blogTitle}`}>
     <section className="blogpost">

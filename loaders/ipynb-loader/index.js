@@ -22,8 +22,15 @@ const md = markdownIt({
   html: true,
   linkify: true,
   typographer: true,
+  quotes: '«»‹›',
   highlight,
 })
+
+const highlightCode = (code, language) => {
+  const content = hljs.highlight(language, code, true).value
+  const className = language ? `class="lang-${language}"` : ''
+  return `<code ${className}>${content}</code>`
+}
 
 /* eslint-disable no-param-reassign */
 // TODO make this less hacky!
@@ -31,9 +38,8 @@ const cellToMarkdown = (cell, language) => {
   if (cell.cell_type === 'markdown') {
     cell.rendered_markdown = md.render(cell.source.join('').trim())
   } else {
-    // Code blocks in markdown can start with ~~~<language name> for highnlighting
-    cell.rendered_source = md.render(
-      `~~~${language}\n${cell.source.join('').trim()}\n~~~`)
+    cell.rendered_source = highlightCode(
+      cell.source.join('').trim(), language)
     if (cell.outputs.length > 0) {
       const output = cell.outputs[0]
       let content = ''
@@ -47,8 +53,7 @@ const cellToMarkdown = (cell, language) => {
         default:
           content = `unknown output data_type\n\n${JSON.stringify(output)}`
       }
-      cell.rendered_output = md.render(
-        `~~~\n${content.trim()}\n~~~`)
+      cell.rendered_output = content.trim()
     }
   }
 }
