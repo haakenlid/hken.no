@@ -11,18 +11,14 @@ const ReadNext = ({ post, pages }) => {
 
   return (
     <div>
-      <h4>
-        Read this next:
-      </h4>
-      <h3>
-        <Link to={nextPost.path} >
+      <p>
+        Read Next: <Link to={nextPost.path} >
           {nextPost.data.title}
         </Link>
-      </h3>
+      </p>
     </div>
   )
 }
-
 ReadNext.propTypes = {
   post: React.PropTypes.object.isRequired,
   pages: React.PropTypes.array,

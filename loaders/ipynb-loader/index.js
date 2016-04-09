@@ -1,45 +1,26 @@
 import frontMatter from 'front-matter'
-import markdownIt from 'markdown-it'
-import hljs from 'highlight.js'
-
-/* eslint-disable no-console */
-const highlight = (str, lang) => {
-  if ((lang !== null) && hljs.getLanguage(lang)) {
-    try {
-      return hljs.highlight(lang, str).value
-    } catch (_error) {
-      console.error(_error)
-    }
-  }
-  try {
-    return hljs.highlightAuto(str).value
-  } catch (_error) {
-    console.error(_error)
-  }
-  return ''
-}
-const md = markdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-  quotes: '«»‹›',
-  highlight,
-})
+import { highlightjs, md } from '../markdown.js'
 
 const highlightCode = (code, language) => {
-  const content = hljs.highlight(language, code, true).value
+  // const content = hljs.highlight(language, code, true).value
+  const content = highlightjs(code, language)
   const className = language ? `class="lang-${language}"` : ''
   return `<code ${className}>${content}</code>`
 }
 
-/* eslint-disable no-param-reassign */
 // TODO make this less hacky!
 const cellToMarkdown = (cell, language) => {
+  const rendered = {
+    markdown: null,
+    source: null,
+    output: null,
+  }
   if (cell.cell_type === 'markdown') {
-    cell.rendered_markdown = md.render(cell.source.join('').trim())
+    rendered.markdown = md.render(cell.source.join('').trim())
   } else {
-    cell.rendered_source = highlightCode(
-      cell.source.join('').trim(), language)
+    rendered.source = highlightCode(
+      cell.source.join('').trim(), language
+    )
     if (cell.outputs.length > 0) {
       const output = cell.outputs[0]
       let content = ''
@@ -53,11 +34,11 @@ const cellToMarkdown = (cell, language) => {
         default:
           content = `unknown output data_type\n\n${JSON.stringify(output)}`
       }
-      cell.rendered_output = content.trim()
+      rendered.output = content.trim()
     }
   }
+  return rendered
 }
-/* eslint-enable no-param-reassign */
 
 module.exports = function jupyterLoader(content) {
   this.cacheable()
@@ -76,7 +57,7 @@ module.exports = function jupyterLoader(content) {
     notebook.cells.shift()
   }
   for (const cell of notebook.cells) {
-    cellToMarkdown(cell, language)
+    cell.rendered = cellToMarkdown(cell, language)
   }
   const result = { ...notebook, ...meta, ...frontmatter }
   return `module.exports = ${JSON.stringify(result)}`

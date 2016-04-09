@@ -10,7 +10,7 @@ const metadata = {
 }
 
 const Thing = () => (
-  <div>Hello World</div>
+  <div>Hello World. This is about image cropping</div>
 )
 
 Thing.propTypes = {

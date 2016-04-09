@@ -1,25 +1,41 @@
 import React from 'react'
-import BlogPost from 'components/BlogPost'
+import { BlogPost } from 'components'
 
-const Cell = ({cellData}) => (
-  <div className={`markdown cell-${cellData.cell_type}`}>
-    { cellData.rendered_markdown &&
-      <div dangerouslySetInnerHTML={{ __html: cellData.rendered_markdown }} />
-    }
-    { cellData.rendered_source &&
-      <pre className="cell-input" dangerouslySetInnerHTML={{ __html: cellData.rendered_source }} />
-    }
-    { cellData.rendered_output &&
-      <pre className="cell-output">{cellData.rendered_output }</pre>
-    }
-  </div>
+const Cell = ({ rendered, cellType }) => (
+  rendered.markdown ? (
+    <div
+      className="markdown cell"
+      dangerouslySetInnerHTML={{ __html: rendered.markdown }}
+    />
+  ) : (
+    <div className={`${cellType} cell`} >
+      { rendered.source &&
+        <pre className="cell-input" dangerouslySetInnerHTML={{ __html: rendered.source }} />
+      }
+      { rendered.output &&
+        <pre className="cell-output">{ rendered.output }</pre>
+      }
+    </div>
+  )
 )
+
+Cell.propTypes = {
+  rendered: React.PropTypes.object,
+  cellType: React.PropTypes.string,
+}
 
 const NotebookWrapper = ({ route }) => {
   const post = route.page.data
+  const renderCell = (cell, i) => (
+    <Cell
+      key={i}
+      cellType={cell.cell_type}
+      rendered={cell.rendered}
+    />
+  )
   return (
     <BlogPost post={post} route={route}>
-      { post.cells.map(cell => <Cell cellData={cell} />) }
+      { post.cells.map(renderCell) }
     </BlogPost>
   )
 }

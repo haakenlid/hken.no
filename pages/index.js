@@ -2,7 +2,7 @@
 import React from 'react'
 import DocumentTitle from 'react-document-title'
 import { config } from 'config'
-import PageLinks from 'components/PageLinks'
+import { PageLinks } from 'components'
 
 const BlogIndex = ({ route }) => (
   <DocumentTitle title={config.blogTitle}>

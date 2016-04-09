@@ -1,29 +1,47 @@
-@import "github-gist";
+/* @import "github-gist"; */
+/* @import "github"; */
+@import "foundation";
 
 $header-font: 'Roboto Slab', serif;
 $body-font: 'Roboto', serif;
 $code-font: 'Roboto Mono', monospace;
-$body-color: #505050;
+$body-color: #707070;
+$line-color: #ccc;
 $code-background: #f7f7f7;
 
-body {
-  font-family: $body-font;
-  font-weight: 300;
-  font-size: 15px;
-  padding: 0 2rem;
+html {
+  font-size: 18px;
 }
-p {
+
+body {
+  padding: 0 2rem;
+  margin: 0 auto;
+  max-width: 50rem;
+  font-family: $body-font;
   color: $body-color;
-  font-size: .9rem;
+}
+p, li {
+  font-weight: 300;
+  font-size: 1rem;
   line-height: 1.4;
   margin: .5em 0 1em 0;
 }
 h1,h2,h3,h4,h5,h6 {
+  color: #222;
   font-family: $header-font;
   font-weight: 300;
   margin: 1em 0 .2em 0;
   padding-bottom: .2em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $line-color;
+}
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.2em;
 }
 a {
   color: rgb(42,93,173);
@@ -45,22 +63,65 @@ pre, code {
   /* background: $code-background; */
   /* border-radius: .3em; */
 }
+  
 .cell-code {
-  margin: 1rem 0;
+  margin: 1rem 0rem;
 }
 .cell-markdown {
   /* margin: 0 .5rem; */
 }
 pre {
+  // overflow-x: auto;
   background: $code-background; 
-  padding: .5rem 1rem;
+  padding: .5rem; 
   font-size: .8rem;
   margin: 0;
+  position: relative;
+  /* &.cell-input { */
+  /*   &:before { */
+  /*     position: absolute; */
+  /*     left: -2em; */
+  /*     content: '[in]'; */
+  /*   } */
+  /* } */
   &.cell-output {
     background: none;
-    color: #666;
+    /* background: #999; */
+    /* color: #fff; */
+    /* border-bottom: 1px solid #eee; */
+    /* font-style: italic; */
+    /* color: #666; */
   }
   code {
     background: none;
+    .line {
+      // display: block;
+      counter-increment: linenumber;
+      &:before {
+        user-select: none;
+        margin-left: -2em;
+        display: inline-block;
+        width: 2em;
+        content: counter(linenumber);
+      }
+    }
+  }
+}
+
+$header-height: 2rem;
+
+.page-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 2em;
+  padding: .2rem 1rem;
+  background: white;
+  z-index: 100;
+  border-bottom: 1px solid $line-color;
+  height: $header-height;
+  + main {
+    margin-top: $header-height * 1.5;
   }
 }

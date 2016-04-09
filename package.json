@@ -5,8 +5,9 @@
   "main": "n/a",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=develop gatsby develop",
-    "build": "NODE_ENV=production gatsby build"
+    "develop": "gatsby develop",
+    "dev": "gatsby develop | grep -v 'node_modules\\|\\[built\\]'",
+    "build": "gatsby build"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,9 @@
   },
   "devDependencies": {
     "babel-plugin-react-transform": "^1.1.1",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^5.0.1",
     "eslint-plugin-react": "^3.16.1",
