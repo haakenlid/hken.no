@@ -1,16 +1,19 @@
 // Frontpage for the blog
 import React from 'react'
-import DocumentTitle from 'react-document-title'
-import { config } from 'config'
-import { PageLinks } from 'components'
+import { PageLinks, PageHeader } from 'components'
 
-const BlogIndex = ({ route }) => (
-  <DocumentTitle title={config.blogTitle}>
-    <main>
-      <PageLinks route={route} />
-    </main>
-  </DocumentTitle>
-)
+export default class BlogIndex extends React.Component {
+  render() {
+    return (
+      <PageHeader>
+        <main>
+          <h2> Blog entries </h2>
+          <PageLinks route={this.props.route} />
+        </main>
+      </PageHeader>
+    )
+  }
+}
 
 BlogIndex.propTypes = {
   route: React.PropTypes.object,

@@ -56,4 +56,7 @@ Html.propTypes = {
   title: React.PropTypes.string,
 }
 
-Html.defaultProps = { body: '<div>loading ...</div>' }
+Html.defaultProps = {
+  favicon: '/favicon.png',
+  body: '<div>loading ...</div>'
+}

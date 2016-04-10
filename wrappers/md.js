@@ -1,5 +1,5 @@
 import React from 'react'
-import BlogPost from 'components/BlogPost'
+import { BlogPost } from 'components'
 
 const MarkdownWrapper = ({ route }) => {
   const post = route.page.data

@@ -8,8 +8,7 @@ const ReadNext = ({ post, pages }) => {
   const nextPost = find(pages, (page) =>
     includes(page.path, post.readNext.slice(1, -1))
   )
-
-  return (
+  return !nextPost ? <div /> : (
     <div>
       <p>
         Read Next: <Link to={nextPost.path} >

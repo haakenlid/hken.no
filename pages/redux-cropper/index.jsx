@@ -1,20 +1,28 @@
 import React from 'react'
-import BlogPost from 'components/BlogPost'
+import Wrapper from 'wrappers/jsx'
+import { Markdown } from 'components'
 
 const metadata = {
   title: "React Redux image cropping",
-  date: "2016-05-01",
+  date: "2015-05-01",
   layout: "post",
   readNext: "/image-cropping/",
   path: "/redux-cropper/",
 }
+export default class Post extends React.Component {
+  static metadata() { return metadata }
+  render() {
+    return (
+      <Wrapper {...this.props} >
+        <Markdown children={`
+          ### Hello World
+          You can write markdown here
+          >Blockquote works like this
 
-const Thing = () => (
-  <div>Hello World. This is about image cropping</div>
-)
-
-Thing.propTypes = {
-  route: React.PropTypes.object,
+              here's some code
+        `}
+        />
+      </Wrapper>
+    )
+  }
 }
-Thing.metadata = () => metadata
-export default Thing

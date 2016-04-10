@@ -1,5 +1,5 @@
 import frontMatter from 'front-matter'
-import { highlightjs, md } from '../markdown.js'
+import { highlightjs, md } from '../../utils/markdown'
 
 const highlightCode = (code, language) => {
   // const content = hljs.highlight(language, code, true).value

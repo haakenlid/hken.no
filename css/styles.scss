@@ -5,21 +5,59 @@
 $header-font: 'Roboto Slab', serif;
 $body-font: 'Roboto', serif;
 $code-font: 'Roboto Mono', monospace;
-$body-color: #707070;
+$body-color: #606060;
 $line-color: #ccc;
 $code-background: #f7f7f7;
+$body-background: #fff;
 
 html {
   font-size: 18px;
+  overflow-y: scroll;
 }
 
 body {
   padding: 0 2rem;
   margin: 0 auto;
-  max-width: 50rem;
+  max-width: 40rem;
   font-family: $body-font;
   color: $body-color;
+  background: $body-background;
 }
+
+header {
+  $header-height: 2em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  $shadow: rgba(255,255,255,0);
+  box-shadow: 0 0 .2rem .2rem $shadow; 
+  padding: .2rem 0;
+  background: $body-background;
+  .page-header {
+    @extend body;
+    display: flex;
+    font-weight: bold;
+    height: $header-height;
+    align-items: center;
+    svg {
+      vertical-align: top;
+      font-size: 1.5em;
+    }
+    a {
+      display: inline-block;
+      font-size: 1em;
+      margin-right: .5em;
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  + main {
+    margin-top: $header-height * 1.5;
+  }
+}
+
 p, li {
   font-weight: 300;
   font-size: 1rem;
@@ -51,11 +89,10 @@ a {
   }
 }
 blockquote {
-  padding-left: 16.875px;
-  border-left: 6px solid lightgray;
-  margin-left: 10.875px;
-  margin-right: 0;
-  padding-right: 0;
+  border-left: .4em solid $line-color;
+  font-style: italic;
+  margin: 0;
+  padding: 0 0 0 .4em;
 }
 pre, code {
   font-family: $code-font;
@@ -71,12 +108,12 @@ pre, code {
   /* margin: 0 .5rem; */
 }
 pre {
-  // overflow-x: auto;
   background: $code-background; 
   padding: .5rem; 
   font-size: .8rem;
   margin: 0;
   position: relative;
+  white-space: pre-wrap;
   /* &.cell-input { */
   /*   &:before { */
   /*     position: absolute; */
@@ -108,20 +145,22 @@ pre {
   }
 }
 
-$header-height: 2rem;
-
-.page-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  font-size: 2em;
-  padding: .2rem 1rem;
-  background: white;
-  z-index: 100;
-  border-bottom: 1px solid $line-color;
-  height: $header-height;
-  + main {
-    margin-top: $header-height * 1.5;
+.byline {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: .5rem 0 1rem 0;
+  border-top: 1px solid $line-color;
+  .text {
+    font-size: smaller;
+    display: flex;
+    margin-left: 1em;
+    flex-direction: column;
+    justify-content: center;
+    .name {
+      font-weight: bolder;
+    }
+    .about {
+    }
   }
 }

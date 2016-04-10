@@ -25,7 +25,7 @@ $face-end:        .946;
 
 %face { 
   transition-property: stroke-dasharray, stroke-dashoffset;
-  transition-duration: .8s;
+  transition-duration: .6s;
   transition-timing-function: ease-out;
   @include line($face-start,   $face-end  ) }
 %monogram { 
@@ -39,15 +39,12 @@ svg.avatar {
   stroke: currentColor;
   .face { @extend %face; }
   .monogram { @extend %monogram; }
-  &:hover {
+  .parent:hover &, &:hover,  {
     .face { @extend %monogram; }
     .monogram { @extend %face; }
   }
 
   .loop {
-    stroke-width: $stroke-width;
-    fill-opacity: 0;
-    stroke: #FFF;
     transition: none;
     animation: monogram-loop $speed infinite $ease; 
   }

@@ -1,6 +1,6 @@
 import frontMatter from 'front-matter'
 import fs from 'fs'
-import { md } from '../markdown.js'
+import { md } from '../../utils/markdown'
 
 const readMeta = (filePath) => {
   const metaPath = filePath.replace(/\.\S+/, '.meta')

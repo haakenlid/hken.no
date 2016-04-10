@@ -23,7 +23,9 @@ const sortedPageLinks = pages => pages
     .map(page => <PageLink page={page} key={page.path} />)
 
 const PageLinks = ({ route }) => (
-  <ul>{ sortedPageLinks(route.pages) }</ul>
+  <ul>
+    { sortedPageLinks(route.pages) }
+  </ul>
 )
 PageLinks.propTypes = {
   route: React.PropTypes.object,
