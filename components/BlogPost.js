@@ -17,7 +17,7 @@ export default class BlogPost extends React.Component {
           { children }
         </main>
         <footer>
-          <Byline about="is number one" />
+          <Byline />
         </footer>
       </PageHeader>
     )
