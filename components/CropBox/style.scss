@@ -1,0 +1,49 @@
+$margin: .5vw;
+.cropbox-wrapper {
+  .masterImgWrapper {
+    position: relative;
+    .overlay {
+      shape-rendering: crispEdges;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      path {
+        vector-effect: non-scaling-stroke;
+      }
+      .boxOverlay {
+        fill: black;
+        opacity: .5;
+        stroke-width: 1px;
+        stroke: white;
+      }
+      .boxHandle {
+        cursor: crosshair;
+        fill: red;
+        opacity: 0;
+      }
+      .centerPoint {
+        stroke-width: 1px;
+        stroke: red;
+      }
+    }
+  }
+  img, svg {
+    display: block;
+  }
+  .preview {
+    display: flex;
+    flex-direction: row;
+    margin: -$margin;
+    padding: 2*$margin 0;
+    .previewImg {
+      margin: $margin;
+      background-position: 50% 20%;
+      background-size: 120% auto; 
+      svg {
+      }
+      // background-size: cover;
+    }
+  }
+}

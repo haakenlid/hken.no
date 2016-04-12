@@ -10,36 +10,61 @@ $dash: 8px;
 }
 $marching-ants: ants 1s infinite linear;
 
-#app {
-  padding: 1em;
-  height: 100%;
+.resizer {
+  height: 20em;
+  width: 100%;
   box-sizing: border-box;
   border: 1px solid #aaa;
-  background: #bbb; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
   .canvas {
     overflow: hidden;
     position: relative;
-    background: #fff;
     height: 100%;
     width: 100%;
+    // &.resize {
+    //   position: fixed;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    // }
   }
-  .box {
+  .box-wrapper {
     position: absolute;
-    &:hover rect.dashed {
-      animation: $marching-ants;
-    }
-    svg{
-      rect{
-        stroke-width: 1px;
-        fill: none;
-        stroke: #fff;
-        &.dashed {
-          stroke-dasharray: $dash;
-          stroke: #000;
-        }
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .box {
+      position: absolute;
+      &:hover rect.dashed {
+        animation: $marching-ants;
       }
     }
-   }
+    svg.cropbox-svg {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      fill: none;
+      g {
+        fill-rule: evenodd;
+        fill: rgba(0,0,0,.2);
+      }
+      .outer {
+        stroke: green;
+        stroke-width: 2px;
+        width: 100%;
+        height: 100%;
+      }
+      .inner {
+        position: absolute;
+        stroke: red;
+        stroke-width: 2px;
+      }
+    }
+  }
   .grabbing { 
     cursor: move;
     cursor: grabbing;
@@ -52,15 +77,18 @@ $marching-ants: ants 1s infinite linear;
     cursor: ns-resize }
   .left, .right { 
     cursor: ew-resize }
-  .top.left, .bottom.right {
-    cursor: nwse-resize }
-  .top.right, .bottom.left {
-    cursor: nesw-resize }
-  }
+  .top.left { 
+    cursor: nw-resize }
+  .bottom.right {
+    cursor: se-resize }
+  .top.right {
+    cursor: ne-resize }
+  .bottom.left {
+    cursor: sw-resize }
   .handle {
     $handleSize: 20%;
     background: #ff3;
-    opacity: 0.0;
+    opacity: 0.2;
     position: absolute;
     min-width: $handleSize;
     min-height: $handleSize;
@@ -82,7 +110,6 @@ $marching-ants: ants 1s infinite linear;
       bottom: unset;
     }
     &.bottom {
-      cursor: ns-resize;
       bottom: -$handleSize / 2;
       top: unset;
     }
@@ -92,3 +119,4 @@ $marching-ants: ants 1s infinite linear;
       }
     }
   }
+}

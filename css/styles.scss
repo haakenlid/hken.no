@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  padding: 0 2rem;
+  padding: 0 3vw;
   margin: 0 auto;
   max-width: 40rem;
   font-family: $body-font;
@@ -55,6 +55,11 @@ header {
   }
   + main {
     margin-top: $header-height * 1.5;
+  }
+}
+main {
+  img {
+    max-width: 100%;
   }
 }
 

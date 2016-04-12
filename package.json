@@ -27,9 +27,9 @@
     "react": "^0.14.7",
     "react-document-title": "^2.0.1",
     "react-dom": "^0.14.7",
-    "react-redux": "^4.4.0",
+    "react-redux": "^4.4.2",
     "react-router": "^2.0.0",
-    "redux": "^3.3.1",
+    "redux": "^3.4.0",
     "safe-access": "^0.1.0",
     "underscore.string": "^3.2.3"
   },

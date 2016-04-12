@@ -1,6 +1,6 @@
 import React from 'react'
 import Wrapper from 'wrappers/jsx'
-import { Markdown } from 'components'
+import { Markdown, CropBox } from 'components'
 
 const metadata = {
   title: "React Redux image cropping",
@@ -14,14 +14,11 @@ export default class Post extends React.Component {
   render() {
     return (
       <Wrapper {...this.props} >
-        <Markdown children={`
-          ### Hello World
-          You can write markdown here
-          >Blockquote works like this
-
-              here's some code
-        `}
-        />
+        <h1>Cropper</h1>
+        <CropBox src="./11-NYH-nyhklarefors-06-SGS.jpg" />
+        <p>This is a work in progress.</p>
+        <p>Click inside the main image to change to center of cropping</p>
+        <p><em>(resizing is coming soon)</em></p>
       </Wrapper>
     )
   }
