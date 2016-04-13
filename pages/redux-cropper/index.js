@@ -13,7 +13,8 @@ const metadata = {
   path: "/redux-cropper/",
 }
 
-const devTools = window.devToolsExtension ? window.devToolsExtension() : f => f
+const devTools = typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
+  window.devToolsExtension() : f => f
 const store = createStore(cropBoxReducer, {}, devTools)
 
 export default class Post extends React.Component {
