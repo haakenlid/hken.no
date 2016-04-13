@@ -2,6 +2,17 @@ $margin: .5vw;
 .cropbox-wrapper {
   .masterImgWrapper {
     position: relative;
+    .dragKing {
+      z-index: 1000;
+      position: fixed;
+      cursor: move;
+      // opacity: 0.2;
+      // background: blue;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
     .overlay {
       shape-rendering: crispEdges;
       position: absolute;
@@ -13,11 +24,12 @@ $margin: .5vw;
         vector-effect: non-scaling-stroke;
       }
       svg {
+        overflow: visible;
         .handle {
           fill: yellow;
-          opacity: .2;
+          opacity: 0;
           &:hover {
-            opacity: .5;
+            // opacity: .5;
           }
         }
         .top, .bottom {
@@ -47,7 +59,7 @@ $margin: .5vw;
   img, svg {
     display: block;
   }
-  .preview {
+  .previewPanel {
     display: flex;
     flex-direction: row;
     margin: -$margin;

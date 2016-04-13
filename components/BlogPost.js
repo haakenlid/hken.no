@@ -6,7 +6,6 @@ import { ReadNext, Byline, PageHeader } from 'components'
 export default class BlogPost extends React.Component {
   render() {
     const { post, children, route } = this.props
-    console.log(post)
     return (
       <PageHeader title={post.title}>
         <main className="blogpost">

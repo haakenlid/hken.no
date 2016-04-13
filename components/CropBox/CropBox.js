@@ -1,69 +1,63 @@
 import React from 'react'
-import Redux from 'redux'
-import { Provider, connect } from 'react-redux'
-import { Previews } from './Preview'
-import { Overlay } from './Overlay'
+import { connect } from 'react-redux'
+import { setImgSize, addImage } from './actions'
+import Previews from './Preview'
+import Overlay from './Overlay'
 import './style.scss'
 
-const MasterImg = ({ src, onLoad }) => (
-  <img
-    className = "masterImg"
-    src={src}
-    onLoad={onLoad}
-  />
-)
-MasterImg.propTypes = {
-  src: React.PropTypes.string.isRequired,
-  onLoad: React.PropTypes.func.isRequired,
-}
+
 
 class Canvas extends React.Component {
   constructor(props) {
+    props.addImage()
     super(props)
-    this.state = {
-      crop: props.crop,
-    }
     this.imgOnLoad = this.imgOnLoad.bind(this)
-    this.setCenterPoint = this.setCenterPoint.bind(this)
+    this.getRelativePosition = this.getRelativePosition.bind(this)
   }
-  setCenterPoint(x, y) {
-    const { h, v } = this.state.crop
-    h[1] = x
-    v[1] = y
-    this.setState({ crop: { h, v } })
+  getRelativePosition(e) {
+    const img = this.refs.masterImg.getBoundingClientRect()
+    return [
+      (e.clientX - img.left) / img.width,
+      (e.clientY - img.top) / img.height,
+    ].map(num => Math.max(0, Math.min(num, 1)))
   }
-  imgOnLoad(event) {
-    const img = event.target
-    this.setState({
-      size: [img.offsetWidth, img.offsetHeight],
-    })
+  imgOnLoad(e) {
+    const img = e.target
+    this.props.setImgSize([img.offsetWidth, img.offsetHeight])
   }
-
   render() {
     const { src } = this.props
-    const { size, crop } = this.state
     return (
       <div className="cropbox-wrapper" >
         <div className="masterImgWrapper">
-          <MasterImg
-            src={src}
-            crop={crop}
+          <img
+            ref="masterImg"
+            className = "masterImg"
             onLoad={this.imgOnLoad}
+            src={src}
           />
-          <Overlay crop={crop} setCenterPoint={this.setCenterPoint} />
+          <Overlay
+            getRelativePosition={this.getRelativePosition}
+            src={src}
+          />
         </div>
-        { size && <Previews src={src} crop={crop} size={size} /> }
+        <Previews
+          src={src}
+        />
       </div>
     )
   }
 }
 Canvas.propTypes = {
   src: React.PropTypes.string.isRequired,
-  crop: React.PropTypes.object,
+  setImgSize: React.PropTypes.func.isRequired,
+  addImage: React.PropTypes.func.isRequired,
 }
+const mapStateToProps = () => ({})
+const mapDispatchToProps = (dispatch, { src }) => ({
+  setImgSize: size => { dispatch(setImgSize(src, size)) },
+  addImage: () => { dispatch(addImage(src)) },
+})
+const CropBox = connect(mapStateToProps, mapDispatchToProps)(Canvas)
 
-Canvas.defaultProps = {
-  crop: { h: [0.1, 0.5, 0.9], v: [0.1, 0.4, 0.8] },
-}
-
-export default Canvas
+export default CropBox
