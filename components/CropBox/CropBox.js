@@ -4,6 +4,39 @@ import { Provider, connect } from 'react-redux'
 import './style.scss'
 
 
+const Handle = ({ position }) => {
+  const size = .1
+  const props = {
+    className:`handle ${position}`,
+    width: size,
+    height:size,
+    x:0,
+    y:0,
+  }
+  switch (position) {
+    case 'left':
+      props.height = 1
+      break
+    case 'right':
+      props.height = 1
+      props.x = 1 - size
+      break
+    case 'top':
+      props.width = 1
+      props.height = size
+      break
+    case 'bottom':
+      props.width = 1
+      props.y = 1 - size
+      break
+    default:
+      break
+  }
+  return <rect {...props} />
+}
+
+
+
 const Overlay = ({ crop, setCenterPoint }) => {
   const [left, x, right] = crop.h
   const [top, y, bottom] = crop.v
@@ -36,6 +69,20 @@ const Overlay = ({ crop, setCenterPoint }) => {
         d={boxPath}
         onClick={onBoxClick}
       />
+      <svg
+        className="handles"
+        viewBox="0 0 1 1"
+        preserveAspectRatio="none"
+        height={bottom-top}
+        width={right-left}
+        x={left}
+        y={top}
+      >
+        <Handle position="left" />
+        <Handle position="right" />
+        <Handle position="top" />
+        <Handle position="bottom" />
+      </svg>
       <path
         className="centerPoint"
         d={`M0,${y}H1M${x},0V1`}

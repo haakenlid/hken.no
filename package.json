@@ -8,7 +8,7 @@
     "develop": "gatsby develop",
     "dev": "gatsby develop | grep -v 'node_modules\\|\\[built\\]'",
     "build": "gatsby build",
-    "deploy": "rsync -rva public/ haken.no:/srv/haken.no/"
+    "deploy": "rsync -rvtz public/ haken.no:/srv/haken.no/"
   },
   "repository": {
     "type": "git",
