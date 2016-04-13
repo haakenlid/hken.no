@@ -1,1 +1,1 @@
-export {default as CropBox} from './CropBox.js'
+export { default as CropBox } from './CropBox.js'

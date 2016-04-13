@@ -28,3 +28,12 @@ BlogPost.propTypes = {
   route: React.PropTypes.object,
   children: React.PropTypes.node,
 }
+import React from 'react'
+
+const Page = ({ title }) => (
+)
+Page.propTypes = {
+  title: React.PropTypes.
+}
+
+export default Page
