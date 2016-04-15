@@ -1,0 +1,17 @@
+.previewPanel {
+  $margin: .5vw;
+  img, svg {
+    display: block;
+  }
+  display: flex;
+  flex-direction: row;
+  margin: -$margin;
+  padding: 2*$margin 0;
+  .previewImg {
+    margin: $margin;
+    background-position: 50% 20%;
+    background-size: 120% auto; 
+    svg {
+    }
+  }
+}

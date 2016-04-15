@@ -1,0 +1,51 @@
+.overlayWrapper {
+  .dragKing {
+    z-index: 100;
+    position: fixed;
+    cursor: move;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  svg.overlay {
+    z-index: 10;
+    shape-rendering: crispEdges;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    path, rect {
+      stroke-width: 1px;
+      vector-effect: non-scaling-stroke;
+      fill: rgba(0,0,0,0.0);
+    }
+    .outside {
+      fill: rgba(0,0,0,0.5);
+    }
+    .centerPoint {
+      position: relative;
+      .handle {
+        cursor: move; 
+        opacity: 0;
+        &:hover + .cross {
+          stroke: rgba(255,255,255,1.0);
+        }
+      }
+      .cross {
+        pointer-events: none;
+        stroke-width: 1px;
+        stroke: rgba(255,255,0,0.5)
+      }
+    }
+    .inside { 
+      stroke: white;
+      cursor: crosshair; 
+    }
+    svg.handles {
+      overflow: visible;
+      .top, .bottom { cursor: ns-resize; }
+      .left, .right { cursor: ew-resize; }
+    }
+  }
+}

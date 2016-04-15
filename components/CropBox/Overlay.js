@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { startDragHandle, moveDragHandle, endDragHandle, setCenter } from './actions'
+import './overlay.scss'
 
 const DragKing = (props) => (
   <div
@@ -9,51 +10,40 @@ const DragKing = (props) => (
   />
 )
 
-const Handle = ({ position, onMouseDown }) => {
+/* eslint-disable quote-props */
+const cursor = {
+  '1000': 'ew-resize',
+  '0010': 'ew-resize',
+  '0100': 'ns-resize',
+  '0001': 'ns-resize',
+  '1100': 'nw-resize',
+  '0110': 'ne-resize',
+  '0011': 'se-resize',
+  '1001': 'sw-resize',
+}
+
+const Handle = ({ name, mouseDownHandler }) => {
   const handleSize = 0.1
-  const half = handleSize / 2
-  const full = 1 + handleSize
-  let dragMask = [0, 0, 0, 0]
-  const rectProps = {
-    className: `handle ${position}`,
-    width: handleSize,
-    height: handleSize,
-    x: -half,
-    y: -half,
-  }
-  switch (position) {
-    case 'left':
-      rectProps.height = full
-      dragMask = [1, 0, 0, 0]
-      break
-    case 'right':
-      rectProps.height = full
-      rectProps.x = 1 - half
-      dragMask = [0, 0, 1, 0]
-      break
-    case 'top':
-      rectProps.width = full
-      dragMask = [0, 1, 0, 0]
-      break
-    case 'bottom':
-      rectProps.width = full
-      rectProps.y = 1 - half
-      dragMask = [0, 0, 0, 1]
-      break
-    default:
-      break
-  }
-  const startDrag = (e) => {
-    onMouseDown(e, dragMask)
-  }
-  return <rect onMouseDown={startDrag} {...rectProps} />
+  const mask = name.split('').map(parseFloat)
+  return (
+    <rect
+      className={name}
+      onMouseDown={mouseDownHandler(mask)}
+      width = {1 - mask[0] - mask[2] + handleSize}
+      height = {1 - mask[1] - mask[3] + handleSize}
+      x = {mask[2] - handleSize / 2}
+      y = {mask[3] - handleSize / 2}
+      style={{ cursor: cursor[name] }}
+    />
+  )
 }
 Handle.propTypes = {
-  position: React.PropTypes.string,
-  onMouseDown: React.PropTypes.func,
+  name: React.PropTypes.string,
+  mouseDownHandler: React.PropTypes.func,
 }
 
 export const Overlay = ({
+  size,
   getRelativePosition,
   crop,
   dragging,
@@ -66,18 +56,14 @@ export const Overlay = ({
   const [top, y, bottom] = crop.v
   const boxPath = `M${left}, ${top}V${bottom}H${right}V${top}Z`
   const outerPath = 'M0, 0H1V1H0Z'
-  const onBoxClick = (e) => {
-    clickInside(getRelativePosition(e))
-  }
-  const onHandleMouseDown = (e, dragMask) => {
-    startResize(getRelativePosition(e), dragMask)
-  }
-  const onMouseMove = (e) => {
-    doResize(getRelativePosition(e))
-  }
+  const circleRadius = (rx) => ({ rx, ry: rx * size[0] / size[1] || rx })
+
+  const mouseDownHandler = (dragMask) => (e) => startResize(getRelativePosition(e), dragMask)
+  const mouseMove = (e) => doResize(getRelativePosition(e))
+  const boxClick = (e) => clickInside(getRelativePosition(e))
 
   return (
-    <div>
+    <div className="overlayWrapper">
       <svg
         className="overlay"
         viewBox="0 0 1 1"
@@ -86,15 +72,23 @@ export const Overlay = ({
         width="100%"
       >
         <path
-          className="boxOverlay"
+          className="outside"
           fillRule="evenodd"
           d={outerPath + boxPath}
         />
         <path
-          className="boxHandle"
+          className="inside"
           d={boxPath}
-          onClick={onBoxClick}
+          onClick={boxClick}
         />
+        <g className="centerPoint">
+          <ellipse
+            className="handle"
+            onMouseDown={mouseDownHandler([0, 0, 0, 0, 1])}
+            cx={x} cy={y} {...circleRadius(0.05)}
+          />
+          <path className="cross" d={`M0, ${y}H1M${x}, 0V1`} />
+        </g>
         <svg
           className="handles"
           viewBox="0 0 1 1"
@@ -104,18 +98,13 @@ export const Overlay = ({
           x={left}
           y={top}
         >
-        { ['left', 'right', 'top', 'bottom'].map(name => (
-          <Handle key={name} position={name} onMouseDown={onHandleMouseDown} />
-        ))}
+          { ['1000', '0100', '0010', '0001', '1100', '0110', '0011', '1001'].map(name => (
+            <Handle key={name} name={name} mouseDownHandler={mouseDownHandler} />
+          ))}
         </svg>
-        <path
-          className="centerPoint"
-          d={`M0, ${y}H1M${x}, 0V1`}
-        />
       </svg>
-      { console.log('dragging: ', dragging) }
       { dragging.dragMask && <DragKing
-        onMouseMove={onMouseMove}
+        onMouseMove={mouseMove}
         onMouseUp={endResize}
         onMouseLeave={endResize}
       /> }
@@ -124,7 +113,7 @@ export const Overlay = ({
 }
 
 Overlay.propTypes = {
-  imgSize: React.PropTypes.array,
+  size: React.PropTypes.array,
   crop: React.PropTypes.object.isRequired,
   dragging: React.PropTypes.object,
   getRelativePosition: React.PropTypes.func.isRequired,

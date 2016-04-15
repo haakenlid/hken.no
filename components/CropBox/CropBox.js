@@ -3,14 +3,13 @@ import { connect } from 'react-redux'
 import { setImgSize, addImage } from './actions'
 import Previews from './Preview'
 import Overlay from './Overlay'
-import './style.scss'
-
+import './cropbox.scss'
 
 
 class Canvas extends React.Component {
   constructor(props) {
-    props.addImage()
     super(props)
+    props.addImage()
     this.imgOnLoad = this.imgOnLoad.bind(this)
     this.getRelativePosition = this.getRelativePosition.bind(this)
   }
@@ -26,10 +25,10 @@ class Canvas extends React.Component {
     this.props.setImgSize([img.offsetWidth, img.offsetHeight])
   }
   render() {
-    const { src } = this.props
+    const { src, aspects } = this.props
     return (
-      <div className="cropbox-wrapper" >
-        <div className="masterImgWrapper">
+      <div className="cropboxWrapper" >
+        <div style={{ position: 'relative' }} className="masterImgWrapper">
           <img
             ref="masterImg"
             className = "masterImg"
@@ -43,6 +42,7 @@ class Canvas extends React.Component {
         </div>
         <Previews
           src={src}
+          aspects={aspects}
         />
       </div>
     )
@@ -50,14 +50,14 @@ class Canvas extends React.Component {
 }
 Canvas.propTypes = {
   src: React.PropTypes.string.isRequired,
+  aspects: React.PropTypes.array,
   setImgSize: React.PropTypes.func.isRequired,
   addImage: React.PropTypes.func.isRequired,
 }
-const mapStateToProps = () => ({})
 const mapDispatchToProps = (dispatch, { src }) => ({
-  setImgSize: size => { dispatch(setImgSize(src, size)) },
-  addImage: () => { dispatch(addImage(src)) },
+  setImgSize: size => dispatch(setImgSize(src, size)),
+  addImage: () => dispatch(addImage(src)),
 })
-const CropBox = connect(mapStateToProps, mapDispatchToProps)(Canvas)
+const CropBox = connect(null, mapDispatchToProps)(Canvas)
 
 export default CropBox
