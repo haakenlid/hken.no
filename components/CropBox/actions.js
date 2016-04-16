@@ -9,6 +9,11 @@ export const startDragHandle = (src, position, dragMask) => ({
   payload: { src, position, dragMask },
 })
 
+export const startNewCrop = (src, position) => ({
+  type: 'START_NEW_CROP',
+  payload: { src, position },
+})
+
 export const moveDragHandle = (src, position) => ({
   type: 'MOVE_DRAG_HANDLE',
   payload: { src, position },

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { startDragHandle, moveDragHandle, endDragHandle, setCenter } from './actions'
+import * as actions from './actions'
+import { normalize } from './reducers'
 import './overlay.scss'
 
 const DragKing = (props) => (
@@ -47,20 +48,22 @@ export const Overlay = ({
   getRelativePosition,
   crop,
   dragging,
-  clickInside,
-  startResize,
-  doResize,
-  endResize,
+  startDragHandle,
+  startNewCrop,
+  setCenter,
+  moveDragHandle,
+  endDragHandle,
 }) => {
-  const [left, x, right] = crop.h
-  const [top, y, bottom] = crop.v
+  const [left, x, right] = normalize(crop.h)
+  const [top, y, bottom] = normalize(crop.v)
   const boxPath = `M${left}, ${top}V${bottom}H${right}V${top}Z`
   const outerPath = 'M0, 0H1V1H0Z'
   const circleRadius = (rx) => ({ rx, ry: rx * size[0] / size[1] || rx })
 
-  const mouseDownHandler = (dragMask) => (e) => startResize(getRelativePosition(e), dragMask)
-  const mouseMove = (e) => doResize(getRelativePosition(e))
-  const boxClick = (e) => clickInside(getRelativePosition(e))
+  const mouseDownHandler = (dragMask) => (e) => startDragHandle(getRelativePosition(e), dragMask)
+  const mouseMove = (e) => moveDragHandle(getRelativePosition(e))
+  const newCrop = (e) => startNewCrop(getRelativePosition(e))
+  const moveCenter = (e) => setCenter(getRelativePosition(e))
 
   return (
     <div className="overlayWrapper">
@@ -75,12 +78,29 @@ export const Overlay = ({
           className="outside"
           fillRule="evenodd"
           d={outerPath + boxPath}
+          onMouseDown={newCrop}
         />
-        <path
-          className="inside"
-          d={boxPath}
-          onClick={boxClick}
-        />
+        <g className="inside" >
+          <path
+            onMouseDown={mouseDownHandler([1, 1, 1, 1, 0])}
+            onClick={moveCenter}
+            className="box"
+            d={boxPath}
+          />
+          <svg
+            className="handles"
+            viewBox="0 0 1 1"
+            preserveAspectRatio="none"
+            height={bottom - top}
+            width={right - left}
+            x={left}
+            y={top}
+          >
+            { ['1000', '0100', '0010', '0001', '1100', '0110', '0011', '1001'].map(name => (
+              <Handle key={name} name={name} mouseDownHandler={mouseDownHandler} />
+            ))}
+          </svg>
+        </g>
         <g className="centerPoint">
           <ellipse
             className="handle"
@@ -89,24 +109,11 @@ export const Overlay = ({
           />
           <path className="cross" d={`M0, ${y}H1M${x}, 0V1`} />
         </g>
-        <svg
-          className="handles"
-          viewBox="0 0 1 1"
-          preserveAspectRatio="none"
-          height={bottom - top}
-          width={right - left}
-          x={left}
-          y={top}
-        >
-          { ['1000', '0100', '0010', '0001', '1100', '0110', '0011', '1001'].map(name => (
-            <Handle key={name} name={name} mouseDownHandler={mouseDownHandler} />
-          ))}
-        </svg>
       </svg>
       { dragging.dragMask && <DragKing
         onMouseMove={mouseMove}
-        onMouseUp={endResize}
-        onMouseLeave={endResize}
+        onMouseUp={endDragHandle}
+        onMouseLeave={endDragHandle}
       /> }
     </div>
   )
@@ -117,26 +124,30 @@ Overlay.propTypes = {
   crop: React.PropTypes.object.isRequired,
   dragging: React.PropTypes.object,
   getRelativePosition: React.PropTypes.func.isRequired,
-  clickInside: React.PropTypes.func.isRequired,
-  startResize: React.PropTypes.func.isRequired,
-  doResize: React.PropTypes.func.isRequired,
-  endResize: React.PropTypes.func.isRequired,
+  startDragHandle: React.PropTypes.func.isRequired,
+  moveDragHandle: React.PropTypes.func.isRequired,
+  endDragHandle: React.PropTypes.func.isRequired,
+  setCenter: React.PropTypes.func.isRequired,
+  startNewCrop: React.PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, { src }) => state.images[src]
 
 const mapDispatchToProps = (dispatch, { src }) => ({
-  clickInside: (position) => {
-    dispatch(setCenter(src, position))
+  setCenter: (position) => {
+    dispatch(actions.setCenter(src, position))
   },
-  startResize: (position, dragMask) => {
-    dispatch(startDragHandle(src, position, dragMask))
+  startNewCrop: (position) => {
+    dispatch(actions.startNewCrop(src, position))
   },
-  doResize: (position) => {
-    dispatch(moveDragHandle(src, position))
+  startDragHandle: (position, dragMask) => {
+    dispatch(actions.startDragHandle(src, position, dragMask))
   },
-  endResize: () => {
-    dispatch(endDragHandle(src))
+  moveDragHandle: (position) => {
+    dispatch(actions.moveDragHandle(src, position))
+  },
+  endDragHandle: () => {
+    dispatch(actions.endDragHandle(src))
   },
 })
 

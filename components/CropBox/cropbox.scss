@@ -1,7 +1,12 @@
 .cropboxWrapper {
+  display: flex;
   user-select: none;
   -webkit-user-select: none;
-  .masterImg {
+  img {
     display: block;
+  }
+  .masterImgWrapper {
+    flex: 3;
+    align-self: center;
   }
 }

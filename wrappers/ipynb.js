@@ -26,8 +26,9 @@ Cell.propTypes = {
 
 const NotebookWrapper = ({ route }) => {
   const post = route.page.data
-  const renderCell = (cell) => (
+  const renderCell = (cell, i) => (
     <Cell
+      key={i}
       cellType={cell.cell_type}
       rendered={cell.rendered}
     />

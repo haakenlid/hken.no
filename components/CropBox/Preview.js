@@ -1,58 +1,47 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { normalize } from './reducers'
 import './preview.scss'
 
-const median = (numbers) => numbers.sort((a, b) => a - b)[1]
 
-const closeCrop = (crop, imr, frr) => {
-  const frameRatio = frr / imr
-  const [x0, x1, x2] = crop.h
-  const [y0, y1, y2] = crop.v
-  const cropWidth = (x2 - x0)
-  const cropHeight = (y2 - y0)
-  const cropRatio = cropWidth / cropHeight
-  const w1 = Math.min(frameRatio, 1)
-  const w2 = cropRatio > frameRatio ? cropWidth : cropHeight * frameRatio
-  const width = Math.min(w1, w2)
-  const height = width / frameRatio
-  const hw = width / 2
-  const hh = height / 2
+const closeCrop = (x, y, l, r, t, b, A) => {
+  const w = r - l
+  const h = b - t
+  const a = w / h
+  const W = 0.5 * Math.min(A, 1, a > A ? w : h * A)
+  const H = W / A
+  const [X, Y] = [
+    W * 2 > w ? [W, (l + r) / 2, 1 - W] : [l + W, x, r - W],
+    H * 2 > h ? [H, (t + b) / 2, 1 - H] : [t + H, y, b - H],
+  ].map(arr => arr.sort((n, m) => n - m)[1])
 
-  const cx = median(hw * 2 > cropWidth ? [hw, (x0 + x2)/2, 1 - hw] : [x0 + hw, x1, x2 - hw])
-  const cy = median(hh * 2 > cropHeight ? [hh, (y0 + y2)/2, 1 - hh] : [y0 + hh, y1, y2 - hh])
+  return { left: X - W, right: X + W, top: Y - H, bottom: Y + H }
+}
 
+const getStyles = (src, crop, imgRatio, frameRatio) => {
+  const h = normalize(crop.h)
+  const v = normalize(crop.v)
+  const { left, top, right, bottom } = closeCrop(
+    h[1], v[1], h[0], h[2], v[0], v[2], frameRatio / imgRatio)
+  const width = right - left
+  const height = bottom - top
+  const ratioOf = (low, val, high) => ((high === low) ? 0.5 : ((val - low) / (high - low)))
+  const numberToPercent = number => `${(100 * number).toFixed(1)}%`
   return {
-    left: cx - hw,
-    top: cy - hh,
-    right: cx + hw,
-    bottom: cy + hh,
-    w: width,
-    h: height,
-    cx,
-    cy,
+    backgroundImage: `url(${src})`,
+    backgroundPosition: [[width, right, 1], [height, bottom, 1]]
+    .map(dim => ratioOf(...dim)).map(numberToPercent).join(' '),
+    backgroundSize: [1 / width, 1 / height]
+    .map(numberToPercent).join(' '),
   }
 }
 
-const percentOf = (lower, upper, value) => (
-  upper === lower ? '50%' : `${(100 * (value - lower) / (upper - lower)).toFixed(1)}%`
-)
-
-const getStyles = (src, crop, imgRatio, frameRatio) => {
-  const flex = frameRatio
-  const backgroundImage = `url(${src})`
-  const c = closeCrop(crop, imgRatio, frameRatio)
-  const backgroundPosition = [percentOf(c.w, 1, c.right), percentOf(c.h, 1, c.bottom)].join(' ')
-  const backgroundSize = `${(100 / c.w).toFixed(1)}% ${(100 / c.h).toFixed(1)}%`
-
-  return { backgroundImage, flex, backgroundPosition, backgroundSize }
-}
-
-const PreviewImg = ({ src, crop, size, aspect }) => {
+let PreviewImg = ({ src, crop, size, aspect, style = {} }) => {
   const styles = getStyles(src, crop, size[0] / size[1], aspect)
   return (
       <div
         className = "previewImg"
-        style={styles}
+        style={{ ...styles, ...style }}
         title={JSON.stringify(styles, null, 2)}
       >
         <svg
@@ -62,28 +51,37 @@ const PreviewImg = ({ src, crop, size, aspect }) => {
       </div>
     )
 }
-
 PreviewImg.propTypes = {
   src: React.PropTypes.string.isRequired,
   size: React.PropTypes.array.isRequired,
   crop: React.PropTypes.object.isRequired,
   aspect: React.PropTypes.number.isRequired,
+  style: React.PropTypes.object,
 }
+const mapStateToProps = (state, { src }) => state.images[src]
+PreviewImg = connect(mapStateToProps)(PreviewImg)
 
-const Previews = ({ aspects = [1, 0.5, 3], ...props }) => (
-  <div className="previewPanel">
+const Previews = ({ src, aspects = [1, 0.5, 3], flexDirection }) => (
+  <div
+    className="previewPanel"
+    style={{ flexDirection }}
+  >
     {
       aspects.map((aspect, i) => (
-        <PreviewImg key={i} aspect={aspect} {...props} />))
+        <PreviewImg
+          key={i}
+          aspect={aspect}
+          src={src}
+          style={{ flex: flexDirection === 'row' ? aspect : 1 / aspect }}
+        />))
     }
   </div>
 )
 Previews.propTypes = {
+  src: React.PropTypes.string,
   aspects: React.PropTypes.array,
-  props: React.PropTypes.object,
+  flexDirection: React.PropTypes.string,
 }
 
-const mapStateToProps = (state, { src }) => state.images[src]
-
-export default connect(mapStateToProps)(Previews)
+export { Previews, PreviewImg }
 

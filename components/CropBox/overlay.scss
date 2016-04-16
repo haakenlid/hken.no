@@ -2,11 +2,11 @@
   .dragKing {
     z-index: 100;
     position: fixed;
-    cursor: move;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    cursor: move;
   }
   svg.overlay {
     z-index: 10;
@@ -26,26 +26,35 @@
     .centerPoint {
       position: relative;
       .handle {
-        cursor: move; 
+        cursor: crosshair; 
         opacity: 0;
         &:hover + .cross {
-          stroke: rgba(255,255,255,1.0);
+          stroke: rgba(255,255,0,0.8);
         }
       }
       .cross {
         pointer-events: none;
         stroke-width: 1px;
-        stroke: rgba(255,255,0,0.5)
+        stroke: rgba(255,255,0,0.3)
       }
     }
     .inside { 
-      stroke: white;
-      cursor: crosshair; 
-    }
-    svg.handles {
-      overflow: visible;
-      .top, .bottom { cursor: ns-resize; }
-      .left, .right { cursor: ew-resize; }
+      .box {
+        stroke: rgba(255,255,255,0.3);
+        cursor: move; 
+      }
+      &:hover .box {
+        stroke: rgba(255,255,255,0.8);
+      }
+      svg.handles {
+        overflow: visible;
+        rect {
+          // fill: yellow;
+          // opacity: .2;
+        }
+        .top, .bottom { cursor: ns-resize; }
+        .left, .right { cursor: ew-resize; }
+      }
     }
   }
 }
