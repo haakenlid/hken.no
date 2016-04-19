@@ -16,18 +16,18 @@ PageLink.propTypes = {
   key: React.PropTypes.string,
 }
 
-const sortedPageLinks = pages => pages
+const blogPosts = pages => pages
     .filter(page => access(page, 'data.date'))
     .filter(page => new Date() > new Date(page.data.date))
     .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
     .map(page => <PageLink page={page} key={page.path} />)
 
-const PageLinks = ({ route }) => (
-  <ul>
-    { sortedPageLinks(route.pages) }
+const BlogPosts = ({ route }) => (
+  <ul className="BlogPosts" >
+    { blogPosts(route.pages) }
   </ul>
 )
-PageLinks.propTypes = {
+BlogPosts.propTypes = {
   route: React.PropTypes.object,
 }
-export default PageLinks
+export default BlogPosts

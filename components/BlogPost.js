@@ -1,6 +1,5 @@
 import React from 'react'
 import moment from 'moment'
-import { config } from 'config'
 import { ReadNext, Byline, PageHeader } from 'components'
 
 export default class BlogPost extends React.Component {
@@ -9,11 +8,10 @@ export default class BlogPost extends React.Component {
     return (
       <PageHeader title={post.title}>
         <main className="blogpost">
-          <h1>{post.title || 'no title'}</h1>
-          { post.readNext && <ReadNext post={post} pages={route.pages} /> }
-          <div>Posted {moment(post.date || Date.now()
+        <div>Posted {moment(post.date || Date.now()
                              ).format('MMMM D, YYYY')}</div>
           { children }
+        { post.readNext && <ReadNext post={post} pages={route.pages} /> }
         </main>
         <footer>
           <Byline />

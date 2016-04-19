@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setImgSize, addImage } from './actions'
 import { Previews } from './Preview'
-import Overlay from './Overlay'
+import { Overlay } from './Overlay'
+import { CropInfo } from './CropInfo'
 import './cropbox.scss'
 
 
@@ -28,13 +29,15 @@ class Canvas extends React.Component {
     const horizontal = false
     const { src } = this.props
     const direction = horizontal ? ['row', 'column'] : ['column', 'row']
-    const aspects = horizontal ? [1, 2] : [1, 0.5, 3]
+    const aspects = horizontal ? [0.6, 2] : [1, 0.5, 2.5]
     return (
       <div
         className="cropboxWrapper"
         style={{ flexDirection: direction[0], display: 'flex' }}
       >
-        <div style={{ position: 'relative' }} className="masterImgWrapper">
+        <div
+          className="masterImgWrapper infoParent"
+        >
           <img
             ref="masterImg"
             className = "masterImg"
@@ -45,6 +48,7 @@ class Canvas extends React.Component {
             getRelativePosition={this.getRelativePosition}
             src={src}
           />
+          <CropInfo src={src} />
         </div>
         <Previews
           src={src}

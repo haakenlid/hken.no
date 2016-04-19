@@ -17,7 +17,7 @@ export default class Html extends React.Component {
     }
     const googleFonts = (
       <link
-        href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab:300|Roboto:300,300italic"
+        href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab:300|Roboto:300,300italic,400,400italic"
         rel="stylesheet"
         type="text/css"
       />

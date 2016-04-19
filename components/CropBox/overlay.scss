@@ -1,3 +1,18 @@
+
+.cropInfo {
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: table;
+  .infoRow {
+    display: table-row;
+    .label, .value {
+      display: table-cell;
+    }
+  }
+}
+
+
 .overlayWrapper {
   .dragKing {
     z-index: 100;
@@ -29,13 +44,13 @@
         cursor: crosshair; 
         opacity: 0;
         &:hover + .cross {
-          stroke: rgba(255,255,0,0.8);
+          stroke: rgba(255,255,0,1.0);
         }
       }
       .cross {
         pointer-events: none;
         stroke-width: 1px;
-        stroke: rgba(255,255,0,0.3)
+        stroke: rgba(255,255,0,0.5)
       }
     }
     .inside { 

@@ -1,0 +1,57 @@
+// Code formatting for hken.no 
+
+@import './hljs/foundation'; // hljs formatting
+
+pre, code {
+  font-family: $code-font;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+}
+.cell.code + .cell.markdown,
+.cell.markdown + .cell.code {
+  // padding-top: .5em;
+  border-top: 1px solid $line-color;
+}
+%line {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  counter-increment: linenumber;
+  &:before { 
+    // border-left: 1px solid $line-color;
+    // border-right: 1px solid $line-color;
+    margin-right: 1ch;
+    // margin-right: .3em;
+    height: 100%;
+    // text-align: right;
+    color: #ddd;
+    display: inline-block;
+    width: 2ch;
+    content: counter(linenumber);
+    -webkit-user-select: none;
+  } 
+} 
+pre {
+  // background: $code-background; 
+  // font-size: .9rem;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  white-space: pre-wrap;
+  .line {
+    @extend %line;
+  }
+  &.cell-input { 
+    padding: .5*$line-height 0;
+  }
+  &.cell-output {
+    padding: .2em .4em;
+    color: white;
+    background: $body-color;
+  }
+  code {
+    background: none;
+  }
+}

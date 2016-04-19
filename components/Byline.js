@@ -1,19 +1,20 @@
 import React from 'react'
 import { link } from 'gatsby-helpers'
+import { Link } from 'react-router'
 import { config } from 'config'
-import { Monogram } from 'components'
+import { SocialMedia, Monogram } from 'components'
+import './byline.scss'
 
-const Byline = ({ name, about, avatar }) => (
-  <section className="byline parent">
-    <Monogram
-      style={{ fontSize: '3em', strokeWidth: '15' }}
-      className="face"
-    />
-
-    <div className="text">
+const Byline = ({ name, about }) => (
+  <section className="Byline">
+    <Link to={link('/')}>
+      <Monogram className="face" />
+    </Link>
+    <Link to={link('/')} className="text">
       <div className="name">{name}</div>
       <div className="about">{about}</div>
-    </div>
+    </Link>
+    <SocialMedia />
   </section>
 )
 Byline.propTypes = {

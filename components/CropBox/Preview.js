@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { normalize } from './reducers'
+import { InfoBox } from './CropInfo'
 import './preview.scss'
 
 
@@ -26,30 +27,35 @@ const getStyles = (src, crop, imgRatio, frameRatio) => {
   const width = right - left
   const height = bottom - top
   const ratioOf = (low, val, high) => ((high === low) ? 0.5 : ((val - low) / (high - low)))
-  const numberToPercent = number => `${(100 * number).toFixed(1)}%`
+  const numberToPercent = number => `${(100 * number).toFixed(0)}%`
   return {
     backgroundImage: `url(${src})`,
     backgroundPosition: [[width, right, 1], [height, bottom, 1]]
     .map(dim => ratioOf(...dim)).map(numberToPercent).join(' '),
-    backgroundSize: [1 / width, 1 / height]
-    .map(numberToPercent).join(' '),
+    backgroundRepeat: 'no-repeat',
+    // backgroundSize: [1 / width, 1 / height]
+    // .map(numberToPercent).join(' '),
+    backgroundSize: `${numberToPercent(1/width)} auto`,
   }
 }
 
 let PreviewImg = ({ src, crop, size, aspect, style = {} }) => {
   const styles = getStyles(src, crop, size[0] / size[1], aspect)
+  const items = {
+    position: styles.backgroundPosition,
+    size: styles.backgroundSize,
+    "aspect ratio": aspect,
+  }
   return (
-      <div
+    <div className = "previewWrapper infoParent" style={style} >
+      <svg
         className = "previewImg"
-        style={{ ...styles, ...style }}
-        title={JSON.stringify(styles, null, 2)}
-      >
-        <svg
-          style={{ display: 'block' }}
-          viewBox={`0 0 ${aspect} 1`}
-        />
-      </div>
-    )
+        style={styles}
+        viewBox={`0 0 ${aspect} 1`}
+      />
+      <InfoBox items={items} />
+    </div>
+  )
 }
 PreviewImg.propTypes = {
   src: React.PropTypes.string.isRequired,
@@ -61,7 +67,7 @@ PreviewImg.propTypes = {
 const mapStateToProps = (state, { src }) => state.images[src]
 PreviewImg = connect(mapStateToProps)(PreviewImg)
 
-const Previews = ({ src, aspects = [1, 0.5, 3], flexDirection }) => (
+const Previews = ({ src, aspects = [2], flexDirection }) => (
   <div
     className="previewPanel"
     style={{ flexDirection }}

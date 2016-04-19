@@ -1,0 +1,20 @@
+.Byline {
+  border-top: 1px solid #eee;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  .text {
+    flex: 1
+  }
+  .Icon {
+    font-size: 2em;
+  }
+  .SocialMedia {
+    stroke-width: 5;
+  }
+  .Icon.Monogram {
+    stroke-width: 18;
+  }
+}

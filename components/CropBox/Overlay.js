@@ -43,7 +43,7 @@ Handle.propTypes = {
   mouseDownHandler: React.PropTypes.func,
 }
 
-export const Overlay = ({
+let Overlay = ({
   size,
   getRelativePosition,
   crop,
@@ -119,6 +119,34 @@ export const Overlay = ({
   )
 }
 
+const InfoRow = ({ label, value }) => (
+  <div className="infoRow">
+    <div className="label">{ label }</div>
+    <div className="value">{ value }</div>
+  </div>
+)
+
+InfoRow.propTypes = {
+  label: React.PropTypes.string,
+  value: React.PropTypes.string,
+}
+
+let CropInfo = ({ crop }) => {
+  const [left, x, right, top, y, bottom] = [...crop.h, ...crop.v].map(num => num.toFixed(3))
+  return (
+  <div className="cropInfo">
+    <InfoRow label="top" value={ top } />
+    <InfoRow label="left" value={ left } />
+    <InfoRow label="right" value={ right } />
+    <InfoRow label="bottom" value={ bottom } />
+    <InfoRow label="center" value={ `${x} x ${y}` } />
+  </div>
+  )
+}
+CropInfo.propTypes = {
+  crop: React.PropTypes.array,
+}
+
 Overlay.propTypes = {
   size: React.PropTypes.array,
   crop: React.PropTypes.object.isRequired,
@@ -151,5 +179,7 @@ const mapDispatchToProps = (dispatch, { src }) => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Overlay)
+Overlay = connect(mapStateToProps, mapDispatchToProps)(Overlay)
+CropInfo = connect(mapStateToProps)(CropInfo)
+export { Overlay, CropInfo }
 

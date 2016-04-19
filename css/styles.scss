@@ -1,18 +1,52 @@
-/* @import "github-gist"; */
-/* @import "github"; */
-@import "foundation";
-
+// @import "foundation";
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,300italic,500,500italic|Roboto+Slab:100,300|Roboto+Mono:400,400italic|Martel:200);
+// $header-font: 'Martel', serif;
 $header-font: 'Roboto Slab', serif;
 $body-font: 'Roboto', serif;
-$code-font: 'Roboto Mono', monospace;
-$body-color: #606060;
-$line-color: #ccc;
-$code-background: #f7f7f7;
+$body-color: #505050;
+$line-color: #eee;
+$line-height: 1.4em;
 $body-background: #fff;
+$code-background: #f7f7f7;
+$code-font: 'Roboto Mono', monospace;
+$link-color: #746dc3;
+@import 'code';
+@import 'header';
+
+.frontPage {
+  display: flex;
+  .mugshot {
+    border-radius: 100%;
+    display: block;
+    padding: 0% 10%;
+    margin: 1em 0;
+    width: 80%;
+  }
+  .left {
+    position: relative;
+    flex: 1;
+    margin-right: 2rem;
+  }
+  .right {
+    flex: 2;
+  }
+}
+
+.BlogPosts {
+  padding: 0;
+  li { 
+    margin: 0 0 .5em 0;
+    padding: 0;
+    list-style-type: none;
+  }
+}
 
 html {
   font-size: 18px;
   overflow-y: scroll;
+  line-height: $line-height;
+  box-sizing: border-box;
+  background: $body-background;
 }
 
 body {
@@ -21,135 +55,57 @@ body {
   max-width: 40rem;
   font-family: $body-font;
   color: $body-color;
-  background: $body-background;
 }
 
-header {
-  $header-height: 2em;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  $shadow: rgba(255,255,255,0);
-  box-shadow: 0 0 .2rem .2rem $shadow; 
-  padding: .2rem 0;
-  background: $body-background;
-  .page-header {
-    @extend body;
-    display: flex;
-    font-weight: bold;
-    height: $header-height;
-    align-items: center;
-    svg {
-      vertical-align: top;
-      font-size: 1.5em;
-    }
-    a {
-      display: inline-block;
-      font-size: 1em;
-      margin-right: .5em;
-      text-decoration: none;
-      color: inherit;
-    }
-  }
-  + main {
-    margin-top: $header-height * 1.5;
-  }
+a:hover .Icon { 
+  color: $link-color; 
 }
 main {
+  a {
+    color: $link-color;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   img {
     max-width: 100%;
   }
 }
-
 p, li {
   font-weight: 300;
   font-size: 1rem;
-  line-height: 1.4;
-  margin: .5em 0 1em 0;
+  margin: 1em 0;
 }
 h1,h2,h3,h4,h5,h6 {
-  color: #222;
+  color: #333;
+  color: black;
   font-family: $header-font;
   font-weight: 300;
-  margin: 1em 0 .2em 0;
-  padding-bottom: .2em;
+  margin: 1em 0 .3em 0;
+  padding-bottom: .3em;
   border-bottom: 1px solid $line-color;
-}
-h1 {
-  font-size: 2em;
-}
-h2 {
-  font-size: 1.5em;
-}
-h3 {
-  font-size: 1.2em;
-}
-a {
-  color: rgb(42,93,173);
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
+  section &:first-child {
+    margin-top: 0;
+  }
+  + p {
+    margin-top: 0;
   }
 }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 blockquote {
   border-left: .4em solid $line-color;
   font-style: italic;
   margin: 0;
   padding: 0 0 0 .4em;
 }
-pre, code {
-  font-family: $code-font;
-  font-weight: 400;
-  /* background: $code-background; */
-  /* border-radius: .3em; */
-}
-  
-.cell-code {
-  margin: 1rem 0rem;
-}
-.cell-markdown {
-  /* margin: 0 .5rem; */
-}
-pre {
-  background: $code-background; 
-  padding: .5rem; 
-  font-size: .8rem;
-  margin: 0;
-  position: relative;
-  white-space: pre-wrap;
-  /* &.cell-input { */
-  /*   &:before { */
-  /*     position: absolute; */
-  /*     left: -2em; */
-  /*     content: '[in]'; */
-  /*   } */
-  /* } */
-  &.cell-output {
-    background: none;
-    /* background: #999; */
-    /* color: #fff; */
-    /* border-bottom: 1px solid #eee; */
-    /* font-style: italic; */
-    /* color: #666; */
-  }
-  code {
-    background: none;
-    .line {
-      // display: block;
-      counter-increment: linenumber;
-      &:before {
-        user-select: none;
-        margin-left: -2em;
-        display: inline-block;
-        width: 2em;
-        content: counter(linenumber);
-      }
-    }
-  }
-}
-
 .byline {
   display: flex;
   flex-direction: row;

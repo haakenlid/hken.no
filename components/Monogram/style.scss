@@ -1,12 +1,13 @@
 $ease:     ease-in-out;
 $speed:             8s;
-$stroke-width:      15; 
+$stroke-width:    20;
 
 $path-length:     8024;
 $monogram-start:  .000;
 $monogram-end:    .447;
 $face-start:      .542;
 $face-end:        .946;
+
 
 @mixin line($start, $end) {
   $offset:   $start * -$path-length;
@@ -24,26 +25,27 @@ $face-end:        .946;
 }
 
 %face { 
-  transition-property: stroke-dasharray, stroke-dashoffset;
-  transition-duration: .6s;
-  transition-timing-function: ease-out;
   @include line($face-start,   $face-end  ) }
 %monogram { 
   @extend %face;
   @include line($monogram-start,   $monogram-end  ) }
 
-svg.avatar {
-  // cursor: help;
+.Icon.Monogram {
+  margin-right: .1em;
   stroke-width: $stroke-width;
-  fill: none;
-  stroke: currentColor;
+  path {
+    fill: none;
+    stroke: currentColor;
+    vector-effect: inherit;
+  }
   .face { @extend %face; }
   .monogram { @extend %monogram; }
-  .parent:hover &, &:hover,  {
+  header:hover &, 
+  footer:hover &, 
+  &:hover,  {
     .face { @extend %monogram; }
     .monogram { @extend %face; }
   }
-
   .loop {
     transition: none;
     animation: monogram-loop $speed infinite $ease; 

@@ -1,0 +1,57 @@
+$len: 300px;
+$fast: 300ms;
+$medium: 600ms;
+$slow: 3000ms;
+$stroke-width: 6px;
+
+.Icon {
+  height: 1em; 
+  width: auto;
+  vertical-align: top;
+  display: inline-block;
+  fill-opacity: 0;
+  transition: all 500ms ease 0;
+  stroke: currentColor;
+  path {
+    stroke: inherit;
+    stroke-width: inherit;
+    transition: inherit;
+  }
+  &.Monogram path {
+    transition: stroke-dashoffset $slow ease 300ms,
+                stroke-dasharray  $slow ease 300ms;
+    footer:hover &, 
+    header:hover &,
+    &:hover {
+      transition: stroke-dashoffset $fast ease 0ms,
+                  stroke-dasharray  $fast ease 0ms;
+    }
+  }
+
+  &.Social {
+    stroke-dasharray: $len;
+    stroke-dashoffset: $len;
+    footer:hover &, 
+    header:hover &, 
+    &:hover {
+      stroke-dashoffset: 0px;
+    }
+    // &.Twitter:hover { stroke: #1da1f2; }
+    // &.GitHub:hover { stroke: green; }
+    // &.StackOverflow:hover { stroke: #F48024 }
+    // &.CodePen:hover { stroke: black; }
+  }
+}
+
+
+.SocialMedia {
+  stroke-width: $stroke-width; 
+  $delay: 80ms;
+  @for $n from 0 through 4 {
+    a:nth-of-type(#{$n+1}) {
+      path {
+        transition: stroke-dashoffset $medium ease $delay * $n;
+      }
+    }
+  }
+}

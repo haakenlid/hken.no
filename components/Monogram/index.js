@@ -1,26 +1,13 @@
 import React from 'react'
-import styles from './style.scss'
+import { Icon } from 'components/icons'
+import './style.scss'
 
-const Icon = ({ viewBox, path, style, ...props }) => (
-  <svg
-    className="avatar"
-    style={{height: '1em', stroke: 'currentColor', fill: 'none', ...style}}
-    viewBox={viewBox}>
-    <path d={path} {...props} />
-  </svg>
-)
-
-Icon.propTypes = {
-  className: React.PropTypes.string,
-  viewBox: React.PropTypes.string,
-  path: React.PropTypes.string,
-}
-
-const Monogram = ({className, style}) => (
+const Monogram = ({ className = 'monogram', style = {} }) => (
   <Icon
+    name="Monogram"
     className={className}
     viewBox="0 0 512 512"
-    style={{ strokeWidth: 20, ...style }}
+    style={style}
     path={
       `m 73.9,126 c -0.308,-24.3 18.2,-39.6 46.2,-34.6 28,5 34.4,40.4 16,59
       -25,25 -79.6,25 -104,-6 -43.7,-54 12.7,-138 93,-131 53.8,4.82 93.8,62.7
@@ -53,7 +40,8 @@ const Monogram = ({className, style}) => (
     }
   />
 )
-Monogram.defaultProps = {
-  className: 'monogram',
+Monogram.propTypes = {
+  className: React.PropTypes.string,
+  style: React.PropTypes.object,
 }
 export default Monogram

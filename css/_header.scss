@@ -1,0 +1,63 @@
+$first-row: 1.4rem;
+$second-row: 2.5rem;
+$header-height:  $first-row + $second-row;
+
+header {
+  + main {
+    margin-top: $header-height;
+    padding-top: .5rem;
+  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 200ms ease-in-out 100ms;
+  .PageHeader { 
+    @extend body;
+    font-weight: 200;
+    line-height: .8;
+    transition: inherit;
+    transform: translateY(-$first-row);
+    h1.PageTitle {
+      font-size: inherit;
+      flex: 1 1 100%;
+      margin: 0;
+      border: none;
+      padding-top: .3em;
+    }
+    &.maximized, &:hover {
+      height: $header-height;
+      transform: translateY(0);
+      transition-delay: 0ms;
+      .row2 {
+        font-weight: thin;
+        height: $second-row;
+        font-size: 1.5rem;
+      }
+    }
+    .row1, .row2 {
+      font-size: 1rem;
+      height: $first-row;
+      transition: inherit;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      background: white;
+    }
+    .row2 {
+      font-size: .8rem;
+      font-weight: bold;
+      border-bottom: 1px solid $line-color;
+    }
+    .SocialMedia {
+      align-self: flex-end;
+    }
+    .Icon {
+      font-size: 1.4em;
+      &.Monogram {
+        stroke-width: 20;
+      }
+    }
+  }
+}
