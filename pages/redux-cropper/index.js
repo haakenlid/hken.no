@@ -21,17 +21,14 @@ export default class Post extends React.Component {
   static metadata() { return metadata }
   render() {
     return (
-        <Provider store={ store }>
-      <Wrapper {...this.props} >
-        <h1>Cropper</h1>
+      <Provider store={ store }>
+        <Wrapper {...this.props} >
+          <h1>Cropper</h1>
           <CropBox src="./11-NYH-nyhklarefors-06-SGS.jpg" />
           <CropBox src="./11-NYH-nyhklarefors-01-SGS.jpg" />
           <CropBox src="./10-KUL-kulkantinesa-01-SGS.jpg" />
-        <p>This is a work in progress.</p>
-        <p>Click inside the main image to change to center of cropping</p>
-        <p><em>(resizing is coming soon)</em></p>
-      </Wrapper>
-        </Provider>
+        </Wrapper>
+      </Provider>
     )
   }
 }

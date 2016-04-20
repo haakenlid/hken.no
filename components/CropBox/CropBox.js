@@ -71,4 +71,4 @@ const mapDispatchToProps = (dispatch, { src }) => ({
 })
 const CropBox = connect(null, mapDispatchToProps)(Canvas)
 
-export default CropBox
+export { CropBox }

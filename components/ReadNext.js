@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { link } from 'gatsby-helpers'
-import { prune, include as includes } from 'underscore.string'
+import { include as includes } from 'underscore.string'
 import find from 'lodash/find'
 
 const ReadNext = ({ post, pages }) => {
@@ -11,7 +11,7 @@ const ReadNext = ({ post, pages }) => {
   return !nextPost ? <div /> : (
     <div>
       <p>
-        Read Next: <Link to={nextPost.path} >
+        Read Next: <Link to={link(nextPost.path)} >
           {nextPost.data.title}
         </Link>
       </p>

@@ -11,8 +11,7 @@ const trimIndentation = (raw) => {
     while (lines[lines.length - 1].trim() === '') lines.pop()
     indentation = lines[0].match(/^\s*/)
   } catch (e) {
-    // No non-blank lines
-    return '' + e
+    return ''
   }
   const regex = RegExp(`^${indentation}`)
   return lines.map(line => line.replace(regex, '')).join('\n')

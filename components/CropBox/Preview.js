@@ -35,7 +35,7 @@ const getStyles = (src, crop, imgRatio, frameRatio) => {
     backgroundRepeat: 'no-repeat',
     // backgroundSize: [1 / width, 1 / height]
     // .map(numberToPercent).join(' '),
-    backgroundSize: `${numberToPercent(1/width)} auto`,
+    backgroundSize: `${numberToPercent(1 / width)} auto`,
   }
 }
 

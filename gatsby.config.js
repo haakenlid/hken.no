@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
 module.exports = (config, env) => {
+  if(env === 'static') {
+  }
   config.loader('meta', cfg => {
     cfg.test = /\.meta$/
     cfg.loader = 'null'

@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.scss'
 
-const Icon = ({ viewBox, name='Social', path, style = {}, ...props }) => (
+const Icon = ({ viewBox, name = 'Social', path, style = {}, ...props }) => (
   <svg
     className={`Icon ${name}`}
     style={style}

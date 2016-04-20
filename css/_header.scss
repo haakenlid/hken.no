@@ -1,4 +1,4 @@
-$first-row: 1.4rem;
+$first-row: 1.5rem;
 $second-row: 2.5rem;
 $header-height:  $first-row + $second-row;
 
@@ -16,7 +16,7 @@ header {
   .PageHeader { 
     @extend body;
     font-weight: 200;
-    line-height: .8;
+    line-height: 1;
     transition: inherit;
     transform: translateY(-$first-row);
     h1.PageTitle {
