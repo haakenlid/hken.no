@@ -6,7 +6,7 @@ import { SocialMedia, Monogram } from 'components'
 import './byline.scss'
 
 const Byline = ({ name, about }) => (
-  <section className="Byline">
+  <section className="Byline animate">
     <Link to={link('/')}>
       <Monogram className="face" />
     </Link>

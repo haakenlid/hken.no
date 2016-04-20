@@ -1,13 +1,13 @@
 .Byline {
-  border-top: 1px solid #eee;
-  padding: 1rem 0;
+  border-top: 1px solid #ddd;
+  padding: 1rem 0 2rem 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
   .text {
     flex: 1;
-    font-size: .8em;
+    font-size: .7rem;
     line-height: 1.2;
     margin: 0 .5em;
     .name {
@@ -17,7 +17,7 @@
     }
   }
   .Icon {
-    font-size: 2em;
+    font-size: 1.8rem;
   }
   .SocialMedia {
     stroke-width: 5;

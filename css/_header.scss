@@ -31,16 +31,20 @@
   flex-wrap: wrap;
 }
 %collapsed {
-  $h: 1rem;
-  padding-top: 0;
-  line-height: $h;
+  padding: 2px 0;
+  align-items: baseline;
   div, h1 {
-    font-size: inherit;
+    padding: 0;
     &:before {
+      display: none;
+    }
+    &.category {
       display: none;
     }
   }
   h1 {
+    font-size: inherit;
+    font-weight: 400;
     flex: 1 1 60%;
   }
 }
@@ -48,14 +52,12 @@
   z-index: 100;
   line-height: 1.2;
   font-weight: 200;
-  font-size: 1rem;
   .Title {
     $margin: .3rem;
     display: flex;
-    font-size: .8em;
+    font-size: .7em;
     box-sizing: content-box;
     div, h1 {
-      padding: 0;
       margin-right: $margin;
     }
     border-bottom: 1px solid $line-color;
@@ -68,7 +70,8 @@
     align-items: center;
     align-content: center;
     .Icon {
-      font-size: 1.2em;
+      font-size: 1.2rem;
+      padding: 3px 0;
       &.Monogram {
         stroke-width: 20;
       }
@@ -82,9 +85,11 @@
     top: 0;
     left: 0;
     right: 0;
-    background: white;
     @extend body;
+    // background: rgba(0,0,0,.4);
     .Title.small {
+      background: white;
+      margin-bottom: 3rem;
       @extend %collapsed;
     }
     .drawer {
