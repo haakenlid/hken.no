@@ -1,6 +1,6 @@
 $ease:     ease-in-out;
 $speed:             8s;
-$stroke-width:    20;
+$stroke-width:      20;
 
 $path-length:     8024;
 $monogram-start:  .000;
@@ -34,20 +34,20 @@ $face-end:        .946;
   margin-right: .1em;
   stroke-width: $stroke-width;
   path {
+    transition: inherit;
     fill: none;
     stroke: currentColor;
     vector-effect: inherit;
   }
   .face { @extend %face; }
   .monogram { @extend %monogram; }
-  header:hover &, 
-  footer:hover &, 
-  &:hover,  {
-    .face { @extend %monogram; }
-    .monogram { @extend %face; }
-  }
   .loop {
-    transition: none;
     animation: monogram-loop $speed infinite $ease; 
   }
 }
+.animate:hover .Icon.Monogram,
+.animate .Icon.Monogram:hover {
+  .face { @extend %monogram; }
+  .monogram { @extend %face; }
+}
+

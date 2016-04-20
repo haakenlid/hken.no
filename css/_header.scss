@@ -1,63 +1,106 @@
-$first-row: 1.5rem;
-$second-row: 2.5rem;
-$header-height:  $first-row + $second-row;
 
-header {
-  + main {
-    margin-top: $header-height;
-    padding-top: .5rem;
+@mixin before($text) {
+  &:before {
+    content: $text;
   }
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  transition: all 200ms ease-in-out 100ms;
-  .PageHeader { 
-    @extend body;
-    font-weight: 200;
-    line-height: 1;
+}
+
+%uncollapsed {
+  .author {
+    order: 1;
+    @include before('by ');
+  }
+  .date {
+    order: 2;
+    @include before('posted ');
+  }
+  .category {
+    order: 3;
+    @include before('in ');
+  }
+  h1 {
+    margin: 0;
     transition: inherit;
-    transform: translateY(-$first-row);
-    h1.PageTitle {
-      font-size: inherit;
-      flex: 1 1 100%;
-      margin: 0;
-      border: none;
-      padding-top: .3em;
+    order: 4;
+    flex: 1 1 100%;
+    font-size: 1.8rem;
+    border: none;
+  }
+  padding-top: .5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+%collapsed {
+  $h: 1rem;
+  padding-top: 0;
+  line-height: $h;
+  div, h1 {
+    font-size: inherit;
+    &:before {
+      display: none;
     }
-    &.maximized, &:hover {
-      height: $header-height;
-      transform: translateY(0);
-      transition-delay: 0ms;
-      .row2 {
-        font-weight: thin;
-        height: $second-row;
-        font-size: 1.5rem;
-      }
+  }
+  h1 {
+    flex: 1 1 60%;
+  }
+}
+.PageHeader {
+  z-index: 100;
+  line-height: 1.2;
+  font-weight: 200;
+  font-size: 1rem;
+  .Title {
+    $margin: .3rem;
+    display: flex;
+    font-size: .8em;
+    box-sizing: content-box;
+    div, h1 {
+      padding: 0;
+      margin-right: $margin;
     }
-    .row1, .row2 {
-      font-size: 1rem;
-      height: $first-row;
-      transition: inherit;
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      background: white;
-    }
-    .row2 {
-      font-size: .8rem;
-      font-weight: bold;
-      border-bottom: 1px solid $line-color;
-    }
-    .SocialMedia {
-      align-self: flex-end;
-    }
+    border-bottom: 1px solid $line-color;
+    @extend %uncollapsed;
+  }
+  .NavBar {
+    font-size: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
     .Icon {
-      font-size: 1.4em;
+      font-size: 1.2em;
       &.Monogram {
         stroke-width: 20;
       }
     }
+    .SocialMedia {
+      // align-self: flex-end;
+    }
+  }
+  &.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    @extend body;
+    .Title.small {
+      @extend %collapsed;
+    }
+    .drawer {
+      @extend body;
+      top: 0;
+      left: 0;
+      right: 0;
+      position: fixed;
+      background: white;
+      z-index: 200;
+      transform: translateY(-100%);
+      transition: 200ms all;
+    }
+    &:hover .drawer {
+      transform: translateY(0);
+    }
   }
 }
+

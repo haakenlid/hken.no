@@ -6,7 +6,15 @@
   align-items: center;
   width: 100%;
   .text {
-    flex: 1
+    flex: 1;
+    font-size: .8em;
+    line-height: 1.2;
+    margin: 0 .5em;
+    .name {
+      font-weight: 500;
+    }
+    .about {
+    }
   }
   .Icon {
     font-size: 2em;
