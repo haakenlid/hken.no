@@ -13,24 +13,26 @@ $link-color: #746dc3;
 
 .frontPage {
   display: flex;
-  section {
-    margin: 0 2rem 0 0;
-  }
-  section:last-child {
+  > section {
     margin: 0;
+    padding-right: 2rem;
+    &:last-child {
+      padding: 0;
+    }
   }
   @media screen and (max-width: 500px) {
     flex-direction: column;
-    section {
-      margin: 0 0 2rem 0;
+    > section {
+      padding-right: 0;
+      padding-bottom: 2rem;
     }
   }
   .mugshot {
     border-radius: 100%;
-    max-width: 150px;
+    width: 250px;
     display: block;
     margin: 1em auto;
-    width: 80%;
+    max-width: 100%;
   }
   .left {
     position: relative;
@@ -101,17 +103,16 @@ li {
   @extend p;
   &:before {
     display: inline-block;
-    content: '⚫'; // ‣•⁂❧☞‽※ ●⚫⬤🌑
-    // color: #999;
+    content: '⚫'; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
+    color: #333; 
     position: absolute;
-    font-size: 1.0em;
+    font-size: 0.8em;
     left: 0;
   }
 }
 
 h1,h2,h3,h4,h5,h6 {
   color: #333;
-  color: black;
   font-family: $header-font;
   font-weight: 300;
   margin: 1em 0 .3em 0;

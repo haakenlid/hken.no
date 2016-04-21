@@ -5,8 +5,6 @@
 pre, code {
   font-family: $code-font;
   font-weight: 400;
-  font-size: 0.9rem;
-  line-height: 1.4rem;
 }
 .cell.code + .cell.markdown,
 .cell.markdown + .cell.code {
@@ -22,10 +20,10 @@ pre, code {
   &:before { 
     // border-left: 1px solid $line-color;
     // border-right: 1px solid $line-color;
-    margin-right: 1ch;
+    margin-right: 2ch;
     // margin-right: .3em;
     height: 100%;
-    // text-align: right;
+    text-align: right;
     color: #ddd;
     display: inline-block;
     width: 2ch;
@@ -34,6 +32,17 @@ pre, code {
   } 
 } 
 pre {
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  tab-size: 4;
+  @media screen and (max-width: 500px) {
+    font-size: 0.7rem;
+    line-height: 1.0rem;
+    tab-size: 2;
+    .line:before {
+      display: none;
+    }
+  }
   word-break: break-word;
   padding: 0;
   margin: 0;

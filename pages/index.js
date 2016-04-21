@@ -11,7 +11,6 @@ export default class BlogIndex extends React.Component {
             <About />
           </section>
           <section className="right">
-            <h2> Blog entries </h2>
             <PageLinks route={this.props.route} />
           </section>
         </main>

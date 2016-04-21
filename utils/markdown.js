@@ -9,22 +9,26 @@ const lineSpan = (code) => {
     .join('\n')
 }
 
+const spaceToTab = code => code.replace(/ {4}/g, '\t', code)
+
 /* eslint-disable no-console */
-export const highlightjs = (code, language) => {
+const highlight = (code, language) => {
   if ((language !== null) && hljs.getLanguage(language)) {
     try {
-      return lineSpan(hljs.highlight(language, code).value)
+      return hljs.highlight(language, code).value
     } catch (_error) {
       console.error(_error)
     }
   }
   try {
-    return lineSpan(hljs.highlightAuto(code).value)
+    return hljs.highlightAuto(code).value
   } catch (_error) {
     console.error(_error)
   }
   return ''
 }
+
+export const highlightjs = (code, language) => lineSpan(highlight(spaceToTab(code), language))
 
 export const md = markdownIt({
   html: true,
