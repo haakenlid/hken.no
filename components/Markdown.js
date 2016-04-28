@@ -1,21 +1,5 @@
 import React from 'react'
-import { md } from 'utils/markdown'
-
-const trimIndentation = (raw) => {
-  /* trim blank lines and leading indentation from source */
-  const lines = raw.split('\n')
-  let indentation = ''
-
-  try {
-    while (lines[0].trim() === '') lines.shift()
-    while (lines[lines.length - 1].trim() === '') lines.pop()
-    indentation = lines[0].match(/^\s*/)
-  } catch (e) {
-    return ''
-  }
-  const regex = RegExp(`^${indentation}`)
-  return lines.map(line => line.replace(regex, '')).join('\n')
-}
+import { md, trimIndentation } from 'utils/markdown'
 
 const Markdown = ({ children }) => (
   <div

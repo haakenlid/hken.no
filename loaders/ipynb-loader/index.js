@@ -23,18 +23,20 @@ const cellToMarkdown = (cell, language) => {
     )
     if (cell.outputs.length > 0) {
       const output = cell.outputs[0]
-      let content = ''
       switch (output.output_type) {
         case 'execute_result':
-          content = output.data['text/plain'].join('')
+          if (output.data['text/html']) {
+            rendered.html = output.data['text/html'].join('').trim()
+          } else {
+            rendered.output = output.data['text/plain'].join('').trim()
+          }
           break
         case 'stream':
-          content = output.text.join('')
+          rendered.output = output.text.join('').trim()
           break
         default:
-          content = `unknown output data_type\n\n${JSON.stringify(output)}`
+          rendered.output = `unknown output data_type\n\n${JSON.stringify(output)}`
       }
-      rendered.output = content.trim()
     }
   }
   return rendered

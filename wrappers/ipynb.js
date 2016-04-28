@@ -15,6 +15,9 @@ const Cell = ({ rendered, cellType }) => {
       { rendered.output &&
         <pre className="cell-output">{ rendered.output }</pre>
       }
+      { rendered.html &&
+        <div className="cell-output" dangerouslySetInnerHTML={{ __html: rendered.html }} />
+      }
     </div>
   )
 }

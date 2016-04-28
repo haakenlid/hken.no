@@ -1,13 +1,23 @@
 /* eslint-disable no-param-reassign */
 module.exports = (config, env) => {
-  if(env === 'static') {
-  }
+  config.removeLoader('md')
+  config.removeLoader('json')
   config.loader('meta', cfg => {
     cfg.test = /\.meta$/
     cfg.loader = 'null'
     return cfg
   })
-  config.removeLoader('md')
+  // ignore python files
+  config.loader('python', cfg => {
+    cfg.test = /\.py/
+    cfg.loader = 'null'
+    return cfg
+  })
+  config.loader('json', cfg => {
+    cfg.test = /\.json$/
+    cfg.loader = 'null'
+    return cfg
+  })
   config.loader('md', cfg => {
     cfg.test = /\.md$/
     cfg.loader = '../loaders/meta-loader'
@@ -17,11 +27,6 @@ module.exports = (config, env) => {
     cfg.test = /\.ipynb$/
     cfg.loader = '../loaders/ipynb-loader'
     return cfg
-  })
-  config.merge({
-    resolve: { extensions: ['ipynb'] },
-    // quiet: false,
-    // noInfo: true,
   })
   return config
 }

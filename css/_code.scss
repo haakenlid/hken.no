@@ -11,6 +11,10 @@ pre, code {
   // padding-top: .5em;
   border-top: 1px solid $line-color;
 }
+.CodeBlock {
+  // border-top: 1px solid $line-color;
+  // border-bottom: 1px solid $line-color;
+}
 %line {
   display: inline-block;
   width: 100%;
@@ -18,10 +22,7 @@ pre, code {
   padding: 0;
   counter-increment: linenumber;
   &:before { 
-    // border-left: 1px solid $line-color;
-    // border-right: 1px solid $line-color;
     margin-right: 2ch;
-    // margin-right: .3em;
     height: 100%;
     text-align: right;
     color: #ddd;
@@ -29,13 +30,17 @@ pre, code {
     width: 2ch;
     content: counter(linenumber);
     -webkit-user-select: none;
+    white-space: nowrap; 
   } 
 } 
 pre {
   font-size: 0.9rem;
   line-height: 1.4rem;
   tab-size: 4;
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 800px) {
+    font-size: 0.8rem;
+  }
+  @media screen and (max-width: 600px) {
     font-size: 0.7rem;
     line-height: 1.0rem;
     tab-size: 2;

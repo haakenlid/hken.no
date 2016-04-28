@@ -19,6 +19,7 @@
     transition: transform 100ms ease;
     background: rgba(0,0,0,0.8);
     font-size: .6rem;
+    line-height: 1.2;
     color: white;
     padding: .3em;
     margin: 0;
@@ -27,9 +28,11 @@
     }
     .infoRow {
       padding-right: 1em;
+      .value {
+        font-weight: 500;
+      }
       .label {
         padding-right: .2em;
-        font-weight: bold;
       }
     }
   }

@@ -21,6 +21,7 @@
   "license": "CC-BY-4.0",
   "dependencies": {
     "babel-plugin-transform-decorators": "^6.6.5",
+    "favicons": "^4.7.1",
     "gatsby": "^0.8.5",
     "lodash": "^4.5.0",
     "moment": "^2.11.2",
