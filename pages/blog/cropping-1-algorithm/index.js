@@ -7,7 +7,7 @@ import { createStore } from 'redux'
 
 const metadata = {
   title: "React Redux image cropping",
-  date: "2015-05-01",
+  date: "2016-04-01",
   layout: "post",
   readNext: "/image-cropping/",
   path: "/redux-cropper/",
