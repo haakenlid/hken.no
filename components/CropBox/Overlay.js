@@ -22,6 +22,19 @@ const cursor = {
   '0011': 'se-resize',
   '1001': 'sw-resize',
 }
+/* eslint-enable quote-props */
+
+
+const Feature = ({ data }) => (
+  <circle
+    className="feature"
+    style={{ fill: 'none', stroke: 'blue' }}
+    cx={data.x} cy={data.y} r={data.r}
+  />
+)
+Feature.propTypes = {
+  data: React.PropTypes.object,
+}
 
 const Handle = ({ name, mouseDownHandler }) => {
   const handleSize = 0.1
@@ -53,6 +66,8 @@ let Overlay = ({
   setCenter,
   moveDragHandle,
   endDragHandle,
+  interactive,
+  features,
 }) => {
   const [left, x, right] = normalize(crop.h)
   const [top, y, bottom] = normalize(crop.v)
@@ -68,17 +83,24 @@ let Overlay = ({
   return (
     <div className="overlayWrapper">
       <svg
-        className="overlay"
+        className={`overlay${interactive ? '' : ' inactive'}`}
         viewBox="0 0 1 1"
         preserveAspectRatio="none"
         height="100%"
         width="100%"
       >
+        { features.map(f => (
+          <ellipse
+            className="feature"
+            cx={f.x} cy={f.y}
+            {...circleRadius(f.r)}
+          />
+        ))}
         <path
           className="outside"
           fillRule="evenodd"
           d={outerPath + boxPath}
-          onMouseDown={newCrop}
+          onMouseDown={interactive ? newCrop : null}
         />
         <g className="inside" >
           <path
@@ -104,6 +126,7 @@ let Overlay = ({
         <g className="centerPoint">
           <ellipse
             className="handle"
+            style={{ opacity: 0 }}
             onMouseDown={mouseDownHandler([0, 0, 0, 0, 1])}
             cx={x} cy={y} {...circleRadius(0.05)}
           />
@@ -119,34 +142,6 @@ let Overlay = ({
   )
 }
 
-const InfoRow = ({ label, value }) => (
-  <div className="infoRow">
-    <div className="label">{ label }</div>
-    <div className="value">{ value }</div>
-  </div>
-)
-
-InfoRow.propTypes = {
-  label: React.PropTypes.string,
-  value: React.PropTypes.string,
-}
-
-let CropInfo = ({ crop }) => {
-  const [left, x, right, top, y, bottom] = [...crop.h, ...crop.v].map(num => num.toFixed(3))
-  return (
-  <div className="cropInfo">
-    <InfoRow label="top" value={ top } />
-    <InfoRow label="left" value={ left } />
-    <InfoRow label="right" value={ right } />
-    <InfoRow label="bottom" value={ bottom } />
-    <InfoRow label="center" value={ `${x} x ${y}` } />
-  </div>
-  )
-}
-CropInfo.propTypes = {
-  crop: React.PropTypes.array,
-}
-
 Overlay.propTypes = {
   size: React.PropTypes.array,
   crop: React.PropTypes.object.isRequired,
@@ -157,6 +152,8 @@ Overlay.propTypes = {
   endDragHandle: React.PropTypes.func.isRequired,
   setCenter: React.PropTypes.func.isRequired,
   startNewCrop: React.PropTypes.func.isRequired,
+  interactive: React.PropTypes.bool.isRequired,
+  features: React.PropTypes.array.isRequired,
 }
 
 const mapStateToProps = (state, { src }) => state.images[src]
@@ -180,6 +177,5 @@ const mapDispatchToProps = (dispatch, { src }) => ({
 })
 
 Overlay = connect(mapStateToProps, mapDispatchToProps)(Overlay)
-CropInfo = connect(mapStateToProps)(CropInfo)
-export { Overlay, CropInfo }
+export { Overlay }
 

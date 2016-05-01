@@ -1,11 +1,4 @@
-from PIL import Image, ImageOps, ImageDraw
-from jinja2 import Template
-from io import BytesIO
-import random
-import itertools
-import glob
 import cv2
-import base64
 from .box import BoundingBox, ImageBoundingBox
 
 

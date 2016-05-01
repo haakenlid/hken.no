@@ -1,0 +1,116 @@
+.infoParent {
+  position: relative; }
+  .infoParent:hover .infoBox {
+    transform: translateY(0); }
+
+.infoBoxWrapper {
+  pointer-events: none;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 80; }
+  .infoBoxWrapper .infoBox {
+    display: block;
+    top: inherit;
+    transform: translateY(105%);
+    transition: transform 100ms ease;
+    background: rgba(0, 0, 0, 0.8);
+    font-size: 13px;
+    line-height: 1.2;
+    color: white;
+    padding: .3em;
+    margin: 0; }
+    .infoBoxWrapper .infoBox div {
+      display: inline-block; }
+    .infoBoxWrapper .infoBox .infoRow {
+      padding-right: 1em; }
+      .infoBoxWrapper .infoBox .infoRow .value {
+        font-weight: 500; }
+      .infoBoxWrapper .infoBox .infoRow .label {
+        padding-right: .2em; }
+.previewPanel {
+  display: flex;
+  flex: 3;
+  margin: -0.3vw;
+  padding: 0.6vw 0 0 0; }
+  .previewPanel .previewWrapper {
+    position: relative;
+    margin: 0.3vw; }
+    .previewPanel .previewWrapper svg.previewImg {
+      display: block; }
+.cropInfo {
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: table; }
+  .cropInfo .infoRow {
+    display: table-row; }
+    .cropInfo .infoRow .label, .cropInfo .infoRow .value {
+      display: table-cell; }
+
+.overlayWrapper .dragKing {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: move; }
+
+.overlayWrapper svg.overlay {
+  height: 100%;
+  z-index: 10;
+  shape-rendering: crispEdges;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; }
+  .overlayWrapper svg.overlay .feature {
+    stroke: green;
+    stroke-opacity: 0.5;
+    stroke-width: 3;
+    fill: none; }
+    .overlayWrapper svg.overlay .feature:hover {
+      stroke: yellow;
+      stroke-opacity: 1; }
+  .overlayWrapper svg.overlay path, .overlayWrapper svg.overlay rect, .overlayWrapper svg.overlay ellipse {
+    shape-rendering: auto;
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+    fill: transparent; }
+  .overlayWrapper svg.overlay .outside {
+    fill: rgba(0, 0, 0, 0.5); }
+  .overlayWrapper svg.overlay .centerPoint {
+    position: relative; }
+    .overlayWrapper svg.overlay .centerPoint .handle {
+      cursor: crosshair;
+      opacity: 0; }
+      .overlayWrapper svg.overlay .centerPoint .handle:hover + .cross {
+        stroke: yellow; }
+    .overlayWrapper svg.overlay .centerPoint .cross {
+      pointer-events: none;
+      stroke-width: 1px;
+      stroke: rgba(255, 255, 0, 0.5); }
+  .overlayWrapper svg.overlay .inside .box {
+    stroke: rgba(255, 255, 255, 0.3);
+    cursor: move; }
+  .overlayWrapper svg.overlay .inside:hover .box {
+    stroke: rgba(255, 255, 255, 0.8); }
+  .overlayWrapper svg.overlay .inside .handles {
+    overflow: visible; }
+  .overlayWrapper svg.overlay.inactive .inside, .overlayWrapper svg.overlay.inactive .handle {
+    display: none; }
+.cropboxWrapper {
+  max-width: 50em;
+  position: relative;
+  display: flex;
+  user-select: none;
+  -webkit-user-select: none;
+  margin: 1rem 0; }
+  .cropboxWrapper img {
+    display: block; }
+  .cropboxWrapper .masterImgWrapper {
+    flex: 11;
+    align-self: center; }

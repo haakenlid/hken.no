@@ -24,13 +24,25 @@
     cursor: move;
   }
   svg.overlay {
+    height: 100%;
     z-index: 10;
     shape-rendering: crispEdges;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    path, rect {
+    .feature {
+      stroke: green;
+      stroke-opacity: 0.5;
+      stroke-width: 3;
+      fill: none;
+      &:hover {
+        stroke: yellow;
+        stroke-opacity: 1;
+      }
+    }
+    path, rect, ellipse {
+      shape-rendering: auto;
       stroke-width: 1px;
       vector-effect: non-scaling-stroke;
       fill: rgba(0,0,0,0.0);
@@ -41,7 +53,7 @@
     .centerPoint {
       position: relative;
       .handle {
-        cursor: crosshair; 
+        cursor: crosshair;
         opacity: 0;
         &:hover + .cross {
           stroke: rgba(255,255,0,1.0);
@@ -53,22 +65,21 @@
         stroke: rgba(255,255,0,0.5)
       }
     }
-    .inside { 
+    .inside {
       .box {
         stroke: rgba(255,255,255,0.3);
-        cursor: move; 
+        cursor: move;
       }
       &:hover .box {
         stroke: rgba(255,255,255,0.8);
       }
-      svg.handles {
+      .handles {
         overflow: visible;
-        rect {
-          // fill: yellow;
-          // opacity: .2;
-        }
-        .top, .bottom { cursor: ns-resize; }
-        .left, .right { cursor: ew-resize; }
+      }
+    }
+    &.inactive {
+      .inside, .handle {
+        display: none;
       }
     }
   }
