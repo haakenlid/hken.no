@@ -12,4 +12,4 @@ const Markdown = ({ children }) => (
 Markdown.propTypes = {
   children: React.PropTypes.string,
 }
-export default Markdown
+export { Markdown }

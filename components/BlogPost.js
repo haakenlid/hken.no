@@ -3,7 +3,7 @@ import moment from 'moment'
 import { ReadNext, Byline, PageHeader } from 'components'
 import { config } from 'config'
 
-export default class BlogPost extends React.Component {
+class BlogPost extends React.Component {
   render() {
     const { post, children, route } = this.props
     const date = moment(post.date || Date.now()).format('MMMM D, YYYY')
@@ -17,7 +17,7 @@ export default class BlogPost extends React.Component {
       >
         <main className="blogpost">
           { children }
-        { post.readNext && <ReadNext post={post} pages={route.pages} /> }
+          { post.readNext && <ReadNext post={post} pages={route.pages} /> }
         </main>
         <footer>
           <Byline />
@@ -31,3 +31,5 @@ BlogPost.propTypes = {
   route: React.PropTypes.object,
   children: React.PropTypes.node,
 }
+
+export { BlogPost }

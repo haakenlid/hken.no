@@ -27,7 +27,7 @@ const getStyles = (src, crop, imgRatio, frameRatio) => {
   const width = right - left
   const height = bottom - top
   const ratioOf = (low, val, high) => ((high === low) ? 0.5 : ((val - low) / (high - low)))
-  const numberToPercent = number => `${(100 * number).toFixed(0)}%`
+  const numberToPercent = number => `${(100 * number).toFixed(1)}%`
   return {
     backgroundImage: `url(${src})`,
     backgroundPosition: [[width, right, 1], [height, bottom, 1]]
@@ -90,4 +90,3 @@ Previews.propTypes = {
 }
 
 export { Previews, PreviewImg }
-

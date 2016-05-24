@@ -3,7 +3,7 @@ import { highlightjs, md } from '../../utils/markdown'
 
 const highlightCode = (code, language) => {
   // const content = hljs.highlight(language, code, true).value
-  const content = highlightjs(code, language)
+  const content = highlightjs(code, language, 20)
   const className = language ? `class="lang-${language}"` : ''
   return `<code ${className}>${content}</code>`
 }

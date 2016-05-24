@@ -22,4 +22,4 @@ ReadNext.propTypes = {
   post: React.PropTypes.object.isRequired,
   pages: React.PropTypes.array,
 }
-export default ReadNext
+export { ReadNext }

@@ -50,6 +50,57 @@
     .cropInfo .infoRow .label, .cropInfo .infoRow .value {
       display: table-cell; }
 
+symbol {
+  overflow: visible; }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+.overlayWrapper svg.overlay .feature {
+  shape-rendering: geometricPrecision;
+  overflow: visible;
+  transition: all 500ms; }
+  .overlayWrapper svg.overlay .feature text {
+    transition: inherit;
+    opacity: 0;
+    pointer-events: none; }
+    .overlayWrapper svg.overlay .feature text tspan {
+      fill: white;
+      vector-effect: non-scaling-stroke;
+      stroke: black;
+      stroke-opacity: 0.4;
+      stroke-width: 4;
+      font-weight: 500;
+      paint-order: stroke; }
+  .overlayWrapper svg.overlay .feature circle, .overlayWrapper svg.overlay .feature path, .overlayWrapper svg.overlay .feature rect, .overlayWrapper svg.overlay .feature use {
+    overflow: visible;
+    vector-effect: non-scaling-stroke;
+    fill: none;
+    stroke: white; }
+  .overlayWrapper svg.overlay .feature .front {
+    transition: all 300ms;
+    stroke-opacity: 0.8;
+    stroke-width: 1.2;
+    pointer-events: none; }
+  .overlayWrapper svg.overlay .feature .back {
+    stroke-opacity: 0.0;
+    stroke-width: 15;
+    pointer-events: stroke; }
+  .overlayWrapper svg.overlay .feature .cross {
+    transition: all 300ms;
+    pointer-events: none;
+    stroke-opacity: 0.0; }
+  .overlayWrapper svg.overlay .feature:hover .cross {
+    stroke-opacity: 1; }
+  .overlayWrapper svg.overlay .feature:hover .front {
+    stroke-opacity: 1;
+    stroke-width: 3; }
+  .overlayWrapper svg.overlay .feature:hover text {
+    opacity: 1; }
+
 .overlayWrapper .dragKing {
   z-index: 100;
   position: fixed;
@@ -67,17 +118,7 @@
   top: 0;
   left: 0;
   right: 0; }
-  .overlayWrapper svg.overlay .feature {
-    stroke: green;
-    stroke-opacity: 0.5;
-    stroke-width: 3;
-    fill: none; }
-    .overlayWrapper svg.overlay .feature:hover {
-      stroke: yellow;
-      stroke-opacity: 1; }
   .overlayWrapper svg.overlay path, .overlayWrapper svg.overlay rect, .overlayWrapper svg.overlay ellipse {
-    shape-rendering: auto;
-    stroke-width: 1px;
     vector-effect: non-scaling-stroke;
     fill: transparent; }
   .overlayWrapper svg.overlay .outside {
@@ -91,7 +132,6 @@
         stroke: yellow; }
     .overlayWrapper svg.overlay .centerPoint .cross {
       pointer-events: none;
-      stroke-width: 1px;
       stroke: rgba(255, 255, 0, 0.5); }
   .overlayWrapper svg.overlay .inside .box {
     stroke: rgba(255, 255, 255, 0.3);
@@ -101,7 +141,7 @@
   .overlayWrapper svg.overlay .inside .handles {
     overflow: visible; }
   .overlayWrapper svg.overlay.inactive .inside, .overlayWrapper svg.overlay.inactive .handle {
-    display: none; }
+    pointer-events: none; }
 .cropboxWrapper {
   max-width: 50em;
   position: relative;

@@ -11,7 +11,70 @@
     }
   }
 }
+symbol {
+  overflow: visible;
+}
+@keyframes spin {
+  from { transform: rotate(0deg) }
+  to   { transform: rotate(360deg) }
+}
+%feature {
+  shape-rendering: geometricPrecision;
+  overflow: visible;
+  transition: all 500ms;
+  text {
+    transition: inherit;
+    opacity: 0;
+    pointer-events: none;
+    tspan {
+      fill: white;
+      vector-effect: non-scaling-stroke;
+      stroke: black;
+      stroke-opacity: 0.4;
+      stroke-width: 4;
+      font-weight: 500;
+      paint-order: stroke;
+    }
+  }
+  circle, path, rect, use {
+    overflow: visible;
+    vector-effect: non-scaling-stroke;
+    fill: none;
+    stroke: white;
+  }
+  .front {
+    transition: all 300ms;
+    stroke-opacity: 0.8;
+    stroke-width: 1.2;
+    pointer-events: none;
+  }
+  .back {
+    stroke-opacity: 0.0;
+    stroke-width: 15; 
+    pointer-events: stroke;
+  }
+  .cross {
+    transition: all 300ms;
+    pointer-events: none;
+    stroke-opacity: 0.0;
+    // transform-origin: 50% 50%;
+    // animation: spin 10000ms linear infinite; 
+    // transform: rotate(45deg);
+  }
 
+  &:hover {
+    .cross {
+      stroke-opacity: 1;
+    }
+    .front {
+      stroke-opacity: 1;
+      stroke-width: 3;
+    }
+    text {
+      opacity: 1;
+    }
+  }
+}
 
 .overlayWrapper {
   .dragKing {
@@ -31,19 +94,9 @@
     top: 0;
     left: 0;
     right: 0;
-    .feature {
-      stroke: green;
-      stroke-opacity: 0.5;
-      stroke-width: 3;
-      fill: none;
-      &:hover {
-        stroke: yellow;
-        stroke-opacity: 1;
-      }
-    }
+    .feature { @extend %feature; }
+    
     path, rect, ellipse {
-      shape-rendering: auto;
-      stroke-width: 1px;
       vector-effect: non-scaling-stroke;
       fill: rgba(0,0,0,0.0);
     }
@@ -61,7 +114,6 @@
       }
       .cross {
         pointer-events: none;
-        stroke-width: 1px;
         stroke: rgba(255,255,0,0.5)
       }
     }
@@ -79,7 +131,7 @@
     }
     &.inactive {
       .inside, .handle {
-        display: none;
+        pointer-events: none;
       }
     }
   }

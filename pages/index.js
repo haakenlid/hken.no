@@ -1,9 +1,12 @@
 // Frontpage for the blog
 import React from 'react'
-import { About, PageLinks, PageHeader } from 'components'
+import { About } from 'components'
+import { BlogPosts } from 'components'
+import { PageHeader } from 'components'
 
-export default class BlogIndex extends React.Component {
+class BlogIndex extends React.Component {
   render() {
+    const { route } = this.props
     return (
       <PageHeader>
         <main className="frontPage">
@@ -11,7 +14,7 @@ export default class BlogIndex extends React.Component {
             <About />
           </section>
           <section className="right">
-            <PageLinks route={this.props.route} />
+            <BlogPosts route={route} />
           </section>
         </main>
       </PageHeader>

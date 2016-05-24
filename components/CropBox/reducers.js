@@ -8,7 +8,7 @@ const imageDefaultState = {
   crop: {},
 }
 
-export const normalize = (dim) => {
+const normalize = (dim) => {
   const sorted = [0, dim[0], dim[2], 1].sort((a, b) => a - b)
   return [sorted[1], dim[1], sorted[2]]
 }
@@ -96,7 +96,7 @@ const images = (state = {}, action) => {
   return state
 }
 
-const RootReducer = combineReducers({
+const cropBoxReducer = combineReducers({
   images,
 })
-export default RootReducer
+export { normalize, cropBoxReducer }

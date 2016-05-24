@@ -1,9 +1,10 @@
 import React from 'react'
 import Wrapper from 'wrappers/jsx'
-import { CodeBlock, CropBox, Markdown } from 'components'
-import cropBoxReducer from 'components/CropBox/reducers'
+import { cropBoxReducer } from 'components/CropBox/reducers'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { CodeBlock, CropBox, Markdown } from 'components'
+
 
 const metadata = {
   title: "React Redux image cropping",
@@ -13,8 +14,9 @@ const metadata = {
   path: "/redux-cropper/",
 }
 
-const devTools = typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
-  window.devToolsExtension() : f => f
+const devTools = (typeof window === 'object' && typeof window.devToolsExtension
+                  !== 'undefined') ? window.devToolsExtension() : f => f
+
 const store = createStore(cropBoxReducer, {}, devTools)
 
 export default class Post extends React.Component {

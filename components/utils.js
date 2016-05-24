@@ -1,9 +1,9 @@
-export const getPos = () => {
+const getPos = () => {
   if (typeof window !== 'object') { return 0 }
   return document.body.scrollTop || document.documentElement.scrollTop
 }
 
-export const scrollTo = (to, duration) => {
+const scrollTo = (to, duration) => {
   const tick = 5
   if (typeof window !== 'object' || duration <= 0 || getPos() === to) {
     return
@@ -14,4 +14,6 @@ export const scrollTo = (to, duration) => {
   }, tick)
 }
 
-export const scrollTop = ({ to = 0, duration = 100 }) => scrollTo(to, duration)
+const scrollTop = ({ to = 0, duration = 100 }) => scrollTo(to, duration)
+
+export { scrollTop, scrollTo, getPos }

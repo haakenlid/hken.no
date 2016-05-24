@@ -26,4 +26,4 @@ Byline.defaultProps = {
   about: config.authorAbout,
 }
 
-export default Byline
+export { Byline }

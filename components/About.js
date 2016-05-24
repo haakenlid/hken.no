@@ -1,9 +1,11 @@
 import React from 'react'
-import { SocialMedia } from 'components'
+// import { SocialMedia } from 'components'
 
-export const About = () => (
+const About = () => (
   <section className="About">
     <img className="mugshot" src="/images/fjes.jpg" />
     <p><strong>Håken Lid</strong></p>
   </section>
 )
+
+export { About }

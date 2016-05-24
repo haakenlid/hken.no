@@ -3,8 +3,8 @@ import access from 'safe-access'
 import { Link } from 'react-router'
 import { link } from 'gatsby-helpers'
 
-const PageLink = ({ page, key }) => (
-  <li key={key}>
+const PageLink = ({ page }) => (
+  <li>
     <Link to={link(page.path)}>
       { access(page, 'data.title') || page.path }
     </Link>
@@ -13,7 +13,6 @@ const PageLink = ({ page, key }) => (
 )
 PageLink.propTypes = {
   page: React.PropTypes.object,
-  key: React.PropTypes.string,
 }
 
 const blogPosts = pages => pages
@@ -30,4 +29,4 @@ const BlogPosts = ({ route }) => (
 BlogPosts.propTypes = {
   route: React.PropTypes.object,
 }
-export default BlogPosts
+export { BlogPosts }

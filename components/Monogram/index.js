@@ -44,4 +44,4 @@ Monogram.propTypes = {
   className: React.PropTypes.string,
   style: React.PropTypes.object,
 }
-export default Monogram
+export { Monogram }

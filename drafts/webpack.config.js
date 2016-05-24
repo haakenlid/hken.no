@@ -10,9 +10,9 @@ module.exports = {
   context: rootdir,
   entry: {
     cli: './drafts/cropboxCli.jsx',
-    render: './drafts/cropboxRender.jsx',
   },
   output: {
+    path: path.resolve(rootdir, 'utils'),
     filename: '[name].bundle.js',
   },
   resolve: {

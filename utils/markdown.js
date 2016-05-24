@@ -2,12 +2,12 @@ import markdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 
 
-const lineSpan = (code, limit) => {
-  const lines = code.split('\n')
-  return (lines.length < limit) ? code : lines
-    .map(l => `<span class=line />${l}</span>`)
-    .join('\n')
-}
+// const lineSpan = (code, limit) => {
+//   const lines = code.split('\n')
+//   return (lines.length < limit) ? code : lines
+//     .map(l => `<span class=line />${l}</span>`)
+//     .join('\n')
+// }
 
 const spaceToTab = code => code.replace(/ {4}/g, '\t', code)
 
@@ -44,9 +44,7 @@ export const trimIndentation = (raw) => {
   return lines.map(line => line.replace(regex, '')).join('\n')
 }
 
-export const highlightjs = (code, language, limit = 15) => (
-  lineSpan(highlight(spaceToTab(code), language, limit))
-)
+export const highlightjs = (code, language) => highlight(spaceToTab(code), language)
 
 export const md = markdownIt({
   html: true,

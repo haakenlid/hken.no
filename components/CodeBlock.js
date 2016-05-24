@@ -17,4 +17,4 @@ CodeBlock.propTypes = {
   language: React.PropTypes.string,
   linenos: React.PropTypes.bool,
 }
-export default CodeBlock
+export { CodeBlock }

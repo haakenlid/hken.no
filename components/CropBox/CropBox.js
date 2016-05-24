@@ -4,10 +4,8 @@ import { setImgSize, addImage } from './actions'
 import { Previews } from './Preview'
 import { Overlay } from './Overlay'
 import { CropInfo } from './CropInfo'
-import sizeOf from 'image-size'
 import './cropbox.scss'
 
-const serverSide = () => typeof window === 'undefined'
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -15,9 +13,8 @@ class Canvas extends React.Component {
     props.addImage()
     this.imgOnLoad = this.imgOnLoad.bind(this)
     this.getRelativePosition = this.getRelativePosition.bind(this)
-    if (serverSide()) {
-      const { width, height } = sizeOf(props.src)
-      this.props.setImgSize([width, height])
+    if (props.imageSize !== undefined) {
+      this.props.setImgSize(props.imageSize)
     }
   }
   getRelativePosition(e) {
@@ -70,6 +67,7 @@ class Canvas extends React.Component {
 Canvas.propTypes = {
   src: React.PropTypes.string.isRequired,
   aspects: React.PropTypes.array,
+  imageSize: React.PropTypes.array,
   setImgSize: React.PropTypes.func.isRequired,
   addImage: React.PropTypes.func.isRequired,
   interactive: React.PropTypes.bool.isRequired,
