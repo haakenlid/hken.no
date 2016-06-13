@@ -61,8 +61,8 @@ const Keypoint = () => (
 )
 
 const Face = ({ className }) => {
-  const symbol = className.includes('frontal') ?
-    '#frontal-face' : '#profile-face'
+  const symbol = className.includes('profile') ?
+    '#profile-face' : '#frontal-face'
   return (
     <g>
       <use xlinkHref={symbol} x="0" y="0" height="2" width="2" className="back" />
@@ -74,21 +74,21 @@ Face.propTypes = {
   className: React.PropTypes.string,
 }
 
-const Feature = ({ className = "", value = 0, ...props }) => (
+const Feature = ({ className = "", weight = 0, ...props }) => (
   <svg
     className={`feature ${className}`}
     preserveAspectRatio="none"
     viewBox="0 0 2 2"
     {...props}
   >
-    <Label items={{ className, value }} size={ 0.04 / props.width } />
+    <Label items={{ className, weight }} size={ 0.04 / props.width } />
     { className.includes('keypoint') && <Keypoint /> }
     { className.includes('face') && <Face className={className} /> }
   </svg>
 )
 Feature.propTypes = {
   className: React.PropTypes.string,
-  value: React.PropTypes.number,
+  weight: React.PropTypes.number,
   width: React.PropTypes.number,
 }
 

@@ -1,50 +1,64 @@
-from typing import Tuple, Dict
+import typing
+import pytest
 
 
-class Box:
+class Box(object):
 
     """Rectangular bounding box"""
 
-    def __init__(self, left: float, top: float, right: float, bottom: float
-                 ) -> None:
+    def __init__(self, left: float, top: float,
+                 right: float, bottom: float) -> None:
         if top > bottom or left > right:
-            raise ValueError(
-                'Width and height must be greater than zero')
+            raise ValueError('Width and height must be greater than zero')
         self.left = left
         self.top = top
         self.right = right
         self.bottom = bottom
 
     def __repr__(self) -> str:
-        return (
-            '{self.__class__.__name__}'
-            '(left={self.left}, top={self.top}, '
-            'right={self.right}, bottom={self.bottom})'
-        ).format(self=self)
+        cname = self.__class__.__name__
+        props = self.__dict__.items()
+        kwargs = ['{}={!r}'.format(k, v) for k, v in props]
+        return '{}({})'.format(cname, ', '.join(kwargs))
 
-    def __add__(self, other: 'Box') -> 'Box':
-        """Box containing both boxes"""
-        return Box(
-            left=min(self.left, other.left),
-            top=min(self.top, other.top),
-            right=max(self.right, other.right),
-            bottom=max(self.bottom, other.bottom),
-        )
+    def __eq__(self, other: object) -> bool:
+        """Equality check"""
+        return (self.__class__ == other.__class__ and
+                self.__dict__ == other.__dict__)
 
-    def __radd__(self, other: 'Box') -> 'Box':
-        return self
+    def __add__(self, other: typing.Any) -> 'Box':
+        """Returns a Box containing both input boxes"""
+        if other == 0:  # default initial value for sum()
+            return self
+        try:
+            return Box(
+                left=min(self.left, other.left),
+                top=min(self.top, other.top),
+                right=max(self.right, other.right),
+                bottom=max(self.bottom, other.bottom),
+            )
+        except AttributeError:
+            raise TypeError(
+                'unsupported operand type(s) for +: {} and {}'.format(
+                    self.__class__.__name__, other.__class__.__name__))
+
+    def __radd__(self, other: typing.Any) -> 'Box':
+        return self + other
 
     def __and__(self, other: 'Box') -> 'Box':
         """Intersection"""
-        return Box(
-            left=max(self.left, other.left),
-            top=max(self.top, other.top),
-            right=min(self.right, other.right),
-            bottom=min(self.bottom, other.bottom),
-        )
+        try:
+            return Box(
+                left=max(self.left, other.left),
+                top=max(self.top, other.top),
+                right=min(self.right, other.right),
+                bottom=min(self.bottom, other.bottom),
+            )
+        except ValueError:
+            # box of size 0
+            return Box(self.left, self.top, self.left, self.top)
 
-    def __contains__(self, point: Tuple[
-                     int, float]) -> bool:
+    def __contains__(self, point: typing.Tuple[int, float]) -> bool:
         return (self.top <= point[0] <= self.bottom and
                 self.left <= point[1] <= self.right)
 
@@ -52,7 +66,7 @@ class Box:
         """Multiply all dimensions by factor"""
         x, y = self.center
         w, h = self.width * factor, self.height * factor
-        return self.__class__(
+        return Box(
             left=x - w / 2,
             top=y - h / 2,
             right=x + w / 2,
@@ -93,23 +107,82 @@ class Box:
         return self.width * self.height
 
     @property
-    def center(self) -> Tuple[float, float]:
+    def center(self) -> typing.Tuple[float, float]:
         """Center point of box (x, y)"""
-        return self.x, self.y
+        return (
+            (self.left + self.right) / 2,
+            (self.top + self.bottom) / 2
+        )
 
-    @property
-    def x(self) -> float:
-        return (self.left + self.right) / 2
 
-    @property
-    def y(self) -> float:
-        return (self.top + self.bottom) / 2
+def test_box_properties():
+    width, height = 7, 11
+    box = Box(0, 0, width, height)
+    # test getters
+    assert box.diagonal == (width ** 2 + height ** 2) ** 0.5
+    assert (box.width, box.height) == (width, height)
+    assert box.size == width * height
+    assert box.ratio == width / height
+    assert box.center == (box.left + box.width / 2, box.top + box.height / 2)
 
-    @property
-    def geometry(self) -> Dict[str, float]:
-        return {
-            'left': self.left,
-            'top': self.top,
-            'right': self.right,
-            'bottom': self.bottom,
-        }
+    # test setters
+    width, height = 35.7, 400.45
+    center = box.center
+    box.width, box.height = width, height
+    assert box.center == center
+    assert box.diagonal == (width ** 2 + height ** 2) ** 0.5
+    assert (box.width, box.height) == (width, height)
+    assert box.size == width * height
+    assert box.ratio == width / height
+
+
+def test_box_operators():
+
+    # eq
+    assert Box(0, 1, 2, 3) == Box(0, 1, 2, 3)
+    assert Box(0, 1, 2, 3) != Box(0, 0, 2, 3)
+    assert Box(0, 1, 2, 3) != object()
+
+    # mul
+    assert Box(0, 0, 10, 10) * 2 == Box(-5, -5, 15, 15)
+    assert Box(0, 0, 20, 40) * 0.5 == Box(5, 10, 15, 30)
+
+    # add
+    assert Box(0, 0, 2, 2) + Box(0, 0, 1, 1) == Box(0, 0, 2, 2)
+    assert Box(0, 0, 1, 2) + Box(0, 0, 2, 1) == Box(0, 0, 2, 2)
+    assert Box(0, 0, 1, 1) + Box(0, 2, 1, 3) == Box(0, 0, 1, 3)
+
+    # radd
+    assert Box(0, 0, 5, 5) == sum([Box(4, 4, 5, 5), Box(0, 0, 1, 1)])
+
+    # and
+    assert Box(0, 0, 2, 2) & Box(0, 0, 1, 1) == Box(0, 0, 1, 1)
+    assert Box(0, 0, 1, 2) & Box(0, 0, 2, 1) == Box(0, 0, 1, 1)
+    assert Box(0, 0, 1, 1) & Box(0, 2, 1, 3) == Box(0, 0, 0, 0)
+
+    # contains
+    assert (1, 1) in Box(0, 0, 2, 2)
+    assert (0, 5) not in Box(0, 0, 2, 2)
+
+
+def test_box_methods():
+    box = Box(0, 1, 2, 3)
+    # __dict__
+    assert box.__dict__ == dict(left=0, top=1, right=2, bottom=3)
+    assert box == Box(**box.__dict__)
+
+    # __repr__
+    assert box == eval(box.__repr__())
+
+
+def test_box_exceptions():
+    with pytest.raises(ValueError):
+        Box(0, 1, 1, 0)
+
+    with pytest.raises(TypeError):
+        Box(0, 0, 1, 1) + 1
+    # does not raise TypeError, which makes sum() work.
+    assert Box(0, 0, 1, 1) + 0 == Box(0, 0, 1, 1)
+
+    with pytest.raises(TypeError):
+        Box(0, 0, 1, 1) + 'foo'

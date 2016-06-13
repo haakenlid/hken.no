@@ -21967,7 +21967,7 @@
 	var Face = function Face(_ref2) {
 	  var className = _ref2.className;
 
-	  var symbol = className.includes('frontal') ? '#frontal-face' : '#profile-face';
+	  var symbol = className.includes('profile') ? '#profile-face' : '#frontal-face';
 	  return _react2['default'].createElement(
 	    'g',
 	    null,
@@ -21982,10 +21982,10 @@
 	var Feature = function Feature(_ref3) {
 	  var _ref3$className = _ref3.className;
 	  var className = _ref3$className === undefined ? "" : _ref3$className;
-	  var _ref3$value = _ref3.value;
-	  var value = _ref3$value === undefined ? 0 : _ref3$value;
+	  var _ref3$weight = _ref3.weight;
+	  var weight = _ref3$weight === undefined ? 0 : _ref3$weight;
 
-	  var props = _objectWithoutProperties(_ref3, ['className', 'value']);
+	  var props = _objectWithoutProperties(_ref3, ['className', 'weight']);
 
 	  return _react2['default'].createElement(
 	    'svg',
@@ -21994,14 +21994,14 @@
 	      preserveAspectRatio: 'none',
 	      viewBox: '0 0 2 2'
 	    }, props),
-	    _react2['default'].createElement(Label, { items: { className: className, value: value }, size: 0.04 / props.width }),
+	    _react2['default'].createElement(Label, { items: { className: className, weight: weight }, size: 0.04 / props.width }),
 	    className.includes('keypoint') && _react2['default'].createElement(Keypoint, null),
 	    className.includes('face') && _react2['default'].createElement(Face, { className: className })
 	  );
 	};
 	Feature.propTypes = {
 	  className: _react2['default'].PropTypes.string,
-	  value: _react2['default'].PropTypes.number,
+	  weight: _react2['default'].PropTypes.number,
 	  width: _react2['default'].PropTypes.number
 	};
 

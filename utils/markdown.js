@@ -2,13 +2,6 @@ import markdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 
 
-// const lineSpan = (code, limit) => {
-//   const lines = code.split('\n')
-//   return (lines.length < limit) ? code : lines
-//     .map(l => `<span class=line />${l}</span>`)
-//     .join('\n')
-// }
-
 const spaceToTab = code => code.replace(/ {4}/g, '\t', code)
 
 /* eslint-disable no-console */
