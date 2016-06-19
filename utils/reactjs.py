@@ -27,14 +27,15 @@ def jupyter_display_html(func):
 
 
 @jupyter_display_html
-def render(src: str, features: List[Feature], js: str='cli.bundle.js') -> str:
+def render(src: str, features: List[Feature], preview: bool=False) -> str:
     """Render server side react app"""
-    jsfile = os.path.join(cwd, js)
+    jsfile = os.path.join(cwd, 'cli.bundle.js')
 
     props = json.dumps({
         'src': src,
         'features': [f.serialize() for f in features],
         'crop': reactcrop(features),
+        'showPreviews': preview,
     })
     return nodejs(jsfile, props)
 

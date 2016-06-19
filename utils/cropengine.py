@@ -1,9 +1,10 @@
 # vim: set tw=60 colorcolumn=60 :
 
 import cv2
+import abc
 import os
 from utils.boundingbox import Box
-import typing as tp
+from typing import List, Mapping, Union
 from collections import OrderedDict
 from numpy import ndarray as CVImage
 
@@ -15,10 +16,10 @@ class Feature(Box):
 
     """Rectangular region containing salient image feature"""
 
-    def __init__(self, weight: float, className: str,
+    def __init__(self, weight: float, label: str,
                  *args, **kwargs) -> None:
         self.weight = weight
-        self.className = className
+        self.label = label
         super().__init__(*args, **kwargs)
 
     def __lt__(self, other):
@@ -30,24 +31,22 @@ class Feature(Box):
     def __mul__(self, factor: float) -> 'Feature':
         box = super().__mul__(factor)
         return self.__class__(
-            className=self.className,
+            label=self.label,
             weight=self.weight * factor,
             **box.__dict__,
         )
 
     def serialize(self, precision: int=3) \
-            -> tp.Mapping[str, tp.Union[str, float]]:
+            -> Mapping[str, Union[str, float]]:
         """Build a json serializable dictionary with the
         attributes relevant for client side visualisation of
         the Feature."""
 
         def floatformat(f):
             return round(f, precision)
-            # template = '{{:0.{p}f}}'.format(p=precision)
-            # return template.format(f)
 
         return OrderedDict([
-            ('className', self.className),
+            ('label', self.label),
             ('x', floatformat(self.left)),
             ('y', floatformat(self.top)),
             ('width', floatformat(self.width)),
@@ -62,27 +61,21 @@ class Feature(Box):
         bottom = top + float(data.get('height'))
         right = left + float(data.get('width'))
         return cls(
-            className=data.get('className', 'feature'),
+            label=data.get('label', 'feature'),
             weight=data.get('weight', 0),
             left=left, top=top, bottom=bottom, right=right
         )
 
 
-class BaseFeatureDetector:
+class FeatureDetector(abc.ABC):
 
-    """Example feature detector interface."""
-
-    def find_features(self, fn: FileName) -> tp.List[Feature]:
+    @abc.abstractmethod
+    def detect_features(self, fn: FileName) -> List[Feature]:
         """Find the most salient features of the image."""
-        cv_image = self.opencv_image(fn, 100)
-        img_h, img_w = cv_image.shape[:2]  # type: int, int
-        middle = Feature(1, 'keypoint', 0, 0, 1, 1)
-        middle.width = 0.5
-        middle.height = middle.width * img_w / img_h
-        return [middle]
+        ...
 
     @staticmethod
-    def opencv_image(fn: str, resize: int=0) -> CVImage:
+    def _opencv_image(fn: str, resize: int=0) -> CVImage:
         """Read image file to grayscale openCV int array.
 
         The OpenCV algorithms works on a two dimensional
@@ -95,11 +88,13 @@ class BaseFeatureDetector:
             multiplier = (resize ** 2 / (w * h)) ** 0.5
             dimensions = tuple(
                 int(round(d * multiplier)) for d in (w, h))
-            cv_image = cv2.resize(cv_image, dimensions)
+            cv_image = cv2.resize(
+                cv_image, dimensions,
+                interpolation=cv2.INTER_AREA)
         return cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
 
     @staticmethod
-    def normalize_box(box: Box, img_w: int, img_h: int) -> Box:
+    def _normalize_box(box: Box, img_w: int, img_h: int) -> Box:
         """Convert a Box to a relative coordinate system.
 
         The input box, width and height are the actual pixel
@@ -115,7 +110,21 @@ class BaseFeatureDetector:
         )
 
 
-class KeypointDetector(BaseFeatureDetector):
+class MockFeatureDetector(FeatureDetector):
+
+    """Example feature detector interface."""
+
+    def detect_features(self, fn: FileName) -> List[Feature]:
+        """Find the most salient features of the image."""
+        cv_image = self._opencv_image(fn, 100)
+        img_h, img_w = cv_image.shape[:2]  # type: int, int
+        middle = Feature(1, 'keypoint', 0, 0, 1, 1)
+        middle.width = 0.5
+        middle.height = middle.width * img_w / img_h
+        return [middle]
+
+
+class KeypointDetector(FeatureDetector):
 
     """Feature detector using OpenCVs ORB algorithm"""
 
@@ -123,25 +132,25 @@ class KeypointDetector(BaseFeatureDetector):
 
     def __init__(self, n: int=10, imagesize: int=200,
                  padding: float=1.0, **kwargs) -> None:
-        self.imagesize = imagesize
-        self.padding = padding
+        self._imagesize = imagesize
+        self._padding = padding
         arguments = dict(
             nfeatures=n + 1,
             scaleFactor=1.5,
-            patchSize=self.imagesize // 10,
-            edgeThreshold=self.imagesize // 10,
+            patchSize=self._imagesize // 10,
+            edgeThreshold=self._imagesize // 10,
             WTA_K=2,
             scoreType=cv2.ORB_FAST_SCORE,
         )
         arguments.update(kwargs)
-        self.feature_detector = cv2.ORB_create(**arguments)
+        self._feature_detector = cv2.ORB_create(**arguments)
 
-    def find_features(self, fn: str) -> tp.List[Feature]:
+    def detect_features(self, fn: str) -> List[Feature]:
         """Find interesting keypoints in the image."""
         features = []
-        cv_image = self.opencv_image(fn, self.imagesize)
+        cv_image = self._opencv_image(fn, self._imagesize)
         img_h, img_w = cv_image.shape[:2]  # type: int, int
-        keypoints = self.feature_detector.detectAndCompute(
+        keypoints = self._feature_detector.detectAndCompute(
             image=cv_image, mask=None)[0]  # type: list
 
         def normalize_weight(box: Box,
@@ -155,17 +164,17 @@ class KeypointDetector(BaseFeatureDetector):
         for keypoint in keypoints:
             x, y = keypoint.pt  # type: float, float
             radius = keypoint.size / 2  # type: float
-            rect = self.normalize_box(
+            rect = self._normalize_box(
                 Box(
                     left=x - radius,
                     top=y - radius,
                     right=x + radius,
                     bottom=y + radius
-                ) * self.padding,
+                ) * self._padding,
                 img_w, img_h,
             )
             features.append(Feature(
-                className=self.CSS_CLASS_NAME,
+                label=self.CSS_CLASS_NAME,
                 weight=normalize_weight(rect, keypoint),
                 **rect.__dict__,
             ))
@@ -173,14 +182,14 @@ class KeypointDetector(BaseFeatureDetector):
         return sorted(features, reverse=True)
 
 
-class FaceDetector(BaseFeatureDetector):
+class FaceDetector(FeatureDetector):
 
     """Face detector using OpenCVs Viola-Jones algorithm and
     and Haar cascade training data files classifying human
     frontal and profile faces."""
 
-    DIR = '/usr/share/opencv/haarcascades/'
-    CLASSIFIERS = {
+    _DIR = '/usr/share/opencv/haarcascades/'
+    _CLASSIFIERS = {
         'frontal face': {
             'file': 'haarcascade_frontalface_default.xml',
             'multiplier': 1.00,
@@ -189,36 +198,32 @@ class FaceDetector(BaseFeatureDetector):
             'file': 'haarcascade_frontalface_alt.xml',
             'multiplier': 0.90,
         },
-        # 'alt2 face': {
-        #     'file': 'haarcascade_frontalface_alt2.xml',
-        #     'multiplier': 0.80,
-        # },
         'profile face': {
             'file': 'haarcascade_profileface.xml',
             'multiplier': 0.75,
         },
-    }  # type: tp.Mapping[str, dict]
+    }  # type: Mapping[str, dict]
 
     def __init__(self, padding: float=1.2, n: int=10,
                  imagesize: int=600, **kwargs) -> None:
-        self.imagesize = imagesize
+        self._imagesize = imagesize
         minsize = max(25, imagesize // 20)
-        self.minsize = (minsize, minsize)
-        self.padding = padding
-        self.number = n
-        self.kwargs = kwargs
+        self._minsize = (minsize, minsize)
+        self._padding = padding
+        self._number = n
+        self._kwargs = kwargs
 
-    def find_features(self, fn: FileName) -> tp.List[Feature]:
+    def detect_features(self, fn: FileName) -> List[Feature]:
         """Find faces in the image."""
-        cv_image = self.opencv_image(fn, self.imagesize)
+        cv_image = self._opencv_image(fn, self._imagesize)
         img_h, img_w = cv_image.shape[:2]  # type: int, int
-        features = []  # type: tp.List[Feature]
+        features = []  # type: List[Feature]
         kwargs = {
-            "minSize": self.minsize,
+            "minSize": self._minsize,
             "scaleFactor": 1.2,
             "minNeighbors": 5,
         }
-        kwargs.update(self.kwargs)
+        kwargs.update(self._kwargs)
 
         def normalize_weight(box: Box) -> float:
             """Calculate relative saliency weight."""
@@ -227,55 +232,56 @@ class FaceDetector(BaseFeatureDetector):
             # for comparisons and sorting.
             return box.width * box.height * 200
 
-        for name, classifier in self.CLASSIFIERS.items():
+        for name, classifier in self._CLASSIFIERS.items():
             faces = cv2.CascadeClassifier(
-                os.path.join(self.DIR, classifier['file'])
+                os.path.join(self._DIR, classifier['file'])
             ).detectMultiScale(cv_image, **kwargs)
 
             for left, top, width, height in faces:
                 right, bottom = left + width, top + height
-                box = self.normalize_box(
+                box = self._normalize_box(
                     Box(left, top, right, bottom) *
-                    classifier['multiplier'] * self.padding,
+                    classifier['multiplier'] * self._padding,
                     img_w, img_h
                 )
                 features.append(
                     Feature(
                         weight=normalize_weight(box),
-                        className=name,
+                        label=name,
                         **box.__dict__,
                     )
                 )
 
-        return sorted(features, reverse=True)[:self.number]
+        return sorted(features, reverse=True)[:self._number]
 
 
-class HybridDetector(BaseFeatureDetector):
+class HybridDetector(FeatureDetector):
     """Detector using a hybrid strategy to find salient
     features in images.
 
-    Tries to detect faces first. If the faces are small
-    relative to the image, will detect keypoints as well.
-    If no faces are detected, will fall back to a pure
-    KeypointDetector."""
+    Tries to detect_features faces first. If the faces are
+    small relative to the image, will detect_features
+    keypoints as well.  If no faces are detected, will fall
+    back to a pure KeypointDetector."""
 
-    FACEAREA_BREAKPOINT = 0.15
+    BREAKPOINT = 0.15
 
-    def __init__(self, padding: float=1.4,
-                 face_kwargs: dict={},
-                 kp_kwargs: dict={}) -> None:
-        self.face_engine = FaceDetector(
-            padding=padding, **face_kwargs)
-        self.kp_engine = KeypointDetector(
-            padding=padding, **kp_kwargs)
-        self.extra_keypoints = KeypointDetector(
-            padding=1.0, n=8, **kp_kwargs)
+    def __init__(self) -> None:
+        self.primary_detector = FaceDetector()
+        self.fallback_detector = KeypointDetector()
+        self.secondary_detector = KeypointDetector(
+            padding=1.0, n=8)
 
-    def find_features(self, fn: FileName) -> tp.List[Feature]:
+    def detect_features(self, fn: FileName) -> List[Feature]:
         """Find faces and/or keypoints in the image."""
-        features = self.face_engine.find_features(fn)
+        detectors = [
+            self.primary_detector.detect_features,
+            self.secondary_detector.detect_features,
+            self.fallback_detector.detect_features,
+        ]
+        features = detectors[0](fn)
         if not features:
-            return self.kp_engine.find_features(fn)
-        if sum(features).size < self.FACEAREA_BREAKPOINT:
-            features += self.extra_keypoints.find_features(fn)
+            return detectors[2](fn)
+        if sum(features).size < self.BREAKPOINT:
+            features += detectors[1](fn)
         return features

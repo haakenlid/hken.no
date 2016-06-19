@@ -113,7 +113,7 @@ symbol {
 .overlayWrapper svg.overlay {
   height: 100%;
   z-index: 10;
-  shape-rendering: crispEdges;
+  shape-rendering: auto;
   position: absolute;
   top: 0;
   left: 0;

@@ -3,11 +3,11 @@
 import pytest
 import json
 from utils.cropengine import (
-    BaseFeatureDetector, FaceDetector,
+    MockFeatureDetector, FaceDetector,
     KeypointDetector, HybridDetector, Feature)
 from utils.boundingbox import Box
 
-detectors = BaseFeatureDetector, FaceDetector, KeypointDetector, HybridDetector
+detectors = MockFeatureDetector, FaceDetector, KeypointDetector, HybridDetector
 
 
 @pytest.fixture
@@ -18,10 +18,10 @@ def testimage():
 @pytest.mark.parametrize('Detector', detectors)
 def test_cropdetector(Detector, testimage):
     detector = Detector()
-    features = detector.find_features(testimage)
+    features = detector.detect_features(testimage)
     assert len(features) >= 1
     assert 0 < sum(features).size < 1
-    keys = {'x', 'y', 'width', 'height', 'className', 'weight'}
+    keys = {'x', 'y', 'width', 'height', 'label', 'weight'}
     assert set(features[0].serialize().keys()) == keys
 
 
@@ -30,7 +30,7 @@ def test_serialize_and_deserialize():
     dump = json.dumps(feature.serialize())
     data = json.loads(dump)
     assert data == {
-        "className": "hello", "x": 1, "y": 2,
+        "label": "hello", "x": 1, "y": 2,
         "width": 3, "height": 7, "weight": 5
     }
     clone = Feature.deserialize(data)
@@ -40,7 +40,7 @@ def test_serialize_and_deserialize():
 def test_that_keypointdetector_returns_correct_number_of_features(testimage):
     number = 3
     detector = KeypointDetector(n=number)
-    features = detector.find_features(testimage)
+    features = detector.detect_features(testimage)
     assert len(features) == number
 
 

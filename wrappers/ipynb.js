@@ -1,8 +1,8 @@
 import React from 'react'
 import { BlogPost } from 'components'
 
-const Cell = ({ rendered, cellType }) => {
-  return rendered.markdown ? (
+const Cell = ({ rendered, cellType }) => (
+  rendered.markdown ? (
     <div
       className="markdown cell"
       dangerouslySetInnerHTML={{ __html: rendered.markdown }}
@@ -20,7 +20,7 @@ const Cell = ({ rendered, cellType }) => {
       }
     </div>
   )
-}
+)
 
 Cell.propTypes = {
   rendered: React.PropTypes.object,
@@ -29,6 +29,7 @@ Cell.propTypes = {
 
 const NotebookWrapper = ({ route }) => {
   const post = route.page.data
+  const cells = post.cells.filter(cell => !cell.metadata.hidden)
   const renderCell = (cell, i) => (
     <Cell
       key={i}
@@ -38,7 +39,7 @@ const NotebookWrapper = ({ route }) => {
   )
   return (
     <BlogPost post={post} route={route}>
-      { post.cells.map(renderCell) }
+      { cells.map(renderCell) }
     </BlogPost>
   )
 }

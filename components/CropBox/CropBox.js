@@ -30,7 +30,7 @@ class Canvas extends React.Component {
   }
   render() {
     const horizontal = false
-    const { src, interactive, features } = this.props
+    const { src, interactive, features, showPreviews } = this.props
     const direction = horizontal ? ['row', 'column'] : ['column', 'row']
     const aspects = horizontal ? [0.6, 2] : [1, 0.5, 2.5]
     return (
@@ -55,11 +55,13 @@ class Canvas extends React.Component {
           />
           <CropInfo src={src} />
         </div>
-        <Previews
-          src={src}
-          aspects={aspects}
-          flexDirection={direction[1]}
-        />
+        { showPreviews &&
+          <Previews
+            src={src}
+            aspects={aspects}
+            flexDirection={direction[1]}
+          />
+        }
       </div>
     )
   }
@@ -72,9 +74,11 @@ Canvas.propTypes = {
   addImage: React.PropTypes.func.isRequired,
   interactive: React.PropTypes.bool.isRequired,
   features: React.PropTypes.array.isRequired,
+  showPreviews: React.PropTypes.bool.isRequired,
 }
 Canvas.defaultProps = {
   interactive: true,
+  showPreviews: true,
   features: [],
 }
 const defaultCrop = { h: [0.1, 0.5, 0.9], v: [0.1, 0.5, 0.9] }

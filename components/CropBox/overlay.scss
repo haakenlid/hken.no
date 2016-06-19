@@ -50,7 +50,7 @@ symbol {
   }
   .back {
     stroke-opacity: 0.0;
-    stroke-width: 15; 
+    stroke-width: 15;
     pointer-events: stroke;
   }
   .cross {
@@ -58,7 +58,7 @@ symbol {
     pointer-events: none;
     stroke-opacity: 0.0;
     // transform-origin: 50% 50%;
-    // animation: spin 10000ms linear infinite; 
+    // animation: spin 10000ms linear infinite;
     // transform: rotate(45deg);
   }
 
@@ -89,13 +89,13 @@ symbol {
   svg.overlay {
     height: 100%;
     z-index: 10;
-    shape-rendering: crispEdges;
+    shape-rendering: auto;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     .feature { @extend %feature; }
-    
+
     path, rect, ellipse {
       vector-effect: non-scaling-stroke;
       fill: rgba(0,0,0,0.0);

@@ -8,6 +8,8 @@ import numpy
 import time
 import glob
 from utils import reactjs
+from utils.cropengine import FeatureDetector
+
 
 Img = typing.Union[numpy.ndarray, str]
 
@@ -16,13 +18,15 @@ def timediff(start: float, stop: float) -> str:
     return '{:.0f}ms'.format(1000 * (stop - start))
 
 
-def croppify_img(image_file: str, detector: typing.Any) -> str:
+def croppify_img(image_file: str,
+                 detector: FeatureDetector,
+                 preview: bool=False) -> str:
     st = time.time()
-    features = detector.find_features(image_file)
+    features = detector.detect_features(image_file)
     dt = time.time()
-    rendered = reactjs.render(image_file, features)
+    rendered = reactjs.render(image_file, features, preview=preview, raw=True)
     rt = time.time()
-    return '<h2>{title}</h2><p>{info}</p>{rendered}'.format(
+    return '<h4>{title}</h4><p>{info}</p>{rendered}'.format(
         title=image_file,
         info='detect: {} render: {}'.format(
             timediff(st, dt), timediff(dt, rt)),
@@ -30,10 +34,11 @@ def croppify_img(image_file: str, detector: typing.Any) -> str:
     )
 
 
-def croppify_all(detector, images=None):
+def croppify_all(detector, images=None, preview: bool=False):
     images = images or glob.glob('*.jpg')
     # random.shuffle(images)
-    output = '\n'.join(croppify_img(img, detector) for img in images)
+    output = '\n'.join(
+        croppify_img(img, detector, preview=preview) for img in images)
     return IPython.display.HTML(output)
 
 

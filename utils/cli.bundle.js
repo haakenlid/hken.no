@@ -21336,6 +21336,7 @@
 	      var src = _props.src;
 	      var interactive = _props.interactive;
 	      var features = _props.features;
+	      var showPreviews = _props.showPreviews;
 
 	      var direction = horizontal ? ['row', 'column'] : ['column', 'row'];
 	      var aspects = horizontal ? [0.6, 2] : [1, 0.5, 2.5];
@@ -21364,7 +21365,7 @@
 	          }),
 	          _react2['default'].createElement(_CropInfo.CropInfo, { src: src })
 	        ),
-	        _react2['default'].createElement(_Preview.Previews, {
+	        showPreviews && _react2['default'].createElement(_Preview.Previews, {
 	          src: src,
 	          aspects: aspects,
 	          flexDirection: direction[1]
@@ -21383,10 +21384,12 @@
 	  setImgSize: _react2['default'].PropTypes.func.isRequired,
 	  addImage: _react2['default'].PropTypes.func.isRequired,
 	  interactive: _react2['default'].PropTypes.bool.isRequired,
-	  features: _react2['default'].PropTypes.array.isRequired
+	  features: _react2['default'].PropTypes.array.isRequired,
+	  showPreviews: _react2['default'].PropTypes.bool.isRequired
 	};
 	Canvas.defaultProps = {
 	  interactive: true,
+	  showPreviews: true,
 	  features: []
 	};
 	var defaultCrop = { h: [0.1, 0.5, 0.9], v: [0.1, 0.5, 0.9] };
@@ -21937,7 +21940,7 @@
 	          key: key,
 	          className: key,
 	          x: 1,
-	          dy: size * -1.2,
+	          dy: size * 1.2,
 	          style: { fontSize: size }
 	        },
 	        key + ': ' + items[key]
@@ -21980,27 +21983,27 @@
 	};
 
 	var Feature = function Feature(_ref3) {
-	  var _ref3$className = _ref3.className;
-	  var className = _ref3$className === undefined ? "" : _ref3$className;
+	  var _ref3$label = _ref3.label;
+	  var label = _ref3$label === undefined ? "" : _ref3$label;
 	  var _ref3$weight = _ref3.weight;
 	  var weight = _ref3$weight === undefined ? 0 : _ref3$weight;
 
-	  var props = _objectWithoutProperties(_ref3, ['className', 'weight']);
+	  var props = _objectWithoutProperties(_ref3, ['label', 'weight']);
 
 	  return _react2['default'].createElement(
 	    'svg',
 	    _extends({
-	      className: 'feature ' + className,
+	      className: 'feature ' + label,
 	      preserveAspectRatio: 'none',
 	      viewBox: '0 0 2 2'
 	    }, props),
-	    _react2['default'].createElement(Label, { items: { className: className, weight: weight }, size: 0.04 / props.width }),
-	    className.includes('keypoint') && _react2['default'].createElement(Keypoint, null),
-	    className.includes('face') && _react2['default'].createElement(Face, { className: className })
+	    label.includes('keypoint') && _react2['default'].createElement(Keypoint, null),
+	    label.includes('face') && _react2['default'].createElement(Face, { className: label }),
+	    _react2['default'].createElement(Label, { items: { label: label, weight: weight }, size: 0.04 / props.width })
 	  );
 	};
 	Feature.propTypes = {
-	  className: _react2['default'].PropTypes.string,
+	  label: _react2['default'].PropTypes.string,
 	  weight: _react2['default'].PropTypes.number,
 	  width: _react2['default'].PropTypes.number
 	};

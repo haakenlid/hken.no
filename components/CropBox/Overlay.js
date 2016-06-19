@@ -35,7 +35,7 @@ const Label = ({ items, size }) => (
         key={key}
         className={key}
         x = {1}
-        dy = {size * -1.2}
+        dy = {size * 1.2}
         style={{ fontSize: size }}
       >
         {`${key}: ${items[key]}`}
@@ -74,20 +74,20 @@ Face.propTypes = {
   className: React.PropTypes.string,
 }
 
-const Feature = ({ className = "", weight = 0, ...props }) => (
+const Feature = ({ label = "", weight = 0, ...props }) => (
   <svg
-    className={`feature ${className}`}
+    className={`feature ${label}`}
     preserveAspectRatio="none"
     viewBox="0 0 2 2"
     {...props}
   >
-    <Label items={{ className, weight }} size={ 0.04 / props.width } />
-    { className.includes('keypoint') && <Keypoint /> }
-    { className.includes('face') && <Face className={className} /> }
+    { label.includes('keypoint') && <Keypoint /> }
+    { label.includes('face') && <Face className={label} /> }
+    <Label items={{ label, weight }} size={ 0.04 / props.width } />
   </svg>
 )
 Feature.propTypes = {
-  className: React.PropTypes.string,
+  label: React.PropTypes.string,
   weight: React.PropTypes.number,
   width: React.PropTypes.number,
 }
