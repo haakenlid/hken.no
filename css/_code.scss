@@ -1,19 +1,11 @@
-// Code formatting for hken.no 
+// Code formatting for hken.no
 
 @import './hljs/github'; // hljs formatting
 
 pre, code {
   font-family: $code-font;
   font-weight: 400;
-}
-.cell.code + .cell.markdown,
-.cell.markdown + .cell.code {
-  // padding-top: .5em;
-  border-top: 1px solid $line-color;
-}
-.CodeBlock {
-  // border-top: 1px solid $line-color;
-  // border-bottom: 1px solid $line-color;
+  // background: #f8f8f8;
 }
 %line {
   display: inline-block;
@@ -21,7 +13,7 @@ pre, code {
   margin: 0;
   padding: 0;
   counter-increment: linenumber;
-  &:before { 
+  &:before {
     margin-right: 2ch;
     height: 100%;
     text-align: right;
@@ -30,33 +22,32 @@ pre, code {
     width: 2ch;
     content: counter(linenumber);
     -webkit-user-select: none;
-    white-space: nowrap; 
-  } 
-} 
+    white-space: nowrap;
+  }
+}
 pre {
   font-size: 0.9rem;
-  line-height: 1.4rem;
+  line-height: 1.5em;
   tab-size: 4;
+  word-break: break-word;
+  white-space: pre-wrap;
   @media screen and (max-width: 800px) {
     font-size: 0.8rem;
   }
   @media screen and (max-width: 600px) {
-    font-size: 0.7rem;
-    line-height: 1.0rem;
+    font-size: 2.5vw;
     tab-size: 2;
     .line:before {
       display: none;
     }
   }
-  word-break: break-word;
   padding: 0;
   margin: 0;
   position: relative;
-  white-space: pre-wrap;
   .line {
     @extend %line;
   }
-  &.cell-input { 
+  &.cell-input {
     padding: .5*$line-height 0;
   }
   &.cell-output {

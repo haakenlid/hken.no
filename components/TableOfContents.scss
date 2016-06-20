@@ -1,0 +1,35 @@
+.TableOfContents {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 10rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  z-index: 1000;
+  .toc {
+    background: white;
+    cursor: pointer;
+    padding: 0.2em;
+    &.active:before {
+      display: block;
+      position: absolute;
+      left: 0;
+      content: '>';
+    }
+    &:hover {
+      color: #000;
+    }
+  }
+  .H1 {
+    font-size: 1.2em;
+    padding-left: 0;
+  }
+  .H2 {
+    font-size: 1.0em;
+    padding-left: 1em;
+  }
+  .H3 {
+    font-size: 0.9em;
+    padding-left: 2em;
+  }
+}
