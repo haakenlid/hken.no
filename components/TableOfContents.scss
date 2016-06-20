@@ -1,4 +1,5 @@
 .TableOfContents {
+  display: none;
   position: fixed;
   left: 0;
   top: 0;
@@ -31,5 +32,8 @@
   .H3 {
     font-size: 0.9em;
     padding-left: 2em;
+  }
+  @media screen and (min-width: 1000px) {
+    display: block;
   }
 }
