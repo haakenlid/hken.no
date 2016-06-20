@@ -1,20 +1,16 @@
 .TableOfContents {
-  display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 10rem;
   font-size: 0.8rem;
   line-height: 1rem;
   z-index: 1000;
+  position: relative;
   .toc {
     background: white;
     cursor: pointer;
     padding: 0.2em;
     &.active:before {
-      display: block;
       position: absolute;
       left: 0;
+      display: block;
       content: '>';
     }
     &:hover {
@@ -32,8 +28,5 @@
   .H3 {
     font-size: 0.9em;
     padding-left: 2em;
-  }
-  @media screen and (min-width: 1000px) {
-    display: block;
   }
 }
