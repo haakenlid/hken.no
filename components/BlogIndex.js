@@ -21,12 +21,12 @@ const blogPosts = pages => pages
     .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
     .map(page => <PageLink page={page} key={page.path} />)
 
-const BlogPosts = ({ route }) => (
-  <ul className="BlogPosts" >
+const BlogIndex = ({ route }) => (
+  <ul className="BlogIndex" >
     { blogPosts(route.pages) }
   </ul>
 )
-BlogPosts.propTypes = {
+BlogIndex.propTypes = {
   route: React.PropTypes.object,
 }
-export { BlogPosts }
+export { BlogIndex }

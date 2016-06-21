@@ -13,7 +13,7 @@ $face-end:        .946;
   $offset:   $start * -$path-length;
   $stroke:   $end * $path-length + $offset;
   $gap:      $path-length - $stroke;
-  
+
   stroke-dashoffset: $offset;
   stroke-dasharray: $stroke $gap;
 }
@@ -24,14 +24,13 @@ $face-end:        .946;
   100% { @include line($monogram-start+1, $monogram-end+1)}
 }
 
-%face { 
+%face {
   @include line($face-start,   $face-end  ) }
-%monogram { 
+%monogram {
   @extend %face;
   @include line($monogram-start,   $monogram-end  ) }
 
 .Icon.Monogram {
-  margin-right: .1em;
   stroke-width: $stroke-width;
   path {
     transition: inherit;
@@ -42,7 +41,7 @@ $face-end:        .946;
   .face { @extend %face; }
   .monogram { @extend %monogram; }
   .loop {
-    animation: monogram-loop $speed infinite $ease; 
+    animation: monogram-loop $speed infinite $ease;
   }
 }
 .animate:hover .Icon.Monogram,

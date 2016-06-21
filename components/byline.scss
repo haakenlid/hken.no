@@ -5,6 +5,9 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
+  a {
+    color: currentColor;
+  }
   .text {
     flex: 1;
     font-size: .7rem;

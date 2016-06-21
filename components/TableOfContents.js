@@ -37,15 +37,18 @@ class TableOfContents extends React.Component {
   handleScroll() {
     const where = getPos()
     const { items } = this.props
+    const { tocIndex } = this.state
     let index
-    for (index = 0; index < items.length; index++) {
+    for (index = tocIndex - 2; index < items.length; index++) {
+      if (index < 0) { continue }
       const item = items[index]
-      const itempos = getIdPos(item.id) - 100
+      const itempos = getIdPos(item.id) - 20
       if (itempos >= where) {
         break
       }
     }
-    if (index !== this.state.tocIndex) {
+    index --
+    if (index !== tocIndex) {
       const currentItem = items[index]
       const hashFragment = currentItem ? `#${currentItem.id}` : ''
       window.history.replaceState(null, null, hashFragment)

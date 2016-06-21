@@ -3,7 +3,6 @@ import React from 'react'
 
 const About = () => (
   <section className="About">
-    <img className="mugshot" src="/images/fjes.jpg" />
     <p><strong>Håken Lid</strong></p>
   </section>
 )

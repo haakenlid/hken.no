@@ -1,4 +1,6 @@
-const STEPS = 100
+const STEPS = 50
+const TICK = 10
+
 const getPos = () => {
   if (typeof window !== 'object') { return 0 }
   return document.body.scrollTop || document.documentElement.scrollTop
@@ -12,14 +14,13 @@ const getIdPos = (id) => {
 
 
 const scrollTo = (to, duration) => {
-  const tick = 5
   if (typeof window !== 'object' || duration <= 0 || getPos() === to) {
     return
   }
   setTimeout(() => {
-    window.scrollTo(0, getPos() + tick * (to - getPos()) / duration)
-    scrollTo(to, duration - tick)
-  }, tick)
+    window.scrollTo(0, getPos() + TICK * (to - getPos()) / duration)
+    scrollTo(to, duration - TICK)
+  }, TICK)
 }
 
 const scrollTop = ({ to = 0, duration = STEPS }) => {

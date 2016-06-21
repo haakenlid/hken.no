@@ -1,11 +1,11 @@
 import React from 'react'
-import { md, trimIndentation } from 'utils/markdown'
+import { renderMarkdown } from 'utils/markdown'
 
 const Markdown = ({ children }) => (
   <div
     className="markdown"
     dangerouslySetInnerHTML={{
-      __html: md.render(trimIndentation(children)),
+      __html: renderMarkdown(children),
     }}
   />
 )

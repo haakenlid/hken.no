@@ -5,13 +5,13 @@ $slow: 3000ms;
 $stroke-width: 6px;
 
 .Icon {
-  height: 1em; 
+  height: 1em;
   width: auto;
   vertical-align: top;
   display: inline-block;
   fill-opacity: 0;
   stroke: currentColor;
-  stroke-width: $stroke-width; 
+  stroke-width: $stroke-width;
   path {
     stroke: inherit;
     stroke-width: inherit;
@@ -46,8 +46,8 @@ $stroke-width: 6px;
   }
   &:hover .Monogram,
   & .Monogram:hover {
-    transition: stroke-dashoffset $fast ease 0ms,
-                stroke-dasharray  $fast ease 0ms;
+    transition: stroke-dashoffset $medium ease 0ms,
+                stroke-dasharray  $medium ease 0ms;
   }
 }
 

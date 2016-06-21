@@ -1,9 +1,9 @@
 import frontMatter from 'front-matter'
-import { highlightjs, md } from '../../utils/markdown'
+import { renderMarkdown, renderCode } from '../../utils/markdown'
 
 const highlightCode = (code, language) => {
   // const content = hljs.highlight(language, code, true).value
-  const content = highlightjs(code, language, 20)
+  const content = renderCode(code, language, 20)
   const className = language ? `class="lang-${language}"` : ''
   return `<code ${className}>${content}</code>`
 }
@@ -16,7 +16,7 @@ const cellToMarkdown = (cell, language) => {
     output: null,
   }
   if (cell.cell_type === 'markdown') {
-    rendered.markdown = md.render(cell.source.join('').trim())
+    rendered.markdown = renderMarkdown(cell.source.join(''))
   } else {
     rendered.source = highlightCode(
       cell.source.join('').trim(), language

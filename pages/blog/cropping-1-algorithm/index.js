@@ -25,7 +25,6 @@ export default class Post extends React.Component {
     return (
       <Provider store={ store }>
         <Wrapper {...this.props} >
-          <h1>Lazy image cropping</h1>
           <Markdown>{`
 This is the first in a series of blog entries about image cropping. The idea of
 image cropping is quite simple. We cut away parts of the original image to fit

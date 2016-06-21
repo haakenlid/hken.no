@@ -1,32 +1,37 @@
+#EOF {
+  position: absolute;
+  bottom: 0;
+  height: calc(100vh);
+  width: 0;
+  pointer-events: none;
+  // background: black;
+  // opacity: 0.2;
+}
 .TableOfContents {
-  font-size: 0.8rem;
-  line-height: 1rem;
-  z-index: 1000;
-  position: relative;
   .toc {
-    background: white;
     cursor: pointer;
-    padding: 0.2em;
-    &.active:before {
-      position: absolute;
-      left: 0;
-      display: block;
-      content: '>';
+    padding: 0.2em 0 0 0;
+    line-height: 1.1em;
+    color: #888;
+    border-right: 10px solid transparent;
+    transition: border 500ms;
+    &.active {
+      color: #000;
+      transition: border 200ms;
+      border-color: #999;
     }
     &:hover {
-      color: #000;
+      text-decoration: underline;
     }
   }
   .H1 {
-    font-size: 1.2em;
-    padding-left: 0;
   }
   .H2 {
-    font-size: 1.0em;
-    padding-left: 1em;
+    font-size: 0.7em;
+    font-weight: 400;
+    // border-top: 1px solid #eee;
   }
   .H3 {
-    font-size: 0.9em;
-    padding-left: 2em;
+    font-size: 0.7em;
   }
 }
