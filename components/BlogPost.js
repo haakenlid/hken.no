@@ -26,8 +26,7 @@ class BlogPost extends React.Component {
     const { post, children, route, toc } = this.props
     const date = moment(post.date || Date.now()).format('MMMM D, YYYY')
     const author = post.author || config.authorName
-    toc.unshift({ id: 'title', text: post.title, tag: 'H1' })
-    toc.push({ id: 'EOF', text: 'End', tag: 'H2' })
+    toc.unshift({ id: '', text: post.title, tag: 'H1' })
     return (
       <Page title={post.title} >
         <section>

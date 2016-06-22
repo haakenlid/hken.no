@@ -32,6 +32,8 @@ into whatever final shape we need to put it into for publication. We might also
 want have the most important part of the motive fill as much of the image frame
 as possible.
 
+## Unicode ♥ is ☢!
+
 The challenge is that a single source image often ends up being used in various
 final shapes, and we don't want to prepare a bunch of different pre-cropped
 versions of the same image. If we can determine which regions of the full image

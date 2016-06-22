@@ -26,7 +26,11 @@ class TableOfContents extends React.Component {
   componentDidMount() {
     if (typeof window === 'object') {
       window.addEventListener('scroll', this.handleScroll)
-      this.handleScroll()
+      const hash = window.location.hash
+      if (hash) {
+        setTimeout(() => {scrollToId(hash, 1)}, 100)
+        setTimeout(() => {scrollToId(hash, 1)}, 1500)
+      }
     }
   }
   componentWillUnmount() {
@@ -39,10 +43,10 @@ class TableOfContents extends React.Component {
     const { items } = this.props
     const { tocIndex } = this.state
     let index
-    for (index = tocIndex - 2; index < items.length; index++) {
+    for (index = 0; index < items.length; index++) {
       if (index < 0) { continue }
       const item = items[index]
-      const itempos = getIdPos(item.id) - 20
+      const itempos = getIdPos(item.id) - 50
       if (itempos >= where) {
         break
       }

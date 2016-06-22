@@ -10,6 +10,7 @@ const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Li
 const Logo = () => (
   <div className="Logo animate">
     <Monogram className="face" />
+    <Home />
   </div>
 )
 
@@ -24,7 +25,6 @@ class Page extends React.Component {
           <header className="PageHeader">
             <nav className="PageNav" >
               <Logo />
-              <Home />
               { sidebar }
               <SocialMedia style={{ color: 'red' }} />
             </nav>
