@@ -2,7 +2,6 @@ import React from 'react'
 import DocumentTitle from 'react-document-title'
 import { link } from 'gatsby-helpers'
 
-
 const Head = ({ title }) => (
   <head>
     <title>{ title }</title>
@@ -43,7 +42,6 @@ Head.propTypes = {
   title: React.PropTypes.string,
 }
 
-
 /* eslint-disable react/prefer-stateless-function */
 export default class Html extends React.Component {
   render() {
@@ -62,7 +60,6 @@ export default class Html extends React.Component {
     )
   }
 }
-
 
 Html.propTypes = {
   body: React.PropTypes.string,

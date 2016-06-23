@@ -10,8 +10,7 @@ const metadata = {
   title: "React Redux image cropping",
   date: "2016-04-01",
   layout: "post",
-  readNext: "/image-cropping/",
-  path: "/redux-cropper/",
+  tags: ["react.js", "svg", "react", "redux", "cropping", "images"],
 }
 
 const devTools = (typeof window === 'object' && typeof window.devToolsExtension

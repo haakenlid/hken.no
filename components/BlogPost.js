@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { ReadNext, Byline, Page } from 'components'
+import { relatedPosts, Byline, Page, Teaser } from 'components'
 import { TableOfContents } from './TableOfContents'
 import { config } from 'config'
 
@@ -24,16 +24,16 @@ Title.propTypes = {
 class BlogPost extends React.Component {
   render() {
     const { post, children, route, toc } = this.props
+    const related = relatedPosts(post, route)
+    console.log(post, ...related)
     const date = moment(post.date || Date.now()).format('MMMM D, YYYY')
     const author = post.author || config.authorName
     toc.unshift({ id: '', text: post.title, tag: 'H1' })
     return (
       <Page title={post.title} >
         <section>
-          { toc &&
-            <TableOfContents items={toc} /> }
-          { post.readNext &&
-            <ReadNext post={post} pages={route.pages} /> }
+          { toc && <TableOfContents items={toc} /> }
+          { related.map((r, i) => (<Teaser key={i} {...r} />)) }
         </section>
         <main className="blogpost">
           <Title date={date} author={author} title={post.title} />

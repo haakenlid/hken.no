@@ -3,20 +3,27 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { BlogPost } from 'components'
 import { getTOC } from 'utils/markdown'
 
-const JsxWrapper = ({ route, children }) => {
-  const post = route.page.data
-  const toc = getTOC([])
-  children.map(child => {
+const buildTOC = (children) => {
+  // Hack to build a table of contents
+  const toc = getTOC([]) // create new toc
+  const modifiedChildren = children.map(child => {
     if (child.type.name === 'Markdown') {
       renderToStaticMarkup(child)
+      // Hack that adds 'id' and 'a' to headings
     }
     return child
   })
-  getTOC([])
-  // console.log(toc)
+  getTOC([]) // start from 1 again
+  return { toc, modifiedChildren }
+}
+
+
+const JsxWrapper = ({ route, children }) => {
+  const post = route.page.data
+  const { toc, modifiedChildren } = buildTOC(children)
   return (
     <BlogPost toc={toc} post={post} route={route}>
-      { children }
+      { modifiedChildren }
     </BlogPost>
   )
 }
@@ -27,3 +34,28 @@ JsxWrapper.propTypes = {
 }
 
 export default JsxWrapper
+
+
+// const JsxWrapper = ({ route, children }) => {
+//   const post = route.page.data
+//   const toc = getTOC([])
+//   children.map(child => {
+//     if (child.type.name === 'Markdown') {
+//       renderToStaticMarkup(child)
+//     }
+//     return child
+//   })
+//   getTOC([])
+//   return (
+//     <BlogPost toc={toc} post={post} route={route}>
+//       { children }
+//     </BlogPost>
+//   )
+// }
+
+// JsxWrapper.propTypes = {
+//   route: React.PropTypes.object,
+//   children: React.PropTypes.node,
+// }
+
+// export default JsxWrapper

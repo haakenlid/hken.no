@@ -22,15 +22,16 @@ $breakpoint: 700px;
   display: flex;
   flex-direction: row;
   header.PageHeader {
-    padding-right: 1rem;
-    border-right: $border;
     min-width: $sidebar-width;
     height: calc(100vh - 1rem);
     nav.PageNav{
+      padding-right: 1rem;
+      border-right: $border;
       height: inherit;
       width: $sidebar-width;
       .Logo{
         flex-direction: column;
+        align-items: center;
         .Monogram {
           font-size: $sidebar-width * 0.7;
           stroke-width: 3px;
