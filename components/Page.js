@@ -6,12 +6,11 @@ import { Monogram } from 'components'
 import { SocialMedia } from 'components/SocialMedia'
 import { config } from 'config'
 
-const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Link>
+// const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Link>
 const Logo = () => (
-  <div className="Logo animate">
+  <Link className="Logo animate" to={link('/')}>
     <Monogram className="face" />
-    <Home />
-  </div>
+  </Link>
 )
 
 class Page extends React.Component {

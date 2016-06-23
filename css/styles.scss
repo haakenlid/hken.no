@@ -32,13 +32,13 @@ $breakpoint: 700px;
       .Logo{
         flex-direction: column;
         align-items: center;
+        margin: 0 0 .5em 0;
         .Monogram {
           font-size: $sidebar-width * 0.7;
           stroke-width: 3px;
         }
         h1{
           font-size: 1.5rem;
-          margin: 0 0 .5em 0;
         }
       }
       .ReadNext ul {
@@ -279,14 +279,15 @@ a:hover .Icon {
 }
 
 h1,h2,h3,h4,h5,h6 {
+  line-height: 1;
   color: #333;
   font-family: $header-font;
   font-weight: 300;
   margin: 0 0 .3em 0;
   padding: 1em 0 .3em 0;
   @media screen and (max-width: $breakpoint) {
-    margin-top: -1em;
-    padding-top: 2em;
+    margin-top: -0.5em;
+    padding-top: 1.5em;
   }
   border-bottom: $border;
   section &:first-child {

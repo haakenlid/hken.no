@@ -16,19 +16,23 @@
     color: #888;
     &.active {
       color: #000;
-      background: #efefef;
+      font-weight: bolder;
+      // background: #efefef;
     }
     &:hover {
       text-decoration: underline;
     }
   }
   .H1 {
+    border-top: 1px solid #eee;
   }
   .H2 {
     font-size: 0.7em;
+    font-weight: bolder;
     // border-top: 1px solid #eee;
   }
   .H3 {
+    padding-left: 1em;
     font-size: 0.7em;
   }
 }
