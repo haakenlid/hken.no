@@ -17,7 +17,6 @@ const buildTOC = (children) => {
   return { toc, modifiedChildren }
 }
 
-
 const JsxWrapper = ({ route, children }) => {
   const post = route.page.data
   const { toc, modifiedChildren } = buildTOC(children)
@@ -34,28 +33,3 @@ JsxWrapper.propTypes = {
 }
 
 export default JsxWrapper
-
-
-// const JsxWrapper = ({ route, children }) => {
-//   const post = route.page.data
-//   const toc = getTOC([])
-//   children.map(child => {
-//     if (child.type.name === 'Markdown') {
-//       renderToStaticMarkup(child)
-//     }
-//     return child
-//   })
-//   getTOC([])
-//   return (
-//     <BlogPost toc={toc} post={post} route={route}>
-//       { children }
-//     </BlogPost>
-//   )
-// }
-
-// JsxWrapper.propTypes = {
-//   route: React.PropTypes.object,
-//   children: React.PropTypes.node,
-// }
-
-// export default JsxWrapper

@@ -4,16 +4,16 @@ import { relatedPosts, Byline, Page, Teaser } from 'components'
 import { TableOfContents } from './TableOfContents'
 import { config } from 'config'
 
-const Title = ({ title, date, author, category, className = "Title" }) => (
-  <section id="title" className={className}>
+const BlogPostTitle = ({ title, date, author, category }) => (
+  <div className="BlogPostTitle">
     {author && <div className="author">{author}</div>}
     {date && <div className="date">{date}</div>}
     {category && <div className="category">{category}</div>}
     {title && <h1 className="title">{title}</h1>}
-  </section>
+  </div>
 )
 
-Title.propTypes = {
+BlogPostTitle.propTypes = {
   title: React.PropTypes.string,
   date: React.PropTypes.string,
   author: React.PropTypes.string,
@@ -36,18 +36,17 @@ class BlogPost extends React.Component {
             { toc && <TableOfContents items={toc} /> }
           </section>
           <section className="ReadNext">
-          <ul className="Index">
-          { related.map((r, i) => (<Teaser key={i} {...r} />)) }
-          </ul>
+            <ul className="Index">
+              { related.map((r, i) => (<Teaser key={i} {...r} />)) }
+            </ul>
           </section>
         </div>
         <main className="BlogPost">
-          <Title date={date} author={author} title={post.title} />
-          { children }
+          <BlogPostTitle date={date} author={author} title={post.title} />
+          {children}
           <footer>
             <Byline />
           </footer>
-          <div id="EOF" />
         </main>
       </Page>
     )
