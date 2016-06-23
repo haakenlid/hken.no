@@ -10,7 +10,9 @@ class FrontPage extends React.Component {
     return (
       <Page>
         <About />
-        <BlogIndex route={route} />
+        <main>
+          <BlogIndex route={route} />
+        </main>
       </Page>
     )
   }

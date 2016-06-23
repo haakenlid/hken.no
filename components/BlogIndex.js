@@ -22,7 +22,7 @@ const relatedPosts = (post, route, limit = 2) => {
 }
 
 const Teaser = ({ title, path }) => (
-  <li>
+  <li className="Teaser">
     <Link to={link(path)}> { title } </Link>
   </li>
 )
@@ -41,7 +41,7 @@ const blogPosts = route => publishedPages(route)
     />))
 
 const BlogIndex = ({ route }) => (
-  <ul className="BlogIndex" >
+  <ul className="Index" >
     { blogPosts(route) }
   </ul>
 )

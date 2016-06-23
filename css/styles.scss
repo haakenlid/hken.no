@@ -12,7 +12,7 @@ $link-color: #746dc3;
 $page-width: 50rem;
 $sidebar-width: 12rem;
 $topbar-height: 1.5rem;
-$breakpoint: 700px;
+$breakpoint: 600px;
 
 @import 'code';
 @import 'frontpage';
@@ -40,6 +40,9 @@ $breakpoint: 700px;
           font-size: 1.5rem;
           margin: 0 0 .5em 0;
         }
+      }
+      .ReadNext ul {
+        flex-direction: column;
       }
     }
   }
@@ -85,14 +88,28 @@ $breakpoint: 700px;
       .SocialMedia {
         align-self: center;
       }
-      section, .SocialMedia {
+      section {
         display: none;
       }
       &:hover {
-        section, .SocialMedia {
-          display: initial;
+        section {
+          display: block;
         }
       }
+    }
+  }
+}
+
+ul.Index {
+  padding: 0;
+  margin: 0;
+}
+.Teaser {
+  list-style: none;
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }
@@ -110,7 +127,7 @@ article.Page {
       align-content: center;
       flex-direction: column;
       position: fixed;
-      section {
+      .BlogPostNavigation {
         flex: 1;
       }
       .Logo {
@@ -120,6 +137,17 @@ article.Page {
           font-size: inherit;
           text-align: center;
           padding: 0;
+        }
+      }
+      .ReadNext {
+        margin: .3rem 0;
+        padding: .3rem 0;
+        border-top: $border;
+        border-bottom: $border;
+        ul {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
         }
       }
     }
@@ -199,7 +227,7 @@ a:hover .Icon {
   color: $link-color;
 }
 
-main {
+main.BlogPost {
   word-break: break-word;
   a {
     color: $link-color;
@@ -210,25 +238,25 @@ main {
   img {
     max-width: 100%;
   }
-}
-p {
-  font-size: 1rem;
-  margin: 1em 0;
-}
-ul {
-  position: relative;
-  list-style: none;
-  padding-left: 1.2em;
-}
-li {
-  @extend p;
-  &:before {
-    display: inline-block;
-    content: '⚫'; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
-    color: #333;
-    position: absolute;
-    font-size: 0.8em;
-    left: 0;
+  p {
+    font-size: 1rem;
+    margin: 1em 0;
+  }
+  ul {
+    position: relative;
+    list-style: none;
+    padding-left: 1.2em;
+  }
+  li {
+    @extend p;
+    &:before {
+      display: inline-block;
+      content: '⚫'; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
+      color: #333;
+      position: absolute;
+      font-size: 0.8em;
+      left: 0;
+    }
   }
 }
 

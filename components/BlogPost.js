@@ -25,17 +25,23 @@ class BlogPost extends React.Component {
   render() {
     const { post, children, route, toc } = this.props
     const related = relatedPosts(post, route)
-    console.log(post, ...related)
+    // console.log(post, ...related)
     const date = moment(post.date || Date.now()).format('MMMM D, YYYY')
     const author = post.author || config.authorName
     toc.unshift({ id: '', text: post.title, tag: 'H1' })
     return (
       <Page title={post.title} >
-        <section>
-          { toc && <TableOfContents items={toc} /> }
+        <div className="BlogPostNavigation">
+          <section className="TableOfContents" >
+            { toc && <TableOfContents items={toc} /> }
+          </section>
+          <section className="ReadNext">
+          <ul className="Index">
           { related.map((r, i) => (<Teaser key={i} {...r} />)) }
-        </section>
-        <main className="blogpost">
+          </ul>
+          </section>
+        </div>
+        <main className="BlogPost">
           <Title date={date} author={author} title={post.title} />
           { children }
           <footer>
