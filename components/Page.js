@@ -8,9 +8,11 @@ import { config } from 'config'
 
 // const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Link>
 const Logo = () => (
-  <Link className="Logo animate" to={link('/')}>
-    <Monogram className="face" />
-  </Link>
+  <div className = "Logo animate">
+    <Link to={link('/')}>
+      <Monogram className="face" />
+    </Link>
+  </div>
 )
 
 class Page extends React.Component {

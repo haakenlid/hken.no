@@ -1,4 +1,4 @@
-const STEPS = 1
+const STEPS = 10
 const TICK = 10
 
 const getPos = () => {

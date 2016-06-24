@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic|Roboto+Slab:300,400|Roboto+Mono:400,400italic);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic|Roboto+Slab:300,400|Roboto+Mono:400,400italic,600);
 $header-font: 'Roboto Slab', serif;
 $body-font: 'Roboto', serif;
 $body-color: #505050;
@@ -9,7 +9,7 @@ $body-background: #ffffff;
 $code-background: #f7f7f7;
 $code-font: 'Roboto Mono', monospace;
 $link-color: #746dc3;
-$page-width: 50rem;
+$page-width: 55rem;
 $sidebar-width: 12rem;
 $topbar-height: 1.5rem;
 $breakpoint: 700px;
@@ -71,7 +71,6 @@ $breakpoint: 700px;
       // align-items: center;
       .Logo {
         height: $topbar-height;
-        // flex: 1 1 100%;
         align-items: center;
         h1, .Icon {
           border: none;

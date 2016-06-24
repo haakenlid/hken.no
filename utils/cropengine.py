@@ -83,6 +83,8 @@ class FeatureDetector(abc.ABC):
         white. Color images will be converted to grayscale.
         """
         cv_image = cv2.imread(fn)
+        cv_image = cv2.cvtColor(
+            cv_image, cv2.COLOR_BGR2GRAY)
         if resize > 0:
             w, h = cv_image.shape[1::-1]  # type: int, int
             multiplier = (resize ** 2 / (w * h)) ** 0.5
@@ -91,23 +93,28 @@ class FeatureDetector(abc.ABC):
             cv_image = cv2.resize(
                 cv_image, dimensions,
                 interpolation=cv2.INTER_AREA)
-        return cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+        return cv_image
 
     @staticmethod
-    def _normalize_box(box: Box, img_w: int, img_h: int) -> Box:
-        """Convert a Box to a relative coordinate system.
+    def _resize_feature(
+            feature: Feature, cv_image: CVImage) -> Feature:
+        """Convert a Feature to a relative coordinate system.
 
-        The input box, width and height are the actual pixel
-        values of the input image. The output will be in a
-        normalized coordinate system where the image width
-        and height are both 1. Any part of the Box that
-        overflows the image frame is truncated."""
-        return Box(0, 0, 1, 1) & Box(
-            left=box.left / img_w,
-            top=box.top / img_h,
-            right=box.right / img_w,
-            bottom=box.bottom / img_h,
+        The output will be in a normalized coordinate system
+        where the image width and height are both 1.
+        Any part of the Feature that overflows the image
+        frame will be truncated.
+        """
+        img_h, img_w = cv_image.shape[:2]  # type: int, int
+        feature = Feature(
+            label=feature.label,
+            weight=feature.weight / (img_w * img_h),
+            left=max(0, feature.left / img_w),
+            top=max(0, feature.top / img_h),
+            right=min(1, feature.right / img_w),
+            bottom=min(1, feature.bottom / img_h),
         )
+        return feature
 
 
 class MockFeatureDetector(FeatureDetector):
@@ -118,10 +125,9 @@ class MockFeatureDetector(FeatureDetector):
         """Find the most salient features of the image."""
         cv_image = self._opencv_image(fn, 100)
         img_h, img_w = cv_image.shape[:2]  # type: int, int
-        middle = Feature(1, 'keypoint', 0, 0, 1, 1)
-        middle.width = 0.5
-        middle.height = middle.width * img_w / img_h
-        return [middle]
+        middle = Feature(1, 'keypoint', 0, 0, img_w, img_h)
+        middle.width = middle.height = min(img_w, img_h)
+        return [self._resize_feature(middle, cv_image)]
 
 
 class KeypointDetector(FeatureDetector):
@@ -130,56 +136,60 @@ class KeypointDetector(FeatureDetector):
 
     CSS_CLASS_NAME = 'ORB keypoint'
 
-    def __init__(self, n: int=10, imagesize: int=200,
-                 padding: float=1.0, **kwargs) -> None:
+    def __init__(self, n: int=10, padding: float=1.0,
+                 imagesize: int=200, **kwargs) -> None:
         self._imagesize = imagesize
         self._padding = padding
-        arguments = dict(
-            nfeatures=n + 1,
-            scaleFactor=1.5,
-            patchSize=self._imagesize // 10,
-            edgeThreshold=self._imagesize // 10,
-            WTA_K=2,
-            scoreType=cv2.ORB_FAST_SCORE,
-        )
-        arguments.update(kwargs)
-        self._feature_detector = cv2.ORB_create(**arguments)
+        _kwargs = {
+            "nfeatures": n + 1,
+            "scaleFactor": 1.5,
+            "patchSize": self._imagesize // 10,
+            "edgeThreshold": self._imagesize // 10,
+            "WTA_K": 2,
+            "scoreType": cv2.ORB_FAST_SCORE,
+        }
+        _kwargs.update(kwargs)
+        self._detector = cv2.ORB_create(**_kwargs)
 
     def detect_features(self, fn: str) -> List[Feature]:
         """Find interesting keypoints in the image."""
         features = []
         cv_image = self._opencv_image(fn, self._imagesize)
-        img_h, img_w = cv_image.shape[:2]  # type: int, int
-        keypoints = self._feature_detector.detectAndCompute(
-            image=cv_image, mask=None)[0]  # type: list
-
-        def normalize_weight(box: Box,
-                             kp: cv2.KeyPoint) -> float:
-            """Calculate relative saliency weight."""
-            # this is a fairly arbitrary formula
-            # to extract a value that can be used
-            # for comparisons and sorting.
-            return 0.001 * box.size * kp.response ** 2
+        keypoints = self._detector.detectAndCompute(
+            image=cv_image, mask=None)[0]
 
         for keypoint in keypoints:
             x, y = keypoint.pt  # type: float, float
             radius = keypoint.size / 2  # type: float
-            rect = self._normalize_box(
-                Box(
-                    left=x - radius,
-                    top=y - radius,
-                    right=x + radius,
-                    bottom=y + radius
-                ) * self._padding,
-                img_w, img_h,
-            )
-            features.append(Feature(
+            weight = radius * keypoint.response ** 2
+            feature = Feature(
                 label=self.CSS_CLASS_NAME,
-                weight=normalize_weight(rect, keypoint),
-                **rect.__dict__,
-            ))
+                weight=weight,
+                left=x - radius,
+                top=y - radius,
+                right=x + radius,
+                bottom=y + radius
+            )
+            feature = feature * self._padding
+            feature = self._resize_feature(feature, cv_image)
+            features.append(feature)
 
         return sorted(features, reverse=True)
+
+
+class Cascade:
+
+    """Wrapper for Haar cascade classifier"""
+
+    _DIR = '/usr/share/opencv/haarcascades/'
+
+    def __init__(self, label: str, fn: FileName,
+                 size: float=1, weight: float=100) -> None:
+        self.label = label
+        self.size = size
+        self.weight = weight
+        self._file = os.path.join(self._DIR, fn)
+        self.classifier = cv2.CascadeClassifier(self._file)
 
 
 class FaceDetector(FeatureDetector):
@@ -188,74 +198,61 @@ class FaceDetector(FeatureDetector):
     and Haar cascade training data files classifying human
     frontal and profile faces."""
 
-    _DIR = '/usr/share/opencv/haarcascades/'
-    _CLASSIFIERS = {
-        'frontal face': {
-            'file': 'haarcascade_frontalface_default.xml',
-            'multiplier': 1.00,
-        },
-        'alt face': {
-            'file': 'haarcascade_frontalface_alt.xml',
-            'multiplier': 0.90,
-        },
-        'profile face': {
-            'file': 'haarcascade_profileface.xml',
-            'multiplier': 0.75,
-        },
-    }  # type: Mapping[str, dict]
+    _CASCADES = [
+        Cascade('frontal face',
+                'haarcascade_frontalface_default.xml',
+                size=1.0, weight=100),
+        Cascade('alt face',
+                'haarcascade_frontalface_alt.xml',
+                size=1.2, weight=100),
+        Cascade('profile face',
+                'haarcascade_profileface.xml',
+                size=0.9, weight=50),
+    ]
 
-    def __init__(self, padding: float=1.2, n: int=10,
+    def __init__(self, n: int=10, padding: float=1.2,
                  imagesize: int=600, **kwargs) -> None:
-        self._imagesize = imagesize
-        minsize = max(25, imagesize // 20)
-        self._minsize = (minsize, minsize)
-        self._padding = padding
         self._number = n
-        self._kwargs = kwargs
-
-    def detect_features(self, fn: FileName) -> List[Feature]:
-        """Find faces in the image."""
-        cv_image = self._opencv_image(fn, self._imagesize)
-        img_h, img_w = cv_image.shape[:2]  # type: int, int
-        features = []  # type: List[Feature]
-        kwargs = {
-            "minSize": self._minsize,
+        self._imagesize = imagesize
+        self._padding = padding
+        self._cascades = self._CASCADES
+        minsize = max(25, imagesize // 20)
+        self._kwargs = {
+            "minSize": (minsize, minsize),
             "scaleFactor": 1.2,
             "minNeighbors": 5,
         }
-        kwargs.update(self._kwargs)
+        self._kwargs.update(kwargs)
 
-        def normalize_weight(box: Box) -> float:
-            """Calculate relative saliency weight."""
-            # this is a fairly arbitrary formula
-            # to extract a value that can be used
-            # for comparisons and sorting.
-            return box.width * box.height * 200
+    def detect_features(self, fn: FileName) -> List[Feature]:
+        """Find faces in the image."""
+        features = []  # type: List[Feature]
+        cv_image = self._opencv_image(fn, self._imagesize)
 
-        for name, classifier in self._CLASSIFIERS.items():
-            faces = cv2.CascadeClassifier(
-                os.path.join(self._DIR, classifier['file'])
-            ).detectMultiScale(cv_image, **kwargs)
+        for cascade in self._cascades:
+            padding = self._padding * cascade.size
+            detect = cascade.classifier.detectMultiScale
+            faces = detect(cv_image, **self._kwargs)
 
             for left, top, width, height in faces:
-                right, bottom = left + width, top + height
-                box = self._normalize_box(
-                    Box(left, top, right, bottom) *
-                    classifier['multiplier'] * self._padding,
-                    img_w, img_h
+                weight = height * width * cascade.weight
+                face = Feature(
+                    label=cascade.label,
+                    weight=weight,
+                    left=left,
+                    top=top,
+                    right=left + width,
+                    bottom=top + height,
                 )
-                features.append(
-                    Feature(
-                        weight=normalize_weight(box),
-                        label=name,
-                        **box.__dict__,
-                    )
-                )
+                face = face * padding
+                face = self._resize_feature(face, cv_image)
+                features.append(face)
 
         return sorted(features, reverse=True)[:self._number]
 
 
 class HybridDetector(FeatureDetector):
+
     """Detector using a hybrid strategy to find salient
     features in images.
 
@@ -266,22 +263,16 @@ class HybridDetector(FeatureDetector):
 
     BREAKPOINT = 0.15
 
-    def __init__(self) -> None:
-        self.primary_detector = FaceDetector()
-        self.fallback_detector = KeypointDetector()
-        self.secondary_detector = KeypointDetector(
-            padding=1.0, n=8)
+    def __init__(self, n=10) -> None:
+        self._number = n
+        self.primary = FaceDetector(n)
+        self.fallback = KeypointDetector(n)
+        self.breakpoint = self.BREAKPOINT
 
     def detect_features(self, fn: FileName) -> List[Feature]:
         """Find faces and/or keypoints in the image."""
-        detectors = [
-            self.primary_detector.detect_features,
-            self.secondary_detector.detect_features,
-            self.fallback_detector.detect_features,
-        ]
-        features = detectors[0](fn)
-        if not features:
-            return detectors[2](fn)
-        if sum(features).size < self.BREAKPOINT:
-            features += detectors[1](fn)
-        return features
+        faces = self.primary.detect_features(fn)
+        if faces and sum(faces).size > self.breakpoint:
+            return faces
+        features = faces + self.fallback.detect_features(fn)
+        return features[:self._number]
