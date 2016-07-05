@@ -70,6 +70,10 @@ class Feature(Box):
 class FeatureDetector(abc.ABC):
 
     @abc.abstractmethod
+    def __init__(self, n: int) -> None:
+        ...
+
+    @abc.abstractmethod
     def detect_features(self, fn: FileName) -> List[Feature]:
         """Find the most salient features of the image."""
         ...
@@ -121,13 +125,19 @@ class MockFeatureDetector(FeatureDetector):
 
     """Example feature detector interface."""
 
+    def __init__(self, n: int=3, imagesize: int=200) -> None:
+        self._number = n
+        self._size = imagesize
+        self._circles = [m / n for m in range(1, n + 1)]
+
     def detect_features(self, fn: FileName) -> List[Feature]:
-        """Find the most salient features of the image."""
-        cv_image = self._opencv_image(fn, 100)
-        img_h, img_w = cv_image.shape[:2]  # type: int, int
-        middle = Feature(1, 'keypoint', 0, 0, img_w, img_h)
+        """Concentric features at center of the image"""
+        cv_image = self._opencv_image(fn, self._size)
+        img_h, img_w = cv_image.shape[:2]
+        middle = Feature(0, 'mock keypoint', 0, 0, img_w, img_h)
         middle.width = middle.height = min(img_w, img_h)
-        return [self._resize_feature(middle, cv_image)]
+        middle = self._resize_feature(middle, cv_image)
+        return [middle * size for size in self._circles]
 
 
 class KeypointDetector(FeatureDetector):
@@ -145,7 +155,6 @@ class KeypointDetector(FeatureDetector):
             "scaleFactor": 1.5,
             "patchSize": self._imagesize // 10,
             "edgeThreshold": self._imagesize // 10,
-            "WTA_K": 2,
             "scoreType": cv2.ORB_FAST_SCORE,
         }
         _kwargs.update(kwargs)
@@ -155,8 +164,7 @@ class KeypointDetector(FeatureDetector):
         """Find interesting keypoints in the image."""
         features = []
         cv_image = self._opencv_image(fn, self._imagesize)
-        keypoints = self._detector.detectAndCompute(
-            image=cv_image, mask=None)[0]
+        keypoints = self._detector.detect(cv_image)
 
         for keypoint in keypoints:
             x, y = keypoint.pt  # type: float, float
@@ -194,7 +202,7 @@ class Cascade:
 
 class FaceDetector(FeatureDetector):
 
-    """Face detector using OpenCVs Viola-Jones algorithm and
+    """Face detector using OpenCVs Viola-Jones algorithm
     and Haar cascade training data files classifying human
     frontal and profile faces."""
 

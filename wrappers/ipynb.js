@@ -45,9 +45,14 @@ Cell.propTypes = {
   cellType: React.PropTypes.string,
 }
 
+const cellFilter = (cells) => cells
+  .filter(c => !!c.source[0])
+  .filter(c => !c.source[0].match(/^\W*hidden/i))
+  .filter(c => !c.metadata.hidden)
+
 const NotebookWrapper = ({ route }) => {
   const post = route.page.data
-  const cells = post.cells.filter(cell => !cell.metadata.hidden)
+  const cells = cellFilter(post.cells)
   const toc = buildTOC(cells) // eslint-disable-line
   const renderCell = (cell, i) => (
     <Cell
