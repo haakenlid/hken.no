@@ -1,7 +1,7 @@
 import subprocess
 import json
 import os
-from typing import List, Dict
+from typing import List, Dict, Callable
 from utils.cropengine import Feature
 import IPython.display
 import functools
@@ -15,7 +15,7 @@ def build() -> int:
     return subprocess.check_output(['webpack'])
 
 
-def jupyter_display_html(func):
+def jupyter_display_html(func: Callable) -> Callable:
     """Decorator to simplify jupyter display"""
     def wrapper(*args, **kwargs):
         raw = kwargs.pop('raw', False)
