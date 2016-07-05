@@ -1,5 +1,5 @@
 import React from 'react'
-import { scrollToId, getIdPos, getPos } from './utils'
+import { scrollToId, getIdPos, getPos } from './scroll'
 import './TableOfContents.scss'
 
 const clickTocHandler = (id) => () => scrollToId(id)
