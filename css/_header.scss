@@ -5,7 +5,10 @@
   }
 }
 
-%uncollapsed {
+.PageTitle {
+  padding-top: .5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
   .author {
     order: 1;
     @include before('by ');
@@ -26,9 +29,6 @@
     font-size: 1.8rem;
     border: none;
   }
-  padding-top: .5rem;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 %collapsed {
   padding: 2px 0;

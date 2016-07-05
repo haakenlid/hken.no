@@ -8,30 +8,31 @@
   // opacity: 0.2;
 }
 .TableOfContents {
+  position: relative;
   .toc {
     cursor: pointer;
-    padding: 0.2em 0 0 0;
+    padding: 0.2em 1rem 0 0;
     line-height: 1.1em;
     color: #888;
-    border-right: 10px solid transparent;
-    transition: border 500ms;
     &.active {
       color: #000;
-      transition: border 200ms;
-      border-color: #999;
+      font-weight: bolder;
+      // background: #efefef;
     }
     &:hover {
       text-decoration: underline;
     }
   }
   .H1 {
+    border-top: 1px solid #eee;
   }
   .H2 {
     font-size: 0.7em;
-    font-weight: 400;
+    font-weight: bolder;
     // border-top: 1px solid #eee;
   }
   .H3 {
+    padding-left: 1em;
     font-size: 0.7em;
   }
 }

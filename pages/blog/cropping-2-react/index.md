@@ -1,5 +1,4 @@
 <!-- vim: set ft=markdown spl=en spell :-->
-# Lazy image cropping
 This is the first in a series of blog entries about image cropping. The idea of
 image cropping is quite simple. We cut away parts of the original image to fit
 into whatever final shape we need to put it into for publication. We might also

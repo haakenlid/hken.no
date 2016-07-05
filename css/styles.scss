@@ -1,55 +1,48 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic|Roboto+Slab:300,400|Roboto+Mono:400,400italic);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic|Roboto+Slab:300,400|Roboto+Mono:400,400italic,600);
 $header-font: 'Roboto Slab', serif;
 $body-font: 'Roboto', serif;
 $body-color: #505050;
 $line-color: #dddddd;
+$border: 1px solid $line-color;
 $line-height: 1.4em;
 $body-background: #ffffff;
 $code-background: #f7f7f7;
 $code-font: 'Roboto Mono', monospace;
 $link-color: #746dc3;
-$page-width: 50rem;
+$page-width: 55rem;
 $sidebar-width: 12rem;
+$topbar-height: 1.5rem;
+$breakpoint: 700px;
+
 @import 'code';
 @import 'frontpage';
 
-article.Page {
-  box-sizing: border-box;
+@mixin full-page {
   margin: 0 auto;
-  max-width: $page-width;
   display: flex;
   flex-direction: row;
   header.PageHeader {
-    position: relative;
-    width: $sidebar-width;
     min-width: $sidebar-width;
-    nav.PageNav {
-      .Logo {
-        // border: 2px solid green;
-        .Icon.Monogram {
+    height: calc(100vh - 1rem);
+    nav.PageNav{
+      padding-right: 1rem;
+      border-right: $border;
+      height: inherit;
+      width: $sidebar-width;
+      .Logo{
+        flex-direction: column;
+        align-items: center;
+        margin: 0 0 .5em 0;
+        .Monogram {
           font-size: $sidebar-width * 0.7;
           stroke-width: 3px;
         }
-        h1 {
-          // border: none;
-          color: currentColor;
-          font-size: 1.2rem;
-          text-align: center;
-          margin: 0 0 .5em 0;
-          padding: 0;
+        h1{
+          font-size: 1.5rem;
         }
       }
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      padding-right: 1rem;
-      border-right: 1px solid $line-color;
-      width: $sidebar-width;
-      position: fixed;
-      height: calc(100vh - 1rem);
-      section {
-        // background: red;
-        flex: 1;
+      .ReadNext ul {
+        flex-direction: column;
       }
     }
   }
@@ -60,14 +53,123 @@ article.Page {
   }
 }
 
+@mixin mobile-page {
+  margin: 0;
+  // position: relative;
+  top: $topbar-height;
+  // main {
+  // }
+  header.PageHeader {
+    nav.PageNav{
+      border-bottom: $border;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0 0.5rem;
+      z-index: 50000;
+      // background: yellow;
+      // align-items: center;
+      .Logo {
+        height: $topbar-height;
+        align-items: center;
+        h1, .Icon {
+          border: none;
+          font-size: 1.2rem;
+          line-height: 1em;
+          padding: 0;
+          margin: 0;
+        }
+        .Icon.Monogram {
+          margin-right: 0.2em;
+          stroke-width: 20px;
+        }
+      }
+      .SocialMedia {
+        align-self: center;
+      }
+      section {
+        display: none;
+      }
+      &:hover {
+        section {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+ul.Index {
+  padding: 0;
+  margin: 0;
+}
+// TODO: css file for Teaser
+.Teaser {
+  list-style: none;
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+article.Page {
+  max-width: $page-width;
+  padding: 0.5rem;
+  position: relative;
+  header.PageHeader {
+    position: relative;
+    nav.PageNav {
+      background: white;
+      display: flex;
+      // align-items: center;
+      align-content: center;
+      flex-direction: column;
+      position: fixed;
+      .BlogPostNavigation {
+        flex: 1;
+      }
+      .Logo {
+        display: flex;
+        h1 {
+          color: currentColor;
+          font-size: inherit;
+          text-align: center;
+          padding: 0;
+        }
+      }
+      .ReadNext {
+        margin: .3rem 0;
+        padding: .3rem 0;
+        border-top: $border;
+        border-bottom: $border;
+        ul {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+        }
+      }
+    }
+  }
+  @media screen and (min-width: $breakpoint) {
+    @include full-page;
+  }
+  @media screen and (max-width: $breakpoint) {
+    @include mobile-page;
+  }
+}
+
 @mixin before($text) {
   &:before {
     content: $text;
   }
 }
 
-.Title {
-  padding-top: .5rem;
+// TODO: BlogPost css file
+
+.BlogPostTitle {
+  // padding-top: .5rem;
   flex-direction: row;
   flex-wrap: wrap;
   font-size: inherit;
@@ -106,6 +208,10 @@ div, section, article, nav {
   box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
 html {
   font-size: 18px;
   overflow-y: scroll;
@@ -123,46 +229,66 @@ a:hover .Icon {
   color: $link-color;
 }
 
-main {
+.BlogPost {
   word-break: break-word;
   a {
     color: $link-color;
     &:hover {
       text-decoration: underline;
+      text-decoration-color: currentColor;
+    }
+    &.Header {
+      display: block;
+      color: inherit;
+      width: 100%;
+      &:hover {
+        text-decoration: none;
+        &:after {
+          // font-size: 80%;
+          font-weight: bold;
+          color: $line-color;
+          content: ' 🔗';
+        }
+      }
     }
   }
   img {
     max-width: 100%;
   }
-}
-p {
-  font-size: 1rem;
-  margin: 1em 0;
-}
-ul {
-  position: relative;
-  list-style: none;
-  padding-left: 1.2em;
-}
-li {
-  @extend p;
-  &:before {
-    display: inline-block;
-    content: '⚫'; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
-    color: #333;
-    position: absolute;
-    font-size: 0.8em;
-    left: 0;
+  p {
+    font-size: 1rem;
+    margin: 1em 0;
+  }
+  ul {
+    position: relative;
+    list-style: none;
+    padding-left: 1.2em;
+  }
+  li {
+    @extend p;
+    &:before {
+      display: inline-block;
+      content: '⚫'; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
+      color: #333;
+      position: absolute;
+      font-size: 0.8em;
+      left: 0;
+    }
   }
 }
 
 h1,h2,h3,h4,h5,h6 {
+  line-height: 1;
   color: #333;
   font-family: $header-font;
   font-weight: 300;
   margin: 0 0 .3em 0;
   padding: 1em 0 .3em 0;
-  border-bottom: 1px solid $line-color;
+  @media screen and (max-width: $breakpoint) {
+    margin-top: -0.5em;
+    padding-top: 1.5em;
+  }
+  border-bottom: $border;
   section &:first-child {
     margin-top: 0;
   }
@@ -178,7 +304,7 @@ h3, h4 { font-weight: 500; }
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: currentColor;
 }
 
 blockquote {

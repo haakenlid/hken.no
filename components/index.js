@@ -1,6 +1,6 @@
 export { About } from './About'
 export { BlogPost } from './BlogPost'
-export { BlogIndex } from './BlogIndex'
+export { BlogIndex, relatedPosts, Teaser } from './BlogIndex'
 export { Byline } from './Byline'
 export { CodeBlock } from './CodeBlock'
 export { CropBox } from './CropBox/CropBox'

@@ -6,10 +6,12 @@ import { Monogram } from 'components'
 import { SocialMedia } from 'components/SocialMedia'
 import { config } from 'config'
 
-const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Link>
+// const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Link>
 const Logo = () => (
-  <div className="Logo animate">
-    <Monogram className="face" />
+  <div className = "Logo animate">
+    <Link to={link('/')}>
+      <Monogram className="face" />
+    </Link>
   </div>
 )
 
@@ -24,7 +26,6 @@ class Page extends React.Component {
           <header className="PageHeader">
             <nav className="PageNav" >
               <Logo />
-              <Home />
               { sidebar }
               <SocialMedia style={{ color: 'red' }} />
             </nav>
