@@ -1,8 +1,9 @@
 import typing
 import pytest
+import numbers
 
 
-class Box(object):
+class Box:
 
     """Rectangular bounding box"""
 
@@ -15,21 +16,22 @@ class Box(object):
         self.right = right
         self.bottom = bottom
 
+    def __iter__(self) -> typing.Iterator:
+        return iter((self.left, self.top, self.right, self.bottom))
+
     def __repr__(self) -> str:
         cname = self.__class__.__name__
         props = self.__dict__.items()
         kwargs = ['{}={!r}'.format(k, v) for k, v in props]
         return '{}({})'.format(cname, ', '.join(kwargs))
 
-    def __eq__(self, other: object) -> bool:
+    def __eq__(self, other: typing.Any) -> bool:
         """Equality check"""
         return (self.__class__ == other.__class__ and
                 self.__dict__ == other.__dict__)
 
     def __add__(self, other: typing.Any) -> 'Box':
         """Returns a Box containing both input boxes"""
-        if other == 0:  # default initial value for sum()
-            return self
         try:
             return Box(
                 left=min(self.left, other.left),
@@ -38,14 +40,14 @@ class Box(object):
                 bottom=max(self.bottom, other.bottom),
             )
         except AttributeError:
-            raise TypeError(
-                'unsupported operand type(s) for +: {} and {}'.format(
-                    self.__class__.__name__, other.__class__.__name__))
+            return NotImplemented
 
     def __radd__(self, other: typing.Any) -> 'Box':
+        if other == 0:  # default initial value for sum()
+            return self
         return self + other
 
-    def __and__(self, other: 'Box') -> 'Box':
+    def __and__(self, other: typing.Any) -> 'Box':
         """Intersection"""
         try:
             return Box(
@@ -57,13 +59,13 @@ class Box(object):
         except ValueError:
             # box of size 0
             return Box(self.left, self.top, self.left, self.top)
-
-    def __contains__(self, point: typing.Tuple[int, float]) -> bool:
-        return (self.top <= point[0] <= self.bottom and
-                self.left <= point[1] <= self.right)
+        except AttributeError:
+            return NotImplemented
 
     def __mul__(self, factor: float) -> 'Box':
         """Multiply all dimensions by factor"""
+        if not isinstance(factor, numbers.Real):
+            return NotImplemented
         x, y = self.center
         w, h = self.width * factor, self.height * factor
         return Box(
@@ -129,7 +131,7 @@ def test_box_properties():
     width, height = 35.7, 400.45
     center = box.center
     box.width, box.height = width, height
-    assert box.center == center
+    assert box.center == center  # unchanged
     assert box.diagonal == (width ** 2 + height ** 2) ** 0.5
     assert (box.width, box.height) == (width, height)
     assert box.size == width * height
@@ -160,10 +162,6 @@ def test_box_operators():
     assert Box(0, 0, 1, 2) & Box(0, 0, 2, 1) == Box(0, 0, 1, 1)
     assert Box(0, 0, 1, 1) & Box(0, 2, 1, 3) == Box(0, 0, 0, 0)
 
-    # contains
-    assert (1, 1) in Box(0, 0, 2, 2)
-    assert (0, 5) not in Box(0, 0, 2, 2)
-
 
 def test_box_methods():
     box = Box(0, 1, 2, 3)
@@ -171,18 +169,33 @@ def test_box_methods():
     assert box.__dict__ == dict(left=0, top=1, right=2, bottom=3)
     assert box == Box(**box.__dict__)
 
+    # __iter__
+    assert list(box) == [0, 1, 2, 3]
+    assert box == Box(*box)
+
     # __repr__
     assert box == eval(box.__repr__())
 
 
 def test_box_exceptions():
+
     with pytest.raises(ValueError):
         Box(0, 1, 1, 0)
 
     with pytest.raises(TypeError):
-        Box(0, 0, 1, 1) + 1
+        1 + Box(0, 0, 1, 1)
     # does not raise TypeError, which makes sum() work.
-    assert Box(0, 0, 1, 1) + 0 == Box(0, 0, 1, 1)
+    assert 0 + Box(0, 0, 1, 1) == Box(0, 0, 1, 1)
+    assert sum([Box(0, 0, 1, 1), Box(2, 2, 3, 3)]) == Box(0, 0, 3, 3)
 
     with pytest.raises(TypeError):
         Box(0, 0, 1, 1) + 'foo'
+
+    with pytest.raises(TypeError):
+        Box(0, 0, 10, 10) * None
+
+    with pytest.raises(TypeError):
+        Box(0, 0, 10, 10) & 'abc'
+
+    with pytest.raises(TypeError):
+        Box(0, 0, 10, 10) & 2
