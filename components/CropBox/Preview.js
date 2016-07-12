@@ -33,8 +33,6 @@ const getStyles = (src, crop, imgRatio, frameRatio) => {
     backgroundPosition: [[width, right, 1], [height, bottom, 1]]
     .map(dim => ratioOf(...dim)).map(numberToPercent).join(' '),
     backgroundRepeat: 'no-repeat',
-    // backgroundSize: [1 / width, 1 / height]
-    // .map(numberToPercent).join(' '),
     backgroundSize: `${numberToPercent(1 / width)} auto`,
   }
 }

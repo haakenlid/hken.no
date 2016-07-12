@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from './actions'
 import { normalize } from './reducers'
+import { Feature, Symbols } from './Features'
 import './overlay.scss'
 
 
@@ -24,73 +25,6 @@ const cursor = {
   '1001': 'sw-resize',
 }
 /* eslint-enable quote-props */
-
-const Label = ({ items, size }) => (
-  <text
-    x="1" y={size * 0.6}
-    textAnchor="middle"
-  >
-    { Object.keys(items).map((key) => (
-      <tspan
-        key={key}
-        className={key}
-        x = {1}
-        dy = {size * 1.2}
-        style={{ fontSize: size }}
-      >
-        {`${key}: ${items[key]}`}
-      </tspan>
-    ))}
-  </text>
-)
-Label.propTypes = {
-  items: React.PropTypes.object,
-  size: React.PropTypes.number,
-}
-
-const Keypoint = () => (
-  <g>
-    <circle r="1" cx="1" cy="1" className="back" />
-    <circle r="1" cx="1" cy="1" className="front" />
-    <path
-      className="cross"
-      d="M0,1h0.9m0.2,0h0.9M1,0v0.9m0,0.2v0.9"
-      transform="rotate(45 1 1)"
-    />
-  </g>
-)
-
-const Face = ({ className }) => {
-  const symbol = className.includes('profile') ?
-    '#profile-face' : '#frontal-face'
-  return (
-    <g>
-      <use xlinkHref={symbol} x="0" y="0" height="2" width="2" className="back" />
-      <use xlinkHref={symbol} x="0" y="0" height="2" width="2" className="front" />
-    </g>
-  )
-}
-Face.propTypes = {
-  className: React.PropTypes.string,
-}
-
-const Feature = ({ label = "", weight = 0, ...props }) => (
-  <svg
-    className={`feature ${label}`}
-    preserveAspectRatio="none"
-    viewBox="0 0 2 2"
-    {...props}
-  >
-    { label.includes('keypoint') && <Keypoint /> }
-    { label.includes('face') && <Face className={label} /> }
-    <Label items={{ label, weight }} size={ 0.04 / props.width } />
-  </svg>
-)
-Feature.propTypes = {
-  label: React.PropTypes.string,
-  weight: React.PropTypes.number,
-  width: React.PropTypes.number,
-}
 
 const Handle = ({ name, mouseDownHandler }) => {
   const handleSize = 0.1
@@ -138,6 +72,7 @@ let Overlay = ({
 
   return (
     <div className="overlayWrapper">
+      { features && <Symbols /> }
       <svg
         className={`overlay${interactive ? '' : ' inactive'}`}
         viewBox="0 0 1 1"
