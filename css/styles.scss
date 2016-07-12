@@ -17,6 +17,19 @@ $breakpoint: 700px;
 @import 'code';
 @import 'frontpage';
 
+// TODO: css file for Teaser
+.Teaser {
+  img {
+    width: 100%;
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 @mixin full-page {
   margin: 0 auto;
   display: flex;
@@ -103,22 +116,14 @@ ul.Index {
   padding: 0;
   margin: 0;
 }
-// TODO: css file for Teaser
-.Teaser {
-  list-style: none;
-  a {
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
 article.Page {
   max-width: $page-width;
   padding: 0.5rem;
   position: relative;
   header.PageHeader {
+    h1 {
+      font-size: .8rem;
+    }
     position: relative;
     nav.PageNav {
       background: white;

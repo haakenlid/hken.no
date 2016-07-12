@@ -8,7 +8,7 @@ from utils.boundingbox import Box
 
 @pytest.fixture
 def testimage():
-    return 'testfixture.jpg'
+    return 'fixtureimage.jpg'
 
 
 @pytest.mark.parametrize('Detector', FeatureDetector.__subclasses__())

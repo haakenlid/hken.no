@@ -1,6 +1,7 @@
 import subprocess
 import json
 import os
+import pytest
 from typing import List, Dict, Callable
 from utils.cropengine import Feature
 import IPython.display
@@ -66,20 +67,23 @@ def reactcrop(features: List[Feature]) -> Dict[str, List[float]]:
         'v': [bounding_box.top, y, bounding_box.bottom],
     }
 
-# pytest
+
+@pytest.fixture
+def testimage():
+    return 'fixtureimage.jpg'
 
 
-def test_render_nonempty_feature_list():
-    output = render(src='testfixture.jpg', features=[
+def test_render_nonempty_feature_list(testimage):
+    output = render(src=testimage, features=[
         Feature(0, 'hello', 0, 0, 1, 1)], raw=True)
     assert 'svg' in output
 
 
-def test_render_empty_feature_list():
-    output = render(src='testfixture.jpg', features=[], raw=True)
+def test_render_empty_feature_list(testimage):
+    output = render(src=testimage, features=[], raw=True)
     assert 'svg' in output
 
 
-def test_render_html():
-    output = render(src='testfixture.jpg', features=[])
+def test_render_html(testimage):
+    output = render(src=testimage, features=[])
     assert 'svg' in output.data

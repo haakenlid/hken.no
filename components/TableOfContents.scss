@@ -34,5 +34,8 @@
   .H3 {
     padding-left: 1em;
     font-size: 0.7em;
+    &.hidden {
+      display: none;
+    }
   }
 }

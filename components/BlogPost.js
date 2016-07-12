@@ -25,7 +25,7 @@ class BlogPost extends React.Component {
   render() {
     const { post, children, route, toc } = this.props
     const related = relatedPosts(post, route)
-    // console.log(post, ...related)
+    console.log(post, related)
     const date = moment(post.date || Date.now()).format('MMMM D, YYYY')
     const author = post.author || config.authorName
     toc.unshift({ id: '', text: post.title, tag: 'H1' })
@@ -37,7 +37,7 @@ class BlogPost extends React.Component {
           </section>
           <section className="ReadNext">
             <ul className="Index">
-              { related.map((r, i) => (<Teaser key={i} {...r} />)) }
+              { related.map((page, i) => (<Teaser key={i} {...page} />)) }
             </ul>
           </section>
         </div>

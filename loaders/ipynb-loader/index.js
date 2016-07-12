@@ -47,10 +47,8 @@ module.exports = function jupyterLoader(content) {
   const filename = this.resourcePath
   const notebook = JSON.parse(content)
   const meta = {
-    date: '1970-01-01',
     layout: 'post',
     title: filename.match(/([^./]+)(\.[^.]*)$/)[1].replace(/[ _]+/g, ' '),
-    path: `/${filename.toLowerCase().replace(/[ _]+/g, '-')}/`,
   }
   const language = notebook.metadata.kernelspec.language
   const frontmatter = frontMatter(notebook.cells[0].source.join('')).attributes

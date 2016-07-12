@@ -19,7 +19,7 @@ const defaultMetaData = (filePath) => {
   } catch (e) { /* console.log(e) /* meta file does not exist */ }
   try {
     fs.statSync(imgPath)
-    data.image = imgPath
+    data.image = imgPath.replace(/.*\//, '')
   } catch (e) { /* console.log(e) /* image does not exist */ }
   return data
 }
@@ -36,6 +36,5 @@ module.exports = function metaLoader(content) {
     ...attributes,
     body: renderedBody,
   }
-  // console.log(result)
   return `module.exports = ${JSON.stringify(result)}`
 }

@@ -84,7 +84,7 @@ def opencv_image(fn: str, size: typing.Optional[int]=None) -> numpy.ndarray:
 
 
 def test_image_render():
-    imagefile = './testfixture.jpg'
+    imagefile = './fixtureimage.jpg'
     img = opencv_image(imagefile, 100)
     assert len(img.shape) == 2
     html = show_image(img).data
