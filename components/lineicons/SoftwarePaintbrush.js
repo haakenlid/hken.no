@@ -1,0 +1,9 @@
+import React from 'react'
+
+export const SoftwarePaintbrush = () => (
+  <svg className="Icon" id="SoftwarePaintbrush" viewBox="0 0 64 64">
+    <polygon points="30,42 26,46 18,38 22,34 62,1 63,2 "/>
+    <line x1="22" x2="30" y1="34" y2="42"/>
+    <path d="M26,46c0,0-8,17-25,17c0,0,2.752-16.314,9-21  c4-3,8-4,8-4"/>
+  </svg>
+)

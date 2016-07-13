@@ -1,0 +1,18 @@
+import React from 'react'
+
+export const BasicElaborationDocumentGraph = () => (
+  <svg className="Icon" id="BasicElaborationDocumentGraph" viewBox="0 0 64 64">
+    <g>
+      <polygon points="23,1 55,1 55,63 9,63 9,15  "/>
+      <polyline points="9,15 23,15 23,1  "/>
+    </g>
+    <g>
+      <g>
+        <polyline points="27,44 27,37 23,37 23,44   "/>
+        <polyline points="34,44 34,27 30,27 30,44   "/>
+        <polyline points="41,44 41,34 37,34 37,44   "/>
+      </g>
+      <line x1="20" x2="44" y1="45" y2="45"/>
+    </g>
+  </svg>
+)

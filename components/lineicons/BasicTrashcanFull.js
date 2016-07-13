@@ -1,0 +1,15 @@
+import React from 'react'
+
+export const BasicTrashcanFull = () => (
+  <svg className="Icon" id="BasicTrashcanFull" viewBox="0 0 64 64">
+    <g>
+      <polyline points="52,36 58,34 62,48 56,50  "/>
+      <rect height="50" width="36" x="10" y="13"/>
+      <line x1="22" x2="22" y1="22" y2="56"/>
+      <line x1="34" x2="34" y1="22" y2="56"/>
+      <line x1="47.926" x2="60" y1="21.895" y2="63"/>
+    </g>
+    <polyline points="12,13 14,6 22.857,6.143 25,13 "/>
+    <polyline points="22.857,6.143 27,1 39,1 44,13 "/>
+  </svg>
+)

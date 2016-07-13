@@ -1,0 +1,15 @@
+import React from 'react'
+
+export const BasicPencilRuler = () => (
+  <svg className="Icon" id="BasicPencilRuler" viewBox="0 0 64 64">
+    <polygon points="1,63 1,2 62,63 "/>
+    <polygon points="14,54 14,30 38,54 "/>
+    <line x1="8" x2="2" y1="22" y2="22"/>
+    <line x1="6" x2="2" y1="30" y2="30"/>
+    <line x1="8" x2="2" y1="38" y2="38"/>
+    <line x1="6" x2="2" y1="46" y2="46"/>
+    <line x1="8" x2="2" y1="54" y2="54"/>
+    <polygon points="25,1 19,7 55,43 63,45 61,37 "/>
+    <line x1="25" x2="31" y1="13" y2="7"/>
+  </svg>
+)
