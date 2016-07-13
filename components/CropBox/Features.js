@@ -2,7 +2,7 @@ import React from 'react'
 import './features.scss'
 
 const Symbols = () => (
-  <svg>
+  <defs>
     <symbol id="profile-face" viewBox="0 0 100 100">
       <path
         d={`m15.3 69.6c-2.7-1.8-10.1-3.3-7.91-7.2 2.91-5.2 9.11-11.9
@@ -18,7 +18,7 @@ const Symbols = () => (
           3.5-20.1-.7-29.3s-17.2-16.9-30-16.9z`}
       />
     </symbol>
-  </svg>
+  </defs>
 )
 
 const Label = ({ items, size }) => (

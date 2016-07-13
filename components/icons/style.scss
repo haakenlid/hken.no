@@ -2,7 +2,7 @@ $len: 300px;
 $fast: 300ms;
 $medium: 600ms;
 $slow: 3000ms;
-$stroke-width: 6px;
+$stroke-width: 2px;
 
 .Icon {
   height: 1em;
@@ -12,6 +12,7 @@ $stroke-width: 6px;
   fill-opacity: 0;
   stroke: currentColor;
   stroke-width: $stroke-width;
+  overflow: visible;
   path {
     stroke: inherit;
     stroke-width: inherit;

@@ -7,7 +7,6 @@ const commonTags = (a, b) => intersect(a, b).length
 const massagePage = page => ({
   ...page.data,
   path: page.path,
-  tags: page.tags || [],
   image: page.data.image ? `/${page.file.dirname}/${page.data.image}` : '',
 })
 
@@ -33,7 +32,7 @@ const blogPosts = route => publishedPages(route)
       {...page}
     />
   )
-  )
+)
 
 const BlogIndex = ({ route }) => (
   <ul className="Index" >

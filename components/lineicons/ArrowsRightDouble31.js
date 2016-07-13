@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const ArrowsRightDouble-31 = () => (
-  <svg className="Icon" id="ArrowsRightDouble-31" viewBox="0 0 64 64">
+export const ArrowsRightDouble31 = () => (
+  <svg className="Icon" id="ArrowsRightDouble31" viewBox="0 0 64 64">
     <g>
       <polyline points="31,15 48,32    31,49  "/>
     </g>

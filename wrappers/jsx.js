@@ -7,7 +7,7 @@ const buildTOC = (children) => {
   // Hack to build a table of contents
   const toc = getTOC([]) // create new toc
   const modifiedChildren = children.map(child => {
-    if (child.type.name === 'Markdown') {
+    if (child.type && child.type.name === 'Markdown') {
       renderToStaticMarkup(child)
       // Hack that adds 'id' and 'a' to headings
     }

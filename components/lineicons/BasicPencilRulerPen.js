@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const BasicPencilRulerPen  = () => (
-  <svg className="Icon" id="BasicPencilRulerPen " viewBox="0 0 64 64">
+export const BasicPencilRulerPen = () => (
+  <svg className="Icon" id="BasicPencilRulerPen" viewBox="0 0 64 64">
     <rect height="62" width="16" x="22" y="1"/>
     <line x1="31" x2="38" y1="12" y2="12"/>
     <line x1="38" x2="35" y1="22" y2="22"/>

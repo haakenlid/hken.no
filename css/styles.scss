@@ -48,7 +48,7 @@ $breakpoint: 700px;
         margin: 0 0 .5em 0;
         .Monogram {
           font-size: $sidebar-width * 0.7;
-          stroke-width: 3px;
+          stroke-width: 0.6;
         }
         h1{
           font-size: 1.5rem;
@@ -74,7 +74,6 @@ $breakpoint: 700px;
   // }
   header.PageHeader {
     nav.PageNav{
-      border-bottom: $border;
       top: 0;
       left: 0;
       right: 0;
@@ -83,6 +82,9 @@ $breakpoint: 700px;
       // background: yellow;
       // align-items: center;
       .Logo {
+        z-index: 10;
+        background: white;
+        border-bottom: $border;
         height: $topbar-height;
         align-items: center;
         h1, .Icon {
@@ -94,18 +96,31 @@ $breakpoint: 700px;
         }
         .Icon.Monogram {
           margin-right: 0.2em;
-          stroke-width: 20px;
+          stroke-width: 2;
         }
       }
-      .SocialMedia {
-        align-self: center;
+      .ReadNext {
+        flex-direction: row;
       }
-      section {
-        display: none;
+      .Teaser {
+        flex: 0 1 50%;
+        h1 {
+          border: none;
+        }
+      }
+      .sidebar {
+        z-index: 0;
+        background: white;
+        transition: all 200ms ease;
+        position: absolute;
+        top: -100vh;
+        border-bottom: $border;
+        // pointer-events: none;
       }
       &:hover {
-        section {
-          display: block;
+        .sidebar {
+          top: $topbar-height;
+          // transform: translateY(0%);
         }
       }
     }
@@ -126,12 +141,18 @@ article.Page {
     }
     position: relative;
     nav.PageNav {
-      background: white;
-      display: flex;
-      // align-items: center;
-      align-content: center;
-      flex-direction: column;
       position: fixed;
+      display: flex;
+      flex-direction: column;
+      // background: white;
+      .sidebar {
+        flex: 1;
+        display: flex;
+        align-content: center;
+        flex-direction: column;
+      }
+      // align-items: center;
+
       .BlogPostNavigation {
         flex: 1;
       }
@@ -149,10 +170,15 @@ article.Page {
         padding: .3rem 0;
         border-top: $border;
         border-bottom: $border;
-        ul {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-around;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      .SocialMedia {
+        align-self: center;
+        font-size: 1.5em;
+        .Icon {
+          stroke-width: 3;
         }
       }
     }
@@ -173,31 +199,19 @@ article.Page {
 
 // TODO: BlogPost css file
 
-.BlogPostTitle {
-  // padding-top: .5rem;
-  flex-direction: row;
-  flex-wrap: wrap;
-  font-size: inherit;
-  display: flex;
-  flex-direction: row;
-  font-size: 0.7rem;
-  // align-items: center;
-  // align-content: center;
-  div {
-    padding-right: 1ex;
+.BlogPostData {
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  // font-size: inherit;
+  // display: flex;
+  // flex-direction: row;
+  font-size: 0.8rem;
+  line-height: 1;
+  .Icon {
+    stroke-width: 4;
   }
-  .author {
-    order: 1;
-    @include before('by ');
-  }
-  .date {
-    order: 2;
-    @include before('posted ');
-  }
-  .category {
-    order: 3;
-    @include before('in ');
-  }
+}
+.BlogPostHeader {
   h1 {
     margin: 0;
     transition: inherit;

@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const BasicTodoPen  = () => (
-  <svg className="Icon" id="BasicTodoPen " viewBox="0 0 64 64">
+export const BasicTodoPen = () => (
+  <svg className="Icon" id="BasicTodoPen" viewBox="0 0 64 64">
     <polygon points="63,3 63,53 59,61 55,53 55,3 "/>
     <polyline points="55,7 51,7 51,17 "/>
     <polyline points="14,8 1,8 1,63 45,63 45,8 32,8 "/>

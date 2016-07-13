@@ -1,33 +1,23 @@
 import React from 'react'
-import moment from 'moment'
-import { relatedPosts, Byline, Page, Teaser } from 'components'
+import { relatedPosts, BlogPostData, Byline, Page, Teaser } from 'components'
 import { TableOfContents } from './TableOfContents'
-import { config } from 'config'
 
-const BlogPostTitle = ({ title, date, author, category }) => (
-  <div className="BlogPostTitle">
-    {author && <div className="author">{author}</div>}
-    {date && <div className="date">{date}</div>}
-    {category && <div className="category">{category}</div>}
-    {title && <h1 className="title">{title}</h1>}
+const BlogPostHeader = props => (
+  <div className="BlogPostHeader">
+    <BlogPostData {...props} />
+    <h1 className="title">{props.title}</h1>
   </div>
 )
 
-BlogPostTitle.propTypes = {
+BlogPostHeader.propTypes = {
   title: React.PropTypes.string,
-  date: React.PropTypes.string,
-  author: React.PropTypes.string,
   category: React.PropTypes.string,
-  className: React.PropTypes.string,
 }
 
 class BlogPost extends React.Component {
   render() {
     const { post, children, route, toc } = this.props
     const related = relatedPosts(post, route)
-    console.log(post, related)
-    const date = moment(post.date || Date.now()).format('MMMM D, YYYY')
-    const author = post.author || config.authorName
     toc.unshift({ id: '', text: post.title, tag: 'H1' })
     return (
       <Page title={post.title} >
@@ -36,13 +26,11 @@ class BlogPost extends React.Component {
             { toc && <TableOfContents items={toc} /> }
           </section>
           <section className="ReadNext">
-            <ul className="Index">
-              { related.map((page, i) => (<Teaser key={i} {...page} />)) }
-            </ul>
+            { related.map((page, i) => (<Teaser key={i} {...page} />)) }
           </section>
         </div>
         <main className="BlogPost">
-          <BlogPostTitle date={date} author={author} title={post.title} />
+          <BlogPostHeader { ...post } />
           {children}
           <footer>
             <Byline />

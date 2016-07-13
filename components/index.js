@@ -1,5 +1,5 @@
 export { About } from './About'
-export { Teaser } from './Teaser'
+export { Teaser, BlogPostData } from './Teaser'
 export { BlogPost } from './BlogPost'
 export { BlogIndex, relatedPosts } from './BlogIndex'
 export { Byline } from './Byline'

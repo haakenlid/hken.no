@@ -26,8 +26,10 @@ class Page extends React.Component {
           <header className="PageHeader">
             <nav className="PageNav" >
               <Logo />
-              { sidebar }
-              <SocialMedia style={{ color: 'red' }} />
+              <section className="sidebar">
+                { sidebar }
+                <SocialMedia />
+              </section>
             </nav>
           </header>
           { content }

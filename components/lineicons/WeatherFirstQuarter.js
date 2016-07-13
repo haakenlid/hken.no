@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const WeatherFirstQuarter  = () => (
-  <svg className="Icon" id="WeatherFirstQuarter " viewBox="0 0 64 64">
+export const WeatherFirstQuarter = () => (
+  <svg className="Icon" id="WeatherFirstQuarter" viewBox="0 0 64 64">
     <circle cx="32" cy="32" r="31"/>
     <line x1="32" x2="17" y1="5" y2="5"/>
     <line x1="32" x2="9" y1="11" y2="11"/>

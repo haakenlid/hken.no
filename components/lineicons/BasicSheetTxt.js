@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const BasicSheetTxt  = () => (
-  <svg className="Icon" id="BasicSheetTxt " viewBox="0 0 64 64">
+export const BasicSheetTxt = () => (
+  <svg className="Icon" id="BasicSheetTxt" viewBox="0 0 64 64">
     <g>
       <polygon points="23,1 55,1 55,63 9,63 9,15  "/>
       <polyline points="9,15 23,15 23,1  "/>
