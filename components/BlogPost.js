@@ -26,7 +26,7 @@ class BlogPost extends React.Component {
             { toc && <TableOfContents items={toc} /> }
           </section>
           <section className="ReadNext">
-            { related.map((page, i) => (<Teaser key={i} {...page} />)) }
+            { related.map((page, i) => (<Teaser key={i} data={false} {...page} />)) }
           </section>
         </div>
         <main className="BlogPost">

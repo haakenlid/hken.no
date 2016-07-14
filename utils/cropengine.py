@@ -144,7 +144,7 @@ class KeypointDetector(FeatureDetector):
 
     """Feature detector using OpenCVs ORB algorithm"""
 
-    CSS_CLASS_NAME = 'ORB keypoint'
+    LABEL = 'ORB keypoint'
 
     def __init__(self, n: int=10, padding: float=1.0,
                  imagesize: int=200, **kwargs) -> None:
@@ -162,27 +162,27 @@ class KeypointDetector(FeatureDetector):
 
     def detect_features(self, fn: str) -> List[Feature]:
         """Find interesting keypoints in the image."""
-        features = []
         cv_image = self._opencv_image(fn, self._imagesize)
         keypoints = self._detector.detect(cv_image)
-
-        for keypoint in keypoints:
-            x, y = keypoint.pt  # type: float, float
-            radius = keypoint.size / 2  # type: float
-            weight = radius * keypoint.response ** 2
-            feature = Feature(
-                label=self.CSS_CLASS_NAME,
-                weight=weight,
-                left=x - radius,
-                top=y - radius,
-                right=x + radius,
-                bottom=y + radius
-            )
-            feature = feature * self._padding
-            feature = self._resize_feature(feature, cv_image)
-            features.append(feature)
-
+        features = [self._kp_to_feature(kp)
+                    for kp in keypoints]
+        features = [self._resize_feature(ft, cv_image)
+                    for ft in features]
         return sorted(features, reverse=True)
+
+    def _kp_to_feature(self, kp: cv2.KeyPoint) -> Feature:
+        """Convert KeyPoint to Feature"""
+        x, y = kp.pt
+        radius = kp.size / 2
+        weight = radius * kp.response ** 2
+        return Feature(
+            label=self.LABEL,
+            weight=weight,
+            left=x - radius,
+            top=y - radius,
+            right=x + radius,
+            bottom=y + radius
+        ) * self._padding
 
 
 class Cascade:

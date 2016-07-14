@@ -3,11 +3,14 @@ import moment from 'moment'
 import { Link } from 'react-router'
 import { link } from 'gatsby-helpers'
 import { config } from 'config'
-import {
-  BasicWatch as TimeIcon,
-  EcommerceSales as TagIcon,
-  SoftwarePen as BylineIcon,
-} from 'components/lineicons'
+import { BasicWatch as TimeIcon } from 'components/lineicons/BasicWatch'
+import { EcommerceSales as TagIcon } from 'components/lineicons/EcommerceSales'
+import { SoftwarePen as BylineIcon } from 'components/lineicons/SoftwarePen'
+// import {
+//   BasicWatch as TimeIcon,
+//   EcommerceSales as TagIcon,
+//   SoftwarePen as BylineIcon,
+// } from 'components/lineicons'
 
 const DateLine = ({ date }) => (
   <span className="DateLine" > <TimeIcon /> { moment(date).fromNow() } </span>
@@ -31,10 +34,10 @@ const BlogPostData = props => (
 )
 
 const Teaser = (props) => {
-  const { image, title, path } = props
+  const { image, title, path, data = true } = props
   return (
     <article className="Teaser">
-      <BlogPostData {...props} />
+      { data && <BlogPostData {...props} /> }
       <Link to={link(path)}>
         <h1>{title}</h1>
         { image && <img src={link(image)} alt={title} /> }
@@ -47,6 +50,7 @@ Teaser.propTypes = {
   path: React.PropTypes.string.isRequired,
   image: React.PropTypes.string,
   title: React.PropTypes.string.isRequired,
+  data: React.PropTypes.boolean,
 }
 
 export { Teaser, BlogPostData }

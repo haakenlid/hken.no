@@ -2,6 +2,10 @@
 module.exports = (config, env) => {
   config.removeLoader('md')
   config.removeLoader('json')
+  config.merge({
+    devtool: false,
+    // debug: false,
+  })
   config.loader('meta', cfg => {
     cfg.test = /\.meta$/
     cfg.loader = 'null'
