@@ -57,6 +57,19 @@ def show_image(image: Img, width: int=800) -> str:
     #     data=bytesio.getvalue(), embed=True, format='png')
 
 
+def show_features(image: Img, features: list, preview=False):
+    return reactjs.render(image, features, preview)
+
+
+def detect_and_show(image: Img, det: FeatureDetector, preview=False):
+
+    if isinstance(image, list):
+        html = ''.join(detect_and_show(im, det, preview).data for im in image)
+        return IPython.display.HTML(html)
+    features = det.detect_features(image)
+    return reactjs.render(image, features, preview)
+
+
 def cv_img_src(cvimg: numpy.ndarray, width: int) -> str:
     image = PIL.Image.fromarray(cvimg)
     image = image.resize((width, width * image.height // image.width))

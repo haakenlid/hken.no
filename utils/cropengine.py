@@ -198,6 +198,10 @@ class Cascade:
         self.weight = weight
         self._file = os.path.join(self._DIR, fn)
         self.classifier = cv2.CascadeClassifier(self._file)
+        if self.classifier.empty():
+            msg = ('The input file: "{}" is not a valid '
+                   'cascade classifier').format(self._file)
+            raise RuntimeError(msg)
 
 
 class FaceDetector(FeatureDetector):
@@ -234,8 +238,8 @@ class FaceDetector(FeatureDetector):
 
     def detect_features(self, fn: FileName) -> List[Feature]:
         """Find faces in the image."""
-        features = []  # type: List[Feature]
         cv_image = self._opencv_image(fn, self._imagesize)
+        features = []  # type: List[Feature]
 
         for cascade in self._cascades:
             padding = self._padding * cascade.size

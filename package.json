@@ -20,6 +20,7 @@
   "author": "Håken Lid",
   "license": "CC-BY-4.0",
   "dependencies": {
+    "ansi-to-html": "^0.4.1",
     "babel-plugin-transform-decorators": "^6.6.5",
     "cheerio": "^0.20.0",
     "favicons": "^4.7.1",

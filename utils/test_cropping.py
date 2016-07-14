@@ -2,13 +2,33 @@
 
 import pytest
 import json
-from utils.cropengine import FeatureDetector, Feature, KeypointDetector
+from utils.cropengine import (
+    FeatureDetector, Feature, KeypointDetector, Cascade,
+)
 from utils.boundingbox import Box
 
 
 @pytest.fixture
 def testimage():
     return 'fixtureimage.jpg'
+
+
+@pytest.fixture
+def valid_cascade_file():
+    return '/usr/share/opencv/haarcascades/haarcascade_mcs_nose.xml'
+
+
+@pytest.fixture
+def invalid_cascade_file():
+    return 'fixtureimage.jpg'
+
+
+def test_cascade(valid_cascade_file, invalid_cascade_file):
+    nose_cascade = Cascade('nose', valid_cascade_file)
+    assert not nose_cascade.classifier.empty()
+
+    with pytest.raises(RuntimeError):
+        Cascade('invalid', invalid_cascade_file)
 
 
 @pytest.mark.parametrize('Detector', FeatureDetector.__subclasses__())
