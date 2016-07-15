@@ -1,10 +1,11 @@
 import React from 'react'
 
-export const ArrowsKeyboardRight = () => (
+const ArrowsKeyboardRight = () => (
   <svg className="Icon" id="ArrowsKeyboardRight" viewBox="0 0 64 64">
-    <rect height="62" width="62" x="1" y="1"/>
+    <rect height="62" width="62" x="1" y="1" />
     <g>
-      <polygon points="26,21 42,32    26,43  "/>
+      <polygon points="26,21 42,32    26,43  " />
     </g>
   </svg>
 )
+export default ArrowsKeyboardRight

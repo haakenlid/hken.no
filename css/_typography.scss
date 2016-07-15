@@ -1,0 +1,61 @@
+div, section, article, nav {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 18px;
+  overflow-y: scroll;
+  line-height: $line-height;
+  background: $body-background;
+  font-family: $body-font;
+  color: $body-color;
+  font-weight: 300;
+  strong {
+    font-weight: 400;
+  }
+}
+
+a:hover .Icon {
+  color: $link-color;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  line-height: 1;
+  color: #333;
+  font-family: $header-font;
+  font-weight: 300;
+  margin: 0 0 .3em 0;
+  padding: 1em 0 .3em 0;
+  @media screen and (max-width: $breakpoint) {
+    margin-top: -0.5em;
+    padding-top: 1.5em;
+  }
+  border-bottom: $border;
+  section &:first-child {
+    margin-top: 0;
+  }
+  + p {
+    margin-top: 0;
+  }
+}
+h1 { font-size: 1.8rem; margin-top: 1em; padding-top: 0; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 1.0rem; }
+h3, h4 { font-weight: 500; }
+
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+blockquote {
+  border-left: .4em solid $line-color;
+  font-style: italic;
+  margin: 0;
+  padding: 0 0 0 .4em;
+}

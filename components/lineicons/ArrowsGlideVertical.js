@@ -1,13 +1,14 @@
 import React from 'react'
 
-export const ArrowsGlideVertical = () => (
+const ArrowsGlideVertical = () => (
   <svg className="Icon" id="ArrowsGlideVertical" viewBox="0 0 64 64">
     <g>
-      <polyline points="48.968,45.968    31.967,62.968 14.968,45.967  "/>
+      <polyline points="48.968,45.968    31.967,62.968 14.968,45.967  " />
     </g>
     <g>
-      <polyline points="15.032,17.967    32.032,0.968 49.032,17.968  "/>
+      <polyline points="15.032,17.967    32.032,0.968 49.032,17.968  " />
     </g>
-    <circle cx="31.968" cy="31.968" r="5"/>
+    <circle cx="31.968" cy="31.968" r="5" />
   </svg>
 )
+export default ArrowsGlideVertical

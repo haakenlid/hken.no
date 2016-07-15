@@ -1,15 +1,16 @@
 import React from 'react'
 
-export const BasicElaborationFolderGraph = () => (
+const BasicElaborationFolderGraph = () => (
   <svg className="Icon" id="BasicElaborationFolderGraph" viewBox="0 0 64 64">
-    <polygon points="63,18 63,54 1,54 1,10 22,10 30,18 "/>
+    <polygon points="63,18 63,54 1,54 1,10 22,10 30,18 " />
     <g>
       <g>
-        <polyline points="27,44 27,37 23,37 23,44   "/>
-        <polyline points="34,44 34,27 30,27 30,44   "/>
-        <polyline points="41,44 41,34 37,34 37,44   "/>
+        <polyline points="27,44 27,37 23,37 23,44   " />
+        <polyline points="34,44 34,27 30,27 30,44   " />
+        <polyline points="41,44 41,34 37,34 37,44   " />
       </g>
-      <line x1="20" x2="44" y1="45" y2="45"/>
+      <line x1="20" x2="44" y1="45" y2="45" />
     </g>
   </svg>
 )
+export default BasicElaborationFolderGraph

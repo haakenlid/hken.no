@@ -3,14 +3,7 @@ import moment from 'moment'
 import { Link } from 'react-router'
 import { link } from 'gatsby-helpers'
 import { config } from 'config'
-import { BasicWatch as TimeIcon } from 'components/lineicons/BasicWatch'
-import { EcommerceSales as TagIcon } from 'components/lineicons/EcommerceSales'
-import { SoftwarePen as BylineIcon } from 'components/lineicons/SoftwarePen'
-// import {
-//   BasicWatch as TimeIcon,
-//   EcommerceSales as TagIcon,
-//   SoftwarePen as BylineIcon,
-// } from 'components/lineicons'
+import { TimeIcon, TagIcon, BylineIcon } from 'components/icons'
 
 const DateLine = ({ date }) => (
   <span className="DateLine" > <TimeIcon /> { moment(date).fromNow() } </span>

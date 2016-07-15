@@ -1,6 +1,5 @@
 import React from 'react'
 import { config } from 'config'
-// import { Twitter, GitHub, CodePen, StackOverflow } from 'components/icons'
 import { GitHub, CodePen, StackOverflow } from 'components/icons'
 
 const SocialMedia = () => (

@@ -1,9 +1,10 @@
 import React from 'react'
 
-export const WeatherMoondownFull = () => (
+const WeatherMoondownFull = () => (
   <svg className="Icon" id="WeatherMoondownFull" viewBox="0 0 64 64">
-    <line x1="0" x2="64" y1="47" y2="47"/>
-    <polyline points="25,53 32,60   39,53 "/>
-    <path d="M48.159,47C49.96,44.096,51,40.669,51,37  c0-10.493-8.506-19-19-19s-19,8.507-19,19c0,3.668,1.04,7.094,2.841,9.998"/>
+    <line x1="0" x2="64" y1="47" y2="47" />
+    <polyline points="25,53 32,60   39,53 " />
+    <path d="M48.159,47C49.96,44.096,51,40.669,51,37  c0-10.493-8.506-19-19-19s-19,8.507-19,19c0,3.668,1.04,7.094,2.841,9.998" />
   </svg>
 )
+export default WeatherMoondownFull

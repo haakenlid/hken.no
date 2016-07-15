@@ -3,7 +3,7 @@ module.exports = (config, env) => {
   config.removeLoader('md')
   config.removeLoader('json')
   config.merge({
-    devtool: false,
+    // devtool: false,
     // debug: false,
   })
   config.loader('meta', cfg => {

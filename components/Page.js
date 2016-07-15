@@ -2,10 +2,11 @@ import React from 'react'
 import DocumentTitle from 'react-document-title'
 import { Link } from 'react-router'
 import { link } from 'gatsby-helpers'
-import { Monogram } from 'components'
-import { SocialMedia } from 'components/SocialMedia'
+import { Monogram, SocialMedia } from 'components'
 import { config } from 'config'
 
+// const Monogram = () => <div>Monogram</div>
+// const SocialMedia = () => <div>SocialMedia</div>
 // const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Link>
 const Logo = () => (
   <div className = "Logo animate">

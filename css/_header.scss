@@ -1,111 +1,102 @@
-
-@mixin before($text) {
-  &:before {
-    content: $text;
-  }
-}
-
-.PageTitle {
-  padding-top: .5rem;
+@mixin full-page {
+  margin: 0 auto;
+  display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  .author {
-    order: 1;
-    @include before('by ');
-  }
-  .date {
-    order: 2;
-    @include before('posted ');
-  }
-  .category {
-    order: 3;
-    @include before('in ');
-  }
-  h1 {
-    margin: 0;
-    transition: inherit;
-    order: 4;
-    flex: 1 1 100%;
-    font-size: 1.8rem;
-    border: none;
-  }
-}
-%collapsed {
-  padding: 2px 0;
-  align-items: baseline;
-  div, h1 {
-    padding: 0;
-    &:before {
-      display: none;
-    }
-    &.category {
-      display: none;
-    }
-  }
-  h1 {
-    font-size: inherit;
-    font-weight: 400;
-    flex: 1 1 60%;
-  }
-}
-.PageHeader {
-  z-index: 100;
-  line-height: 1.2;
-  font-weight: 200;
-  .Title {
-    $margin: .3rem;
-    display: flex;
-    font-size: .7em;
-    box-sizing: content-box;
-    div, h1 {
-      margin-right: $margin;
-    }
-    border-bottom: 1px solid $line-color;
-    @extend %uncollapsed;
-  }
-  .NavBar {
-    font-size: inherit;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-content: center;
-    .Icon {
-      font-size: 1.2rem;
-      padding: 3px 0;
-      &.Monogram {
-        stroke-width: 2;
+  header.PageHeader {
+    min-width: $sidebar-width;
+    height: calc(100vh - 1rem);
+    nav.PageNav{
+      padding-right: 1rem;
+      border-right: $border;
+      height: inherit;
+      width: $sidebar-width;
+      .Logo{
+        flex-direction: column;
+        align-items: center;
+        margin: 0 0 .5em 0;
+        .Monogram {
+          font-size: $sidebar-width * 0.7;
+          stroke-width: 0.6;
+        }
+        h1{
+          font-size: 1.5rem;
+        }
+      }
+      .ReadNext ul {
+        flex-direction: column;
       }
     }
-    .SocialMedia {
-      // align-self: flex-end;
-    }
   }
-  &.sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    @extend body;
-    // background: rgba(0,0,0,.4);
-    .Title.small {
-      background: white;
-      margin-bottom: 1rem;
-      @extend %collapsed;
-    }
-    .drawer {
-      @extend body;
+  main {
+    position: relative;
+    padding-left: 1rem;
+    display: block;
+  }
+}
+
+@mixin mobile-page {
+  margin: 0;
+  top: $topbar-height;
+  header.PageHeader {
+    nav.PageNav{
       top: 0;
       left: 0;
       right: 0;
-      position: fixed;
-      background: white;
-      z-index: 200;
-      transform: translateY(-100%);
-      transition: 200ms all;
-    }
-    &:hover .drawer {
-      transform: translateY(0);
+      padding: 0 0.5rem;
+      z-index: 50000;
+      .Logo {
+        display: none;
+      }
+      .TitleBar {
+        z-index: 10;
+        background: white;
+        border-bottom: $border;
+        height: $topbar-height;
+        .Icon.Monogram {
+          margin-right: 0.2em;
+          stroke-width: 2;
+        }
+      }
+      .ReadNext {
+        flex-direction: row;
+      }
+      .Teaser {
+        flex: 0 1 50%;
+        h1 {
+          border: none;
+        }
+      }
+      .sidebar {
+        z-index: 0;
+        background: white;
+        transition: all 200ms ease;
+        position: absolute;
+        top: -100vh;
+        border-bottom: $border;
+      }
+      &:hover {
+        .sidebar {
+          top: $topbar-height;
+        }
+      }
     }
   }
 }
 
+article.Page {
+  max-width: $page-width;
+  padding: 0.5rem;
+  position: relative;
+  header.PageHeader {
+    h1 {
+      font-size: .8rem;
+    }
+    position: relative;
+  }
+  @media screen and (min-width: $breakpoint) {
+    @include full-page;
+  }
+  @media screen and (max-width: $breakpoint) {
+    @include mobile-page;
+  }
+}
