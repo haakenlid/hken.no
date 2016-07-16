@@ -4,7 +4,7 @@ import { tagHeaders, getTOC } from 'utils/markdown'
 
 const MarkdownWrapper = ({ route }) => {
   const toc = getTOC([])
-  const body = tagHeaders(post.body)
+  const body = tagHeaders(route.page.data.body)
   return (
     <BlogPost route={route} toc={toc} >
       <div
