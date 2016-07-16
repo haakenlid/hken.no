@@ -1,18 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic|Roboto+Slab:300,400|Roboto+Mono:400,400italic,600);
+
 $header-font: 'Roboto Slab', serif;
 $body-font: 'Roboto', serif;
+$code-font: 'Roboto Mono', monospace;
+$line-height: 1.4em;
+$regular-text: 1rem;
+$smaller-text: 0.8rem;
+
 $body-color: #505050;
 $line-color: #dddddd;
-$border: 1px solid $line-color;
-$line-height: 1.4em;
 $body-background: #ffffff;
 $code-background: #f7f7f7;
-$code-font: 'Roboto Mono', monospace;
 $link-color: #746dc3;
+$border: 1px solid $line-color;
+
 $page-width: 55rem;
 $sidebar-width: 12rem;
 $topbar-height: 1.5rem;
-$breakpoint: 700px;
+$breakpoint: 600px;
 
 @import 'typography';
 @import 'sidebar';

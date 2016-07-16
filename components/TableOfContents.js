@@ -1,13 +1,12 @@
 import React from 'react'
 import { scrollToId, getIdPos, getPos } from './scroll'
-import './TableOfContents.scss'
 
 const clickTocHandler = (id) => () => scrollToId(id)
 
 const TocHeader = ({ id, text, tag, isActive }) => (
   <div
     onClick={ clickTocHandler(id) }
-    className={`toc ${tag}${isActive ? ' active' : ''}`}
+    className={`TocHeader ${tag}${isActive ? ' active' : ''}`}
   >{ text }</div>
 )
 TocHeader.propTypes = {

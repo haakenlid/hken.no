@@ -18,10 +18,9 @@ const buildTOC = (children) => {
 }
 
 const JsxWrapper = ({ route, children }) => {
-  const post = route.page.data
   const { toc, modifiedChildren } = buildTOC(children)
   return (
-    <BlogPost toc={toc} post={post} route={route}>
+    <BlogPost toc={toc} route={route}>
       { modifiedChildren }
     </BlogPost>
   )

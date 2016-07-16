@@ -3,7 +3,6 @@ import { BlogPost } from 'components'
 // import cheerio from 'cheerio'
 import { getTOC, tagHeaders } from 'utils/markdown'
 
-
 const buildTOC = (cells) => {
   const TOC = getTOC([])
   const findHeaders = (cell) => {
@@ -51,8 +50,7 @@ const cellFilter = (cells) => cells
   .filter(c => !c.metadata.hidden)
 
 const NotebookWrapper = ({ route }) => {
-  const post = route.page.data
-  const cells = cellFilter(post.cells)
+  const cells = cellFilter(route.page.data.cells)
   const toc = buildTOC(cells) // eslint-disable-line
   const renderCell = (cell, i) => (
     <Cell
@@ -62,7 +60,7 @@ const NotebookWrapper = ({ route }) => {
     />
   )
   return (
-    <BlogPost post={post} route={route} toc={toc}>
+    <BlogPost route={route} toc={toc}>
       { cells.map(renderCell) }
     </BlogPost>
   )

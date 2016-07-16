@@ -1,35 +1,44 @@
-.Teaser {
+%Header {
   img {
     width: 100%;
+    padding-bottom: .5em;
   }
+  h1 {
+    padding: 0;
+    margin: 0;
+    color: inherit;
+  }
+}
+
+.Teaser {
+  @extend %Header;
   a {
     text-decoration: none;
     &:hover {
-      text-decoration: underline;
+      color: $link-color;
     }
+  }
+  &+ .Teaser {
+    padding-top: .5em;
+    border-top: $border;
   }
 }
 
 .BlogPostData {
-  font-size: 0.8rem;
+  padding-bottom: .5em;
+  font-size: small;
   line-height: 1;
   .Icon {
     stroke-width: 4;
   }
 }
-.BlogPostHeader {
-  h1 {
-    margin: 0;
-    transition: inherit;
-    order: 4;
-    flex: 1 1 100%;
-    font-size: 1.8rem;
-    border: none;
-  }
-}
 
 .BlogPost {
+  .BlogPostHeader {
+    @extend %Header;
+  }
   word-break: break-word;
+  line-height: 1.4;
   a {
     color: $link-color;
     &:hover {
@@ -49,6 +58,21 @@
           content: ' 🔗';
         }
       }
+    }
+  }
+  h2, h3, h4, h5, h6 {
+    margin: 0 0 .3em 0;
+    padding: 1em 0 .3em 0;
+    @media screen and (max-width: $breakpoint) {
+      margin-top: -0.5em;
+      padding-top: 1.5em;
+    }
+    border-bottom: $border;
+    section &:first-child {
+      margin-top: 0;
+    }
+    + p {
+      margin-top: 0;
     }
   }
   img {
@@ -73,5 +97,11 @@
       font-size: 0.8em;
       left: 0;
     }
+  }
+  blockquote {
+    border-left: .4em solid $line-color;
+    font-style: italic;
+    margin: 0;
+    padding: 0 0 0 .4em;
   }
 }

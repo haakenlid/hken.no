@@ -1,4 +1,6 @@
 {
  "title": "Creating a cropbox widget with react and redux",
- "tags": ["react", "redux", "svg", "css", "codepen"]
+ "tags": ["react", "redux", "svg", "css", "codepen"],
+ "image": "./index.jpg",
+ "date": "2016-08-15"
 }

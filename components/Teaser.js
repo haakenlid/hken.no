@@ -32,8 +32,8 @@ const Teaser = (props) => {
     <article className="Teaser">
       { data && <BlogPostData {...props} /> }
       <Link to={link(path)}>
-        <h1>{title}</h1>
         { image && <img src={link(image)} alt={title} /> }
+        <h1>{title}</h1>
       </Link>
     </article>
   )

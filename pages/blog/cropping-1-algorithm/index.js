@@ -7,10 +7,11 @@ import { CodeBlock, CropBox, Markdown } from 'components'
 
 
 const metadata = {
-  title: "React Redux image cropping",
-  date: "2016-04-01",
+  title: "Lazy image cropping",
+  date: "2016-07-10",
   layout: "post",
-  tags: ["react.js", "svg", "react", "redux", "cropping", "images"],
+  image: "./index.jpg",
+  tags: ["react", "svg", "es6", "cropping"],
 }
 
 const devTools = (typeof window === 'object' && typeof window.devToolsExtension
@@ -30,8 +31,6 @@ image cropping is quite simple. We cut away parts of the original image to fit
 into whatever final shape we need to put it into for publication. We might also
 want have the most important part of the motive fill as much of the image frame
 as possible.
-
-## Lazy cropping
 
 The challenge is that a single source image often ends up being used in various
 final shapes, and we don't want to prepare a bunch of different pre-cropped

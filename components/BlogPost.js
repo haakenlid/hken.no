@@ -5,35 +5,43 @@ import { TableOfContents } from './TableOfContents'
 const BlogPostHeader = props => (
   <div className="BlogPostHeader">
     <BlogPostData {...props} />
-    <h1 className="title">{props.title}</h1>
+    { props.image && <img src={props.image} /> }
+    <h1 className="title" >{props.title}</h1>
   </div>
 )
 
 BlogPostHeader.propTypes = {
   title: React.PropTypes.string,
+  image: React.PropTypes.string,
   category: React.PropTypes.string,
 }
 
 class BlogPost extends React.Component {
   render() {
-    const { post, children, route, toc } = this.props
-    const related = relatedPosts(post, route)
-    toc.unshift({ id: '', text: post.title, tag: 'H1' })
+    const { children, route, toc } = this.props
+    const { data } = route.page
+    const { title, author, tags } = data
+    const related = relatedPosts(tags, route)
+        .filter(other => other.path !== route.page.path)
+        .slice(0, 2)
+    toc.unshift({ id: '', text: title, tag: 'H1' })
     return (
-      <Page title={post.title} >
+      <Page title={title} >
         <div className="BlogPostNavigation">
+          <h1>In this article:</h1>
           <section className="TableOfContents" >
             { toc && <TableOfContents items={toc} /> }
           </section>
+          <h1>Read Next:</h1>
           <section className="ReadNext">
-            { related.map((page, i) => (<Teaser key={i} data={false} {...page} />)) }
+            { related.map((other, i) => (<Teaser key={i} data={false} {...other} />)) }
           </section>
         </div>
         <main className="BlogPost">
-          <BlogPostHeader { ...post } />
+          <BlogPostHeader { ...data } />
           {children}
           <footer>
-            <Byline />
+            <Byline name={author} />
           </footer>
         </main>
       </Page>
@@ -41,7 +49,6 @@ class BlogPost extends React.Component {
   }
 }
 BlogPost.propTypes = {
-  post: React.PropTypes.object,
   toc: React.PropTypes.array,
   route: React.PropTypes.object,
   children: React.PropTypes.node,

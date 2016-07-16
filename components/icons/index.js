@@ -1,10 +1,10 @@
 import './style.scss'
 import React from 'react'
-export { default as BylineIcon } from 'components/lineicons/SoftwarePen'
-export { default as TimeIcon } from 'components/lineicons/BasicWatch'
-export { default as TagIcon } from 'components/lineicons/EcommerceSales'
+export { default as BylineIcon } from './lineicons/SoftwarePen'
+export { default as TimeIcon } from './lineicons/BasicWatch'
+export { default as TagIcon } from './lineicons/EcommerceSales'
 
-export const Icon = ({ viewBox, name = 'Social', path, style = {}, ...props }) => (
+export const Icon = ({ viewBox, name = '', path, style = {}, ...props }) => (
   <svg
     className={`Icon ${name}`}
     style={style}
