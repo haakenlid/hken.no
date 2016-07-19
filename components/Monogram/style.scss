@@ -2,20 +2,20 @@ $ease:     ease-in-out;
 $speed:             8s;
 $stroke-width:      2;
 
-$path-length:      1045;
-$monogram-start:  0.000;
-$monogram-end:    0.449;
-$face-start:      0.544;
-$face-end:        0.947;
+$path-length:     944;
+$monogram-start:  .000;
+$monogram-end:    .447;
+$face-start:      .542;
+$face-end:        .946;
 
 
 @mixin line($start, $end) {
-  $offset:   $start * $path-length;
-  $segment:   $end * $path-length - $offset;
-  $gap:      $path-length - $segment;
+  $offset:   $start * -$path-length;
+  $stroke:   $end * $path-length + $offset;
+  $gap:      $path-length - $stroke;
 
-  stroke-dashoffset: - $offset;
-  stroke-dasharray: $segment$gap;
+  stroke-dashoffset: $offset;
+  stroke-dasharray: $stroke $gap;
 }
 
 @keyframes monogram-loop {
@@ -24,16 +24,19 @@ $face-end:        0.947;
   100% { @include line($monogram-start+1, $monogram-end+1)}
 }
 
-%face { @include line($face-start, $face-end) }
-%monogram { @include line($monogram-start, $monogram-end) }
+%face {
+  @include line($face-start,   $face-end  ) }
+%monogram {
+  @extend %face;
+  @include line($monogram-start,   $monogram-end  ) }
 
 .Icon.Monogram {
-  shape-rendering: geomtricPrecision;
+  stroke-width: $stroke-width;
   path {
     transition: inherit;
     fill: none;
     stroke: currentColor;
-    stroke-width: inherit;
+    vector-effect: inherit;
   }
   .face { @extend %face; }
   .monogram { @extend %monogram; }
