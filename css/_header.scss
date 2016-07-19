@@ -18,8 +18,8 @@
         align-items: center;
         margin: 0 0 .5em 0;
         .Monogram {
-          font-size: $sidebar-width * 0.7;
-          stroke-width: 0.6;
+          font-size: $sidebar-width * 0.9;
+          stroke-width: .6;
         }
         h1{
           font-size: 1.5rem;
@@ -67,7 +67,6 @@
         }
         .Icon.Monogram {
           margin-right: 0.2em;
-          stroke-width: 2;
         }
       }
       .ReadNext {
