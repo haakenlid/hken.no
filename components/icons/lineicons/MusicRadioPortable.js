@@ -12,8 +12,8 @@ const MusicRadioPortable = () => (
     <rect height="4" width="5" x="52" y="28" />
     <circle cx="52" cy="49" r="5" />
     <line x1="52" x2="52" y1="44" y2="48" />
-    <polyline points="3,22 3,18 9,18 9,22 " />
-    <polyline points="53,4 6,16 6,18 " />
+    <polyline points="3,22 3,18 9,18 9,22" />
+    <polyline points="53,4 6,16 6,18" />
   </svg>
 )
 export default MusicRadioPortable

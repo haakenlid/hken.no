@@ -7,7 +7,7 @@ const MusicRecordplayer = () => (
     <circle cx="27.5" cy="27.5" r="22.5" />
     <circle cx="27.5" cy="27.5" r="6" />
     <line x1="57" x2="57" y1="15" y2="48" />
-    <polygon points="57,49 51,52 51,48   57,45 " />
+    <polygon points="57,49 51,52 51,48 57,45" />
     <rect height="3" width="6" x="5" y="56" />
     <rect height="3" width="6" x="15" y="56" />
   </svg>

@@ -2,8 +2,8 @@ import React from 'react'
 
 const WeatherWaningCresent = () => (
   <svg className="Icon" id="WeatherWaningCresent" viewBox="0 0 64 64">
-    <circle cx="32.002" cy="31.999" r="31" />
-    <path d="M41.002,61.999c-13.242-3.528-22-15.646-22-30  c0-14.355,8.756-26.473,22-30" />
+    <circle cx="32" cy="32" r="31" />
+    <path d="M41,62c-13.242-3.528-22-15.646-22-30 c0-14.355,8.756-26.473,22-30" />
     <line x1="34" x2="47" y1="5" y2="5" />
     <line x1="27" x2="55" y1="11" y2="11" />
     <line x1="22" x2="59" y1="17" y2="17" />

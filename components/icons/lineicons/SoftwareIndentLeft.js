@@ -9,10 +9,8 @@ const SoftwareIndentLeft = () => (
     <line x1="30" x2="64" y1="47" y2="47" />
     <line x1="30" x2="57" y1="57" y2="57" />
     <line x1="25" x2="25" y1="0" y2="64" />
-    <polyline points="12,39 19,32   12,25 " />
-    <g>
-      <line x1="19" x2="0" y1="32" y2="32" />
-    </g>
+    <polyline points="12,39 19,32 12,25" />
+    <line x1="19" x2="0" y1="32" y2="32" />
   </svg>
 )
 export default SoftwareIndentLeft

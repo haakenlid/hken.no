@@ -3,7 +3,7 @@ import React from 'react'
 const BasicKeyboard = () => (
   <svg className="Icon" id="BasicKeyboard" viewBox="0 0 64 64">
     <rect height="30" width="62" x="1" y="22" />
-    <polyline points="7,22 7,14 21,14 21,7 11,7 11,4 " />
+    <polyline points="7,22 7,14 21,14 21,7 11,7 11,4" />
     <line x1="4" x2="8" y1="29" y2="29" />
     <line x1="10" x2="14" y1="29" y2="29" />
     <line x1="16" x2="20" y1="29" y2="29" />

@@ -2,9 +2,7 @@ import React from 'react'
 
 const BasicFloppydisk = () => (
   <svg className="Icon" id="BasicFloppydisk" viewBox="0 0 64 64">
-    <g>
-      <polygon points="63,63 1,63 1,1 51,1 63,13  " />
-    </g>
+    <polygon points="63,63 1,63 1,1 51,1 63,13" />
     <rect height="32" width="50" x="7" y="31" />
     <line x1="14" x2="50" y1="39" y2="39" />
     <line x1="14" x2="50" y1="47" y2="47" />

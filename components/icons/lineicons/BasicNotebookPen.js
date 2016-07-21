@@ -2,8 +2,8 @@ import React from 'react'
 
 const BasicNotebookPen = () => (
   <svg className="Icon" id="BasicNotebookPen" viewBox="0 0 64 64">
-    <polygon points="63,3 63,53 59,61 55,53 55,3 " />
-    <polyline points="55,7 51,7 51,17 " />
+    <polygon points="63,3 63,53 59,61 55,53 55,3" />
+    <polyline points="55,7 51,7 51,17" />
     <rect height="58" width="40" x="4" y="3" />
     <line x1="34" x2="34" y1="3" y2="60" />
     <line x1="8" x2="0" y1="16" y2="16" />

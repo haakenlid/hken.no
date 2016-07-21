@@ -3,7 +3,7 @@ import React from 'react'
 const WeatherWaxingCresent = () => (
   <svg className="Icon" id="WeatherWaxingCresent" viewBox="0 0 64 64">
     <circle cx="32" cy="32" r="31" />
-    <path d="M23,2c13.243,3.528,22,15.646,22,30  c0,14.355-8.756,26.473-22,30" />
+    <path d="M23,2c13.243,3.528,22,15.646,22,30 c0,14.355-8.756,26.473-22,30" />
     <line x1="30" x2="17" y1="59" y2="59" />
     <line x1="37" x2="9" y1="53" y2="53" />
     <line x1="42" x2="5" y1="47" y2="47" />

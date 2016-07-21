@@ -7,10 +7,8 @@ const BasicElaborationBrowserSearch = () => (
     <line x1="10" x2="6" y1="11" y2="11" />
     <line x1="18" x2="14" y1="11" y2="11" />
     <line x1="26" x2="22" y1="11" y2="11" />
-    <g>
-      <circle cx="29" cy="33" r="6" />
-      <line x1="33" x2="41" y1="37" y2="45" />
-    </g>
+    <circle cx="29" cy="33" r="6" />
+    <line x1="33" x2="41" y1="37" y2="45" />
   </svg>
 )
 export default BasicElaborationBrowserSearch
