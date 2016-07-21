@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_elaboration_document_download" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><polygon points="23,1 55,1 55,63 9,63 9,15  "/><polyline points="9,15 23,15 23,1  "/></g><polyline points="40,37 32,45   24,37 "/><g><line x1="32" x2="32" y1="45" y2="25"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polygon points="23,1 55,1 55,63 9,63 9,15"/>
+  <polyline points="9,15 23,15 23,1"/>
+  <polyline points="40,37 32,45 24,37"/>
+  <line x1="32" x2="32" y1="45" y2="25"/>
+</svg>

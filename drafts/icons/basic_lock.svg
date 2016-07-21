@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_lock" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><rect height="30" width="48" x="8" y="33"/><path d="M16,33V17c0-8.837,7.163-16,16-16s16,7.163,16,16   v16"/><circle cx="32" cy="47" r="4"/><line x1="32" x2="32" y1="51" y2="55"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <rect height="30" width="48" x="8" y="33"/>
+  <path d="M16,33V17c0-8.837,7.163-16,16-16s16,7.163,16,16 v16"/>
+  <circle cx="32" cy="47" r="4"/>
+  <line x1="32" x2="32" y1="51" y2="55"/>
+</svg>

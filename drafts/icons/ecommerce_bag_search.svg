@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="ecommerce_bag_search" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><circle cx="29" cy="39" r="6"/><line x1="33" x2="41" y1="43" y2="51"/></g><polygon points="44,18 54,18 54,63 10,63 10,18 20,18 "/><path d="M22,24V11c0-5.523,4.477-10,10-10s10,4.477,10,10v13  "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <circle cx="29" cy="39" r="6"/>
+  <line x1="33" x2="41" y1="43" y2="51"/>
+  <polygon points="44,18 54,18 54,63 10,63 10,18 20,18"/>
+  <path d="M22,24V11c0-5.523,4.477-10,10-10s10,4.477,10,10v13"/>
+</svg>

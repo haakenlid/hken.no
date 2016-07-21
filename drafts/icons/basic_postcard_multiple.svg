@@ -1,1 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_postcard_multiple" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><rect height="34" width="53" x="1" y="20"/></g><g><polyline points="10,16.999 10,11 63,11 63,45 57,45  "/></g><rect height="8" width="7" x="42" y="25"/><line x1="33" x2="33" y1="24" y2="50"/><line x1="5" x2="29" y1="27" y2="27"/><line x1="5" x2="26" y1="32" y2="32"/><line x1="5" x2="27" y1="37" y2="37"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <rect height="34" width="53" x="1" y="20"/>
+  <polyline points="10,17 10,11 63,11 63,45 57,45"/>
+  <rect height="8" width="7" x="42" y="25"/>
+  <line x1="33" x2="33" y1="24" y2="50"/>
+  <line x1="5" x2="29" y1="27" y2="27"/>
+  <line x1="5" x2="26" y1="32" y2="32"/>
+  <line x1="5" x2="27" y1="37" y2="37"/>
+</svg>

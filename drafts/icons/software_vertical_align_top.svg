@@ -1,1 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="software_vertical_align_top" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="0" x2="64" y1="1" y2="1"/><rect height="52" width="16" x="13" y="7"/><rect height="40" width="16" x="35" y="7"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <line x1="0" x2="64" y1="1" y2="1"/>
+  <rect height="52" width="16" x="13" y="7"/>
+  <rect height="40" width="16" x="35" y="7"/>
+</svg>

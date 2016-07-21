@@ -1,1 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="arrows_move_right" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><polyline points="44,39 51,32   44,25 "/><polyline points="51,32 39,32 5,32 "/><line x1="59" x2="59" y1="0" y2="64"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polyline points="44,39 51,32 44,25"/>
+  <polyline points="51,32 39,32 5,32"/>
+  <line x1="59" x2="59" y1="0" y2="64"/>
+</svg>

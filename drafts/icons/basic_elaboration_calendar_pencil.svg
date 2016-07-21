@@ -1,1 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_elaboration_calendar_pencil" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><line x1="46" x2="18" y1="10" y2="10"/><polyline points="12,10 1,10 1,58 63,58 63,10 52,10  "/><rect height="8" width="6" x="12" y="6"/><rect height="8" width="6" x="46" y="6"/></g><line x1="1" x2="63" y1="18" y2="18"/><g><polygon points="23,43 22,48 27,47 42,32 38,28  "/><line x1="39" x2="35" y1="35" y2="31"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <line x1="46" x2="18" y1="10" y2="10"/>
+  <polyline points="12,10 1,10 1,58 63,58 63,10 52,10"/>
+  <rect height="8" width="6" x="12" y="6"/>
+  <rect height="8" width="6" x="46" y="6"/>
+  <line x1="1" x2="63" y1="18" y2="18"/>
+  <polygon points="23,43 22,48 27,47 42,32 38,28"/>
+  <line x1="39" x2="35" y1="35" y2="31"/>
+</svg>

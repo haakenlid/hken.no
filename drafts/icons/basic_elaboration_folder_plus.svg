@@ -1,1 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_elaboration_folder_plus" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="32" x2="32" y1="27" y2="45"/><line x1="41" x2="23" y1="36" y2="36"/><polygon points="63,18 63,54 1,54 1,10 22,10 30,18 "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <line x1="32" x2="32" y1="27" y2="45"/>
+  <line x1="41" x2="23" y1="36" y2="36"/>
+  <polygon points="63,18 63,54 1,54 1,10 22,10 30,18"/>
+</svg>

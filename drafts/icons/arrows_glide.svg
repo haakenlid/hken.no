@@ -1,1 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="arrows_glide" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><polyline points="45.968,48.968    31.967,62.968 18,49  "/></g><g><polyline points="18,15    32.032,0.968 46.032,14.968  "/></g><circle cx="31.968" cy="31.968" r="5"/><g><polyline points="49,18 63,32    49,46  "/></g><g><polyline points="15.032,45.968    1,31.935 14.968,17.968  "/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polyline points="45.968,48.968 31.967,62.968 18,49"/>
+  <polyline points="18,15 32.032,0.968 46.032,14.968"/>
+  <circle cx="31.968" cy="31.968" r="5"/>
+  <polyline points="49,18 63,32 49,46"/>
+  <polyline points="15.032,45.968 1,31.935 14.968,17.968"/>
+</svg>
