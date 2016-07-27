@@ -1,1 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="software_layers1" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><polyline points="18,32.066 2,39 32,51 62,39 46,32.067 "/><polygon points="32,38 62,26 32,13 2,26 "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polyline points="18,32.066 2,39 32,51 62,39 46,32.067"/>
+  <polygon points="32,38 62,26 32,13 2,26"/>
+</svg>

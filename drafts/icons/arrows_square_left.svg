@@ -1,1 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="arrows_square_left" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><polyline points="37,15 20,32    37,49  "/></g><rect height="62" width="62" x="1" y="1"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polyline points="37,15 20,32 37,49"/>
+  <rect height="62" width="62" x="1" y="1"/>
+</svg>

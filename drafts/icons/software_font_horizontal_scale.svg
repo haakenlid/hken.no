@@ -1,1 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="software_font_horizontal_scale" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><polyline points="17,44 32,2 33,2 48,44  "/><line x1="22" x2="43" y1="30" y2="30"/></g><path d="M55,63"/><polyline points="55,63 62,56   55,49 "/><polyline points="9,49 2,56 9,63   "/><g><line x1="62" x2="2" y1="56" y2="56"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polyline points="17,44 32,2 33,2 48,44"/>
+  <line x1="22" x2="43" y1="30" y2="30"/>
+  <path d="M55,63"/>
+  <polyline points="55,63 62,56 55,49"/>
+  <polyline points="9,49 2,56 9,63"/>
+  <line x1="62" x2="2" y1="56" y2="56"/>
+</svg>

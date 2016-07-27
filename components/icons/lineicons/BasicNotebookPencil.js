@@ -11,7 +11,7 @@ const BasicNotebookPencil = () => (
     <line x1="8" x2="0" y1="40" y2="40" />
     <line x1="8" x2="0" y1="48" y2="48" />
     <line x1="8" x2="0" y1="56" y2="56" />
-    <polygon points="55,1 55,54 59,62 63,54 63,1 " />
+    <polygon points="55,1 55,54 59,62 63,54 63,1" />
     <line x1="55" x2="63" y1="11" y2="11" />
   </svg>
 )

@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="weather_capricorn" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M9,5c0,0,0-4,6-4c5,0,4,10,4,10v29"/><path d="M19,11c0,0,0-10,7-10s7,10,7,10v29c0,0-1,14,15,14"/><path d="M48,40c-3,0-12,1-12,12c0,1,1,11-12,11"/><path d="M48,54c3.866,0,7-3.134,7-7s-3.134-7-7-7"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <path d="M9,5c0,0,0-4,6-4c5,0,4,10,4,10v29"/>
+  <path d="M19,11c0,0,0-10,7-10s7,10,7,10v29c0,0-1,14,15,14"/>
+  <path d="M48,40c-3,0-12,1-12,12c0,1,1,11-12,11"/>
+  <path d="M48,54c3.866,0,7-3.134,7-7s-3.134-7-7-7"/>
+</svg>

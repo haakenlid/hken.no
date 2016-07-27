@@ -1,1 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_elaboration_document_refresh" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><polygon points="23,1 55,1 55,63 9,63 9,15  "/><polyline points="9,15 23,15 23,1  "/></g><path d="M24,36c0,4.418,3.582,9,8,9h4"/><polyline points="33,49 36,45   33,41 "/><path d="M42,36c0-4.418-3.582-9-8-9h-4"/><polyline points="33,23 30,27   33,31 "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polygon points="23,1 55,1 55,63 9,63 9,15"/>
+  <polyline points="9,15 23,15 23,1"/>
+  <path d="M24,36c0,4.418,3.582,9,8,9h4"/>
+  <polyline points="33,49 36,45 33,41"/>
+  <path d="M42,36c0-4.418-3.582-9-8-9h-4"/>
+  <polyline points="33,23 30,27 33,31"/>
+</svg>

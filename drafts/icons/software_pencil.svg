@@ -1,1 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="software_pencil" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><line x1="20" x2="10" y1="54" y2="44"/></g><polygon points="10,44 1,62 2,63 20,54 63,11 53,1 "/><line x1="54" x2="44" y1="20" y2="10"/><line x1="58" x2="48" y1="16" y2="6"/><polyline points="5,54 9,55 10,59 "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <line x1="20" x2="10" y1="54" y2="44"/>
+  <polygon points="10,44 1,62 2,63 20,54 63,11 53,1"/>
+  <line x1="54" x2="44" y1="20" y2="10"/>
+  <line x1="58" x2="48" y1="16" y2="6"/>
+  <polyline points="5,54 9,55 10,59"/>
+</svg>

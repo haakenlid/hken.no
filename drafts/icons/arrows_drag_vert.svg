@@ -1,1 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="arrows_drag_vert" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="0" x2="64" y1="40" y2="40"/><line x1="0" x2="64" y1="32" y2="32"/><line x1="0" x2="64" y1="24" y2="24"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <line x1="0" x2="64" y1="40" y2="40"/>
+  <line x1="0" x2="64" y1="32" y2="32"/>
+  <line x1="0" x2="64" y1="24" y2="24"/>
+</svg>

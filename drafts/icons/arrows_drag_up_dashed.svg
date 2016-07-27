@@ -1,1 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="arrows_drag_up_dashed" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><line stroke-dasharray="4,2" x1="32" x2="32" y1="33" y2="1"/></g><circle cx="32" cy="48" r="15"/><polyline points="41,10 32,1 23,10   "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <line stroke-dasharray="4,2" x1="32" x2="32" y1="33" y2="1"/>
+  <circle cx="32" cy="48" r="15"/>
+  <polyline points="41,10 32,1 23,10"/>
+</svg>

@@ -2,9 +2,7 @@ import React from 'react'
 
 const BasicTablet = () => (
   <svg className="Icon" id="BasicTablet" viewBox="0 0 64 64">
-    <g>
-      <rect height="62" width="42" x="11" y="1" />
-    </g>
+    <rect height="62" width="42" x="11" y="1" />
     <line x1="28" x2="36" y1="5" y2="5" />
     <line x1="11" x2="53" y1="51" y2="51" />
     <line x1="11" x2="53" y1="9" y2="9" />

@@ -7,10 +7,8 @@ const BasicElaborationBrowserDownload = () => (
     <line x1="10" x2="6" y1="11" y2="11" />
     <line x1="18" x2="14" y1="11" y2="11" />
     <line x1="26" x2="22" y1="11" y2="11" />
-    <polyline points="40,38 32,46   24,38 " />
-    <g>
-      <line x1="32" x2="32" y1="46" y2="26" />
-    </g>
+    <polyline points="40,38 32,46 24,38" />
+    <line x1="32" x2="32" y1="46" y2="26" />
   </svg>
 )
 export default BasicElaborationBrowserDownload

@@ -1,1 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_home" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><polygon points="32,3 2,33 11,33 11,63 23,63 23,47 39,47   39,63 51,63 51,33 62,33 "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polygon points="32,3 2,33 11,33 11,63 23,63 23,47 39,47 39,63 51,63 51,33 62,33"/>
+</svg>

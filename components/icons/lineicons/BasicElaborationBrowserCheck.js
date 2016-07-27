@@ -7,7 +7,7 @@ const BasicElaborationBrowserCheck = () => (
     <line x1="10" x2="6" y1="11" y2="11" />
     <line x1="18" x2="14" y1="11" y2="11" />
     <line x1="26" x2="22" y1="11" y2="11" />
-    <polyline points="23,35 30,42   43,29 " />
+    <polyline points="23,35 30,42 43,29" />
   </svg>
 )
 export default BasicElaborationBrowserCheck

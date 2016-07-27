@@ -1,1 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="arrows_hamburger1" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="0" x2="6" y1="21" y2="21"/><line x1="16" x2="64" y1="21" y2="21"/><line x1="0" x2="6" y1="33" y2="33"/><line x1="16" x2="64" y1="33" y2="33"/><line x1="0" x2="6" y1="45" y2="45"/><line x1="16" x2="64" y1="45" y2="45"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <line x1="0" x2="6" y1="21" y2="21"/>
+  <line x1="16" x2="64" y1="21" y2="21"/>
+  <line x1="0" x2="6" y1="33" y2="33"/>
+  <line x1="16" x2="64" y1="33" y2="33"/>
+  <line x1="0" x2="6" y1="45" y2="45"/>
+  <line x1="16" x2="64" y1="45" y2="45"/>
+</svg>

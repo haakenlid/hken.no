@@ -1,1 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_eye" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M1,32c0,0,11,15,31,15s31-15,31-15S52,17,32,17  S1,32,1,32z"/><circle cx="32" cy="32" r="7"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <path d="M1,32c0,0,11,15,31,15s31-15,31-15S52,17,32,17 S1,32,1,32z"/>
+  <circle cx="32" cy="32" r="7"/>
+</svg>

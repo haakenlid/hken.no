@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="basic_elaboration_todolist_upload" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><polyline points="23.998,34   31.998,26 39.998,34 "/><g><line x1="31.998" x2="31.998" y1="26" y2="46"/></g><polyline points="23,8 10,8 10,63 54,63 54,8 41,8 "/><polygon points="36,5 36,1 28,1 28,5 24,5 22,13 42,13 40,5   "/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polyline points="24,34 32,26 40,34"/>
+  <line x1="32" x2="32" y1="26" y2="46"/>
+  <polyline points="23,8 10,8 10,63 54,63 54,8 41,8"/>
+  <polygon points="36,5 36,1 28,1 28,5 24,5 22,13 42,13 40,5"/>
+</svg>

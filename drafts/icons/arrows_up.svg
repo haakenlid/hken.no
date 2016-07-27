@@ -1,1 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="arrows_up" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g><polyline points="15,40 32,23    49,40  "/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polyline points="15,40 32,23 49,40"/>
+</svg>

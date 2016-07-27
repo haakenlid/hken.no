@@ -2,9 +2,7 @@ import React from 'react'
 
 const BasicCalculator = () => (
   <svg className="Icon" id="BasicCalculator" viewBox="0 0 64 64">
-    <g>
-      <rect height="62" width="62" x="1" y="1" />
-    </g>
+    <rect height="62" width="62" x="1" y="1" />
     <line x1="18" x2="18" y1="8" y2="28" />
     <line x1="28" x2="8" y1="18" y2="18" />
     <line x1="56" x2="36" y1="18" y2="18" />

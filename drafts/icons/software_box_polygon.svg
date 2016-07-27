@@ -1,1 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><svg class="icon" id="software_box_polygon" style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><polygon points="16.676,59 1.351,32 16.676,5 47.324,5   62.649,32 47.324,59 "/><line x1="17" x2="47" y1="5" y2="59"/><line x1="47" x2="17" y1="5" y2="59"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
+  <polygon points="16.676,59 1.351,32 16.676,5 47.324,5 62.649,32 47.324,59"/>
+  <line x1="17" x2="47" y1="5" y2="59"/>
+  <line x1="47" x2="17" y1="5" y2="59"/>
+</svg>
