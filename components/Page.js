@@ -9,7 +9,7 @@ import { config } from 'config'
 // const SocialMedia = () => <div>SocialMedia</div>
 // const Home = () => <Link className="Logo" to={link('/')}><h1 >håken.no</h1></Link>
 const Logo = () => (
-  <div className = "Logo animate">
+  <div className="Logo animate">
     <Link to={link('/')}>
       <Monogram className="face" />
     </Link>
@@ -17,7 +17,7 @@ const Logo = () => (
 )
 
 const TitleBar = ({ title = 'foo' }) => (
-  <div className = "TitleBar animate">
+  <div className="TitleBar animate">
     <Link to={link('/')}>
       <Monogram className="face" />
     </Link>
@@ -34,19 +34,19 @@ class Page extends React.Component {
     const pageTitle = title ? `${title} | ${config.blogTitle}` : config.blogTitle
     const [sidebar, ...content] = children
     return (
-      <DocumentTitle title={ pageTitle }>
+      <DocumentTitle title={pageTitle}>
         <article className="Page">
           <header className="PageHeader">
             <nav className="PageNav" >
               <TitleBar title={title} />
               <Logo />
               <section className="sidebar">
-                { sidebar }
+                {sidebar}
                 <SocialMedia />
               </section>
             </nav>
           </header>
-          { content }
+          {content}
         </article>
       </DocumentTitle>
     )

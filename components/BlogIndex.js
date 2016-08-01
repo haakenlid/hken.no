@@ -34,7 +34,7 @@ const blogPosts = route => publishedPages(route)
 
 const BlogIndex = ({ route }) => (
   <ul className="Index" >
-    { blogPosts(route) }
+    {blogPosts(route)}
   </ul>
 )
 BlogIndex.propTypes = {

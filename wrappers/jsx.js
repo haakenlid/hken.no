@@ -21,7 +21,7 @@ const JsxWrapper = ({ route, children }) => {
   const { toc, modifiedChildren } = buildTOC(children)
   return (
     <BlogPost toc={toc} route={route}>
-      { modifiedChildren }
+      {modifiedChildren}
     </BlogPost>
   )
 }

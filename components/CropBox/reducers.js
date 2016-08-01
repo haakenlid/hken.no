@@ -25,7 +25,7 @@ const image = (state, action) => {
           h: normalize([h[0], x, h[2]]),
           v: normalize([v[0], y, v[2]]),
         },
-      }}
+      } }
 
     case 'START_NEW_CROP': {
       const [x, y] = action.payload.position
@@ -40,7 +40,7 @@ const image = (state, action) => {
           initialPosition: action.payload.position,
           initialCrop: state.crop,
         },
-      }}
+      } }
 
     case 'START_DRAG_HANDLE':
       return {
@@ -68,7 +68,7 @@ const image = (state, action) => {
           v: [vi[0] + dy, vi[1], vi[2] + dy],
         }
       }
-      return { ...state, crop }}
+      return { ...state, crop } }
     case 'END_DRAG_HANDLE':
       return {
         ...state,

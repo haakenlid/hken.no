@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 
 const InfoBox = ({ items }) => (
   <div className="infoBoxWrapper">
-  <div className="infoBox">
-    { Object.keys(items).map(key => (
-      <div className="infoRow" key={ key } >
-        <div className="label">{ key }:</div>
-        <div className="value">{ items[key] }</div>
-      </div>
-    ))}
-  </div>
+    <div className="infoBox">
+      {Object.keys(items).map(key => (
+        <div className="infoRow" key={key} >
+          <div className="label">{key}:</div>
+          <div className="value">{items[key]}</div>
+        </div>
+      ))}
+    </div>
   </div>
 )
 InfoBox.propTypes = {

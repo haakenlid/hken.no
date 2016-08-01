@@ -43,7 +43,7 @@ class Canvas extends React.Component {
         >
           <img
             ref="masterImg"
-            className = "masterImg"
+            className="masterImg"
             onLoad={this.imgOnLoad}
             src={src}
           />
@@ -55,7 +55,7 @@ class Canvas extends React.Component {
           />
           <CropInfo src={src} />
         </div>
-        { showPreviews &&
+        {showPreviews &&
           <Previews
             src={src}
             aspects={aspects}

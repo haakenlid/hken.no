@@ -26,13 +26,13 @@ rendered.markdown ? (
   />
 ) : (
   <div className={`${cellType} cell`} >
-    { rendered.source &&
+    {rendered.source &&
       <pre className="cell-input" dangerouslySetInnerHTML={{ __html: rendered.source }} />
     }
-    { rendered.output &&
-      <pre className="cell-output">{ rendered.output }</pre>
+    {rendered.output &&
+      <pre className="cell-output">{rendered.output}</pre>
     }
-    { rendered.html &&
+    {rendered.html &&
       <div className="cell-output" dangerouslySetInnerHTML={{ __html: rendered.html }} />
       }
     </div>
@@ -61,7 +61,7 @@ const NotebookWrapper = ({ route }) => {
   )
   return (
     <BlogPost route={route} toc={toc}>
-      { cells.map(renderCell) }
+      {cells.map(renderCell)}
     </BlogPost>
   )
 }

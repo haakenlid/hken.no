@@ -48,7 +48,7 @@
     "eslint-config-airbnb": "^5.0.1",
     "eslint-plugin-react": "^3.16.1",
     "react-transform-catch-errors": "^1.0.0",
-    "react-transform-hmr": "^1.0.0",
-    "redbox-react": "^1.0.1"
+    "react-transform-hmr": "^1.0.1",
+    "redbox-react": "1.1.1"
   }
 }

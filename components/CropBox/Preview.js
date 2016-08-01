@@ -45,9 +45,9 @@ let PreviewImg = ({ src, crop, size, aspect, style = {} }) => {
     "aspect ratio": aspect,
   }
   return (
-    <div className = "previewWrapper infoParent" style={style} >
+    <div className="previewWrapper infoParent" style={style} >
       <svg
-        className = "previewImg"
+        className="previewImg"
         style={styles}
         viewBox={`0 0 ${aspect} 1`}
       />

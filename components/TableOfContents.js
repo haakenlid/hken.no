@@ -5,9 +5,9 @@ const clickTocHandler = (id) => () => scrollToId(id)
 
 const TocHeader = ({ id, text, tag, isActive }) => (
   <div
-    onClick={ clickTocHandler(id) }
+    onClick={clickTocHandler(id)}
     className={`TocHeader ${tag}${isActive ? ' active' : ''}`}
-  >{ text }</div>
+  >{text}</div>
 )
 TocHeader.propTypes = {
   id: React.PropTypes.string,
@@ -27,8 +27,8 @@ class TableOfContents extends React.Component {
       window.addEventListener('scroll', this.handleScroll)
       const hash = window.location.hash
       if (hash) {
-        setTimeout(() => {scrollToId(hash, 1)}, 100)
-        setTimeout(() => {scrollToId(hash, 1)}, 1500)
+        setTimeout(() => { scrollToId(hash, 1) }, 100)
+        setTimeout(() => { scrollToId(hash, 1) }, 1500)
       }
     }
   }
@@ -63,7 +63,7 @@ class TableOfContents extends React.Component {
     const { items } = this.props
     return (
       <nav className="TableOfContents">
-        { items.map((item, index) => (
+        {items.map((item, index) => (
           <TocHeader
             isActive={tocIndex === index}
             key={item.id} {...item}

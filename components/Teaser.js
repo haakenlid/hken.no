@@ -6,13 +6,13 @@ import { config } from 'config'
 import { TimeIcon, TagIcon, BylineIcon } from 'components/icons'
 
 const DateLine = ({ date }) => (
-  <span className="DateLine" > <TimeIcon /> { moment(date).fromNow() } </span>
+  <span className="DateLine" > <TimeIcon /> {moment(date).fromNow()} </span>
 )
 const ByLine = ({ name = config.authorName }) => (
-  <span className="ByLine" > <BylineIcon /> { name } </span>
+  <span className="ByLine" > <BylineIcon /> {name} </span>
 )
 const Tags = ({ tags }) => (
-  <span className="Tags" > <TagIcon /> { tags.join(', ') } </span>
+  <span className="Tags" > <TagIcon /> {tags.join(', ')} </span>
 )
 DateLine.propTypes = { date: React.PropTypes.string.isRequired }
 ByLine.propTypes = { name: React.PropTypes.string }
@@ -26,13 +26,12 @@ const BlogPostData = props => (
   </div>
 )
 
-const Teaser = (props) => {
-  const { image, title, path, data = true } = props
+const Teaser = ({ image, title = 'Untitled', path, data = false, ...props }) => {
   return (
     <article className="Teaser">
-      { data && <BlogPostData {...props} /> }
+      {data && <BlogPostData {...props} />}
       <Link to={link(path)}>
-        { image && <img src={link(image)} alt={title} /> }
+        {image && <img src={link(image)} alt={title} />}
         <h1>{title}</h1>
       </Link>
     </article>
@@ -40,10 +39,10 @@ const Teaser = (props) => {
 }
 
 Teaser.propTypes = {
-  path: React.PropTypes.string.isRequired,
   image: React.PropTypes.string,
   title: React.PropTypes.string.isRequired,
-  data: React.PropTypes.bool,
+  path: React.PropTypes.string.isRequired,
+  data: React.PropTypes.bool.isRequired,
 }
 
 export { Teaser, BlogPostData }

@@ -9,7 +9,7 @@ import './overlay.scss'
 const DragKing = (props) => (
   <div
     className="dragKing"
-    { ...props }
+    {...props}
   />
 )
 
@@ -33,10 +33,10 @@ const Handle = ({ name, mouseDownHandler }) => {
     <rect
       className={name}
       onMouseDown={mouseDownHandler(mask)}
-      width = {1 - mask[0] - mask[2] + handleSize}
-      height = {1 - mask[1] - mask[3] + handleSize}
-      x = {mask[2] - handleSize / 2}
-      y = {mask[3] - handleSize / 2}
+      width={1 - mask[0] - mask[2] + handleSize}
+      height={1 - mask[1] - mask[3] + handleSize}
+      x={mask[2] - handleSize / 2}
+      y={mask[3] - handleSize / 2}
       style={{ cursor: cursor[name] }}
     />
   )
@@ -79,7 +79,7 @@ let Overlay = ({
         height="100%"
         width="100%"
       >
-        { features && <Symbols /> }
+        {features && <Symbols />}
         <path
           className="outside"
           fillRule="evenodd"
@@ -102,7 +102,7 @@ let Overlay = ({
             x={left}
             y={top}
           >
-            { ['1000', '0100', '0010', '0001', '1100', '0110', '0011', '1001'].map(name => (
+            {['1000', '0100', '0010', '0001', '1100', '0110', '0011', '1001'].map(name => (
               <Handle key={name} name={name} mouseDownHandler={mouseDownHandler} />
             ))}
           </svg>
@@ -116,13 +116,13 @@ let Overlay = ({
           />
           <path className="cross" d={`M0, ${y}H1M${x}, 0V1`} />
         </g>
-        { features.map((f, i) => <Feature key={i} {...f} />) }
+        {features.map((f, i) => <Feature key={i} {...f} />)}
       </svg>
-      { dragging.dragMask && <DragKing
+      {dragging.dragMask && <DragKing
         onMouseMove={mouseMove}
         onMouseUp={endDragHandle}
         onMouseLeave={endDragHandle}
-      /> }
+      />}
     </div>
   )
 }

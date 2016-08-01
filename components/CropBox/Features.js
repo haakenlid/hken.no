@@ -26,12 +26,12 @@ const Label = ({ items, size }) => (
     x="1" y={size * 0.6}
     textAnchor="middle"
   >
-    { Object.keys(items).map((key) => (
+    {Object.keys(items).map((key) => (
       <tspan
         key={key}
         className={key}
-        x = {1}
-        dy = {size * 1.2}
+        x={1}
+        dy={size * 1.2}
         style={{ fontSize: size }}
       >
         {`${key}: ${items[key]}`}
@@ -77,9 +77,9 @@ const Feature = ({ label = "", weight = 0, ...props }) => (
     viewBox="0 0 2 2"
     {...props}
   >
-    { label.includes('keypoint') && <Keypoint /> }
-    { label.includes('face') && <Face className={label} /> }
-    <Label items={{ label, weight }} size={ 0.04 / props.width } />
+    {label.includes('keypoint') && <Keypoint />}
+    {label.includes('face') && <Face className={label} />}
+    <Label items={{ label, weight }} size={0.04 / props.width} />
   </svg>
 )
 Feature.propTypes = {

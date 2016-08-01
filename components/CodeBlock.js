@@ -4,7 +4,7 @@ import { renderCode } from 'utils/markdown'
 const CodeBlock = ({ language = '', children }) => (
   <pre className="CodeBlock">
     <code
-      className={ language && `lang-${language}` }
+      className={language && `lang-${language}`}
       dangerouslySetInnerHTML={{ __html: renderCode(children, language) }}
     />
   </pre>
