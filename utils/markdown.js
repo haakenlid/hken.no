@@ -1,20 +1,20 @@
 import markdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import cheerio from 'cheerio'
-import slugify from 'slug'
+// import slugify from 'slug'
 
 const spaceToTab = code => code.replace(/ {4}/g, '\t', code)
 
 // const slugify
 
 
-// const slugify = (text) => (
-//   text
-//   .toString()
-//   .replace(/[-\s]+/g, '-')        // Replace spaces with -
-//   .replace(/[^-\w]+/g, '')       // Remove all non-word chars
-//   .replace(/-*$|^-*/g, '')        // Remove trailing or leading dashes
-  // )
+const slugify = (text) => (
+  text
+  .toString()
+  .replace(/[-\s]+/g, '-')        // Replace spaces with -
+  .replace(/[^-\w]+/g, '')       // Remove all non-word chars
+  .replace(/-*$|^-*/g, '')        // Remove trailing or leading dashes
+  )
 
 let TOC = []
 
