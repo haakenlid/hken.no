@@ -2,9 +2,9 @@ import frontMatter from 'front-matter'
 import fs from 'fs'
 import { renderMarkdown } from '../../utils/markdown'
 
-const defaultMetaData = (filePath) => {
-  const metaPath = filePath.replace(/\.\S+/, '.meta')
-  const imgPath = filePath.replace(/\.\S+/, '.jpg')
+const defaultMetaData = filePath => {
+  const metaPath = filePath.replace(/\.[^.]+$/, '.meta')
+  const imgPath = filePath.replace(/\.[^.]+$/, '.jpg')
   const date = fs.statSync(filePath).mtime
   let data = {
     image: null,
@@ -16,11 +16,15 @@ const defaultMetaData = (filePath) => {
     const fileContent = fs.readFileSync(metaPath, 'utf8')
     const matter = JSON.parse(fileContent)
     data = { ...data, ...matter }
-  } catch (e) { /* console.log(e) /* meta file does not exist */ }
+  } catch (e) {
+    // console.error(e) /* meta file does not exist */
+  }
   try {
     fs.statSync(imgPath)
     data.image = imgPath.replace(/.*\//, '')
-  } catch (e) { /* console.log(e) /* image does not exist */ }
+  } catch (e) {
+    // console.error(e) /* image does not exist */
+  }
   return data
 }
 
@@ -36,5 +40,6 @@ module.exports = function metaLoader(content) {
     ...attributes,
     body: renderedBody,
   }
+  // console.log(result)
   return `module.exports = ${JSON.stringify(result)}`
 }

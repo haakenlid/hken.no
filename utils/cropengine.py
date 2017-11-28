@@ -2,22 +2,31 @@
 
 import cv2
 import abc
-import os
 from utils.boundingbox import Box
 from typing import List, Mapping, Union
 from collections import OrderedDict
 from numpy import ndarray as CVImage
+from pathlib import Path
 
 # type annotation aliases
 FileName = str
 
 
-class Feature(Box):
+def get_haarcascade(filename: str) -> Path:
+    cascade_dir = (Path(cv2.__file__) /
+                   '../../../../share/OpenCV/haarcascades').resolve()
+    if not cascade_dir.exists():
+        raise RuntimeError('Cannot find OpenCV haarcascades')
+    file = cascade_dir / filename
+    if not file.exists():
+        raise RuntimeError('Cannot find file {file}'.format(file=file))
+    return file
 
+
+class Feature(Box):
     """Rectangular region containing salient image feature"""
 
-    def __init__(self, weight: float, label: str,
-                 *args, **kwargs) -> None:
+    def __init__(self, weight: float, label: str, *args, **kwargs) -> None:
         self.weight = weight
         self.label = label
         super().__init__(*args, **kwargs)
@@ -33,8 +42,7 @@ class Feature(Box):
         return self.__class__(
             label=self.label,
             weight=self.weight * factor,
-            **box.__dict__,
-        )
+            **box.__dict__, )
 
     def serialize(self, precision: int=3) \
             -> Mapping[str, Union[str, float]]:
@@ -63,12 +71,13 @@ class Feature(Box):
         return cls(
             label=data.get('label', 'feature'),
             weight=data.get('weight', 0),
-            left=left, top=top, bottom=bottom, right=right
-        )
+            left=left,
+            top=top,
+            bottom=bottom,
+            right=right)
 
 
 class FeatureDetector(abc.ABC):
-
     @abc.abstractmethod
     def __init__(self, n: int) -> None:
         ...
@@ -79,7 +88,7 @@ class FeatureDetector(abc.ABC):
         ...
 
     @staticmethod
-    def _opencv_image(fn: str, resize: int=0) -> CVImage:
+    def _opencv_image(fn: str, resize: int = 0) -> CVImage:
         """Read image file to grayscale openCV int array.
 
         The OpenCV algorithms works on a two dimensional
@@ -87,21 +96,17 @@ class FeatureDetector(abc.ABC):
         white. Color images will be converted to grayscale.
         """
         cv_image = cv2.imread(fn)
-        cv_image = cv2.cvtColor(
-            cv_image, cv2.COLOR_BGR2GRAY)
+        cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
         if resize > 0:
             w, h = cv_image.shape[1::-1]  # type: int, int
-            multiplier = (resize ** 2 / (w * h)) ** 0.5
-            dimensions = tuple(
-                int(round(d * multiplier)) for d in (w, h))
+            multiplier = (resize**2 / (w * h))**0.5
+            dimensions = tuple(int(round(d * multiplier)) for d in (w, h))
             cv_image = cv2.resize(
-                cv_image, dimensions,
-                interpolation=cv2.INTER_AREA)
+                cv_image, dimensions, interpolation=cv2.INTER_AREA)
         return cv_image
 
     @staticmethod
-    def _resize_feature(
-            feature: Feature, cv_image: CVImage) -> Feature:
+    def _resize_feature(feature: Feature, cv_image: CVImage) -> Feature:
         """Convert a Feature to a relative coordinate system.
 
         The output will be in a normalized coordinate system
@@ -116,16 +121,14 @@ class FeatureDetector(abc.ABC):
             left=max(0, feature.left / img_w),
             top=max(0, feature.top / img_h),
             right=min(1, feature.right / img_w),
-            bottom=min(1, feature.bottom / img_h),
-        )
+            bottom=min(1, feature.bottom / img_h), )
         return feature
 
 
 class MockFeatureDetector(FeatureDetector):
-
     """Example feature detector interface."""
 
-    def __init__(self, n: int=3, imagesize: int=200) -> None:
+    def __init__(self, n: int = 3, imagesize: int = 200) -> None:
         self._number = n
         self._size = imagesize
         self._circles = [m / n for m in range(1, n + 1)]
@@ -141,13 +144,15 @@ class MockFeatureDetector(FeatureDetector):
 
 
 class KeypointDetector(FeatureDetector):
-
     """Feature detector using OpenCVs ORB algorithm"""
 
     LABEL = 'ORB keypoint'
 
-    def __init__(self, n: int=10, padding: float=1.0,
-                 imagesize: int=200, **kwargs) -> None:
+    def __init__(self,
+                 n: int = 10,
+                 padding: float = 1.0,
+                 imagesize: int = 200,
+                 **kwargs) -> None:
         self._imagesize = imagesize
         self._padding = padding
         _kwargs = {
@@ -164,39 +169,36 @@ class KeypointDetector(FeatureDetector):
         """Find interesting keypoints in the image."""
         cv_image = self._opencv_image(fn, self._imagesize)
         keypoints = self._detector.detect(cv_image)
-        features = [self._kp_to_feature(kp)
-                    for kp in keypoints]
-        features = [self._resize_feature(ft, cv_image)
-                    for ft in features]
+        features = [self._kp_to_feature(kp) for kp in keypoints]
+        features = [self._resize_feature(ft, cv_image) for ft in features]
         return sorted(features, reverse=True)
 
     def _kp_to_feature(self, kp: cv2.KeyPoint) -> Feature:
         """Convert KeyPoint to Feature"""
         x, y = kp.pt
         radius = kp.size / 2
-        weight = radius * kp.response ** 2
+        weight = radius * kp.response**2
         return Feature(
             label=self.LABEL,
             weight=weight,
             left=x - radius,
             top=y - radius,
             right=x + radius,
-            bottom=y + radius
-        ) * self._padding
+            bottom=y + radius) * self._padding
 
 
 class Cascade:
-
     """Wrapper for Haar cascade classifier"""
 
-    _DIR = '/usr/share/opencv/haarcascades/'
-
-    def __init__(self, label: str, fn: FileName,
-                 size: float=1, weight: float=100) -> None:
+    def __init__(self,
+                 label: str,
+                 fn: FileName,
+                 size: float = 1,
+                 weight: float = 100) -> None:
         self.label = label
         self.size = size
         self.weight = weight
-        self._file = os.path.join(self._DIR, fn)
+        self._file = str(get_haarcascade(fn))
         self.classifier = cv2.CascadeClassifier(self._file)
         if self.classifier.empty():
             msg = ('The input file: "{}" is not a valid '
@@ -205,25 +207,31 @@ class Cascade:
 
 
 class FaceDetector(FeatureDetector):
-
     """Face detector using OpenCVs Viola-Jones algorithm
     and Haar cascade training data files classifying human
     frontal and profile faces."""
 
     _CASCADES = [
-        Cascade('frontal face',
-                'haarcascade_frontalface_default.xml',
-                size=1.0, weight=100),
-        Cascade('alt face',
-                'haarcascade_frontalface_alt.xml',
-                size=1.2, weight=100),
-        Cascade('profile face',
-                'haarcascade_profileface.xml',
-                size=0.9, weight=50),
+        Cascade(
+            'frontal face',
+            'haarcascade_frontalface_default.xml',
+            size=1.0,
+            weight=100),
+        Cascade(
+            'alt face',
+            'haarcascade_frontalface_alt.xml',
+            size=1.2,
+            weight=100),
+        Cascade(
+            'profile face', 'haarcascade_profileface.xml', size=0.9,
+            weight=50),
     ]
 
-    def __init__(self, n: int=10, padding: float=1.2,
-                 imagesize: int=600, **kwargs) -> None:
+    def __init__(self,
+                 n: int = 10,
+                 padding: float = 1.2,
+                 imagesize: int = 600,
+                 **kwargs) -> None:
         self._number = n
         self._imagesize = imagesize
         self._padding = padding
@@ -254,8 +262,7 @@ class FaceDetector(FeatureDetector):
                     left=left,
                     top=top,
                     right=left + width,
-                    bottom=top + height,
-                )
+                    bottom=top + height, )
                 face = face * padding
                 face = self._resize_feature(face, cv_image)
                 features.append(face)
@@ -264,7 +271,6 @@ class FaceDetector(FeatureDetector):
 
 
 class HybridDetector(FeatureDetector):
-
     """Detector using a hybrid strategy to find salient
     features in images.
 

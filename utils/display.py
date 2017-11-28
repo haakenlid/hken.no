@@ -7,9 +7,10 @@ import typing
 import numpy
 import time
 import glob
+import pytest
 from utils import reactjs
 from utils.cropengine import FeatureDetector
-
+from pathlib import Path
 
 Img = typing.Union[numpy.ndarray, str]
 
@@ -20,7 +21,7 @@ def timediff(start: float, stop: float) -> str:
 
 def croppify_img(image_file: str,
                  detector: FeatureDetector,
-                 preview: bool=False) -> str:
+                 preview: bool = False) -> str:
     st = time.time()
     features = detector.detect_features(image_file)
     dt = time.time()
@@ -30,11 +31,10 @@ def croppify_img(image_file: str,
         title=image_file,
         info='detect: {} render: {}'.format(
             timediff(st, dt), timediff(dt, rt)),
-        rendered=rendered,
-    )
+        rendered=rendered, )
 
 
-def croppify_all(detector, images=None, preview: bool=False):
+def croppify_all(detector, images=None, preview: bool = False):
     images = images or glob.glob('*.jpg')
     # random.shuffle(images)
     output = '\n'.join(
@@ -42,7 +42,7 @@ def croppify_all(detector, images=None, preview: bool=False):
     return IPython.display.HTML(output)
 
 
-def show_image(image: Img, width: int=800) -> str:
+def show_image(image: Img, width: int = 800) -> str:
     if isinstance(image, str):
         src = image
     else:
@@ -75,12 +75,12 @@ def cv_img_src(cvimg: numpy.ndarray, width: int) -> str:
     image = image.resize((width, width * image.height // image.width))
     bytesio = io.BytesIO()
     image.save(bytesio, 'PNG')
-    data = base64.encodebytes(
-        bytesio.getvalue()).decode('ascii').replace('\n', '')
+    data = base64.encodebytes(bytesio.getvalue()).decode('ascii').replace(
+        '\n', '')
     return 'data:image/png/;base64,{}'.format(data)
 
 
-def opencv_image(fn: str, size: typing.Optional[int]=None) -> numpy.ndarray:
+def opencv_image(fn: str, size: typing.Optional[int] = None) -> numpy.ndarray:
     """Read image file to grayscale openCV int array.
 
     The OpenCV algorithms works on a two dimensional
@@ -90,20 +90,26 @@ def opencv_image(fn: str, size: typing.Optional[int]=None) -> numpy.ndarray:
     cv_image = cv2.imread(fn)
     if size:
         dims = cv_image.shape[1::-1]
-        multiplier = (size * size / (dims[0] * dims[1])) ** 0.5
+        multiplier = (size * size / (dims[0] * dims[1]))**0.5
         dimensions = tuple(int(round(d * multiplier)) for d in dims)
         cv_image = cv2.resize(cv_image, dimensions)
     return cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
 
 
-def test_image_render():
-    imagefile = './fixtureimage.jpg'
-    img = opencv_image(imagefile, 100)
+@pytest.fixture
+def fixture_image():
+    imagefile = Path(__file__).parent / 'fixtureimage.jpg'
+    assert imagefile.exists()
+    return str(imagefile)
+
+
+def test_image_render(fixture_image):
+    img = opencv_image(fixture_image, 100)
     assert len(img.shape) == 2
     html = show_image(img).data
     assert '<img' in html
     assert 'data:' in html
 
-    html = show_image(imagefile).data
+    html = show_image(fixture_image).data
     assert '<img' in html
-    assert imagefile in html
+    assert fixture_image in html

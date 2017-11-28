@@ -1,0 +1,13 @@
+#!/bin/bash
+TAG='blog-jupyter'
+if [[ -z $(docker images -q $TAG) ]]; then
+  printf "building jupyter docker image with tag \"$TAG\""
+  docker build . --tag $TAG
+fi
+if [[ -z $1 ]]; then
+  docker run --rm -t -i -p 8888:8888 -v $PWD:/var/notebooks $TAG
+else
+  echo $@
+  docker run --entrypoint='' --rm -ti -v $PWD:/var/notebooks \
+  $TAG "$@"
+fi

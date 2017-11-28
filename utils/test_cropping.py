@@ -1,21 +1,23 @@
 """Tests of the cropping detectors."""
 
 import pytest
+from pathlib import Path
 import json
-from utils.cropengine import (
-    FeatureDetector, Feature, KeypointDetector, Cascade,
-)
+from utils.cropengine import (FeatureDetector, Feature, KeypointDetector,
+                              Cascade, get_haarcascade)
 from utils.boundingbox import Box
 
 
 @pytest.fixture
-def testimage():
-    return 'fixtureimage.jpg'
+def fixture_image():
+    imagefile = Path(__file__).parent / 'fixtureimage.jpg'
+    assert imagefile.exists(), 'image not found!'
+    return str(imagefile)
 
 
 @pytest.fixture
 def valid_cascade_file():
-    return '/usr/share/opencv/haarcascades/haarcascade_mcs_nose.xml'
+    return get_haarcascade('haarcascade_frontalcatface.xml')
 
 
 @pytest.fixture
@@ -32,9 +34,9 @@ def test_cascade(valid_cascade_file, invalid_cascade_file):
 
 
 @pytest.mark.parametrize('Detector', FeatureDetector.__subclasses__())
-def test_cropdetector(Detector, testimage):
+def test_cropdetector(Detector, fixture_image):
     detector = Detector(n=10)
-    features = detector.detect_features(testimage)
+    features = detector.detect_features(fixture_image)
     assert len(features) >= 1
     assert 0 < sum(features).size < 1
     keys = {'x', 'y', 'width', 'height', 'label', 'weight'}
@@ -46,16 +48,21 @@ def test_serialize_and_deserialize():
     dump = json.dumps(feature.serialize())
     data = json.loads(dump)
     assert data == {
-        "label": "hello", "x": 1, "y": 2,
-        "width": 3, "height": 7, "weight": 5
+        "label": "hello",
+        "x": 1,
+        "y": 2,
+        "width": 3,
+        "height": 7,
+        "weight": 5
     }
     clone = Feature.deserialize(data)
     assert clone == feature
 
 
-def test_that_keypointdetector_returns_correct_number_of_features(testimage):
+def test_that_keypointdetector_returns_correct_number_of_features(
+        fixture_image):
     detector = KeypointDetector(n=5)
-    features = detector.detect_features(testimage)
+    features = detector.detect_features(fixture_image)
     assert len(features) == 5
 
 
