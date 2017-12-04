@@ -4,7 +4,8 @@ import React from 'react'
 const About = () => (
   <section className="About">
     <h1>About me</h1>
-    My name is Håken Lid. I'm a full stack developer living in Oslo.
+    My name is Håken Lid. I'm a full stack developer and designer living in
+    Oslo.
     <h2>Some of the tech I use</h2>
     <ul>
       <li>react.js + redux</li>
