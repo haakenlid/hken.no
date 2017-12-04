@@ -1,7 +1,7 @@
 %Header {
   img {
     width: 100%;
-    padding-bottom: .5em;
+    padding-bottom: 0.5em;
   }
   h1 {
     padding: 0;
@@ -12,20 +12,19 @@
 
 .Teaser {
   @extend %Header;
+  margin-bottom: 0.3em;
+  padding-bottom: 0.3em;
+  border-bottom: $border;
   a {
     text-decoration: none;
     &:hover {
       color: $link-color;
     }
   }
-  &+ .Teaser {
-    padding-top: .5em;
-    border-top: $border;
-  }
 }
 
 .BlogPostData {
-  padding-bottom: .5em;
+  padding-bottom: 0.5em;
   font-size: small;
   line-height: 1;
   .Icon {
@@ -55,14 +54,18 @@
           // font-size: 80%;
           font-weight: bold;
           color: $line-color;
-          content: ' 🔗';
+          content: " 🔗";
         }
       }
     }
   }
-  h2, h3, h4, h5, h6 {
-    margin: 0 0 .3em 0;
-    padding: 1em 0 .3em 0;
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 0 0.3em 0;
+    padding: 1em 0 0.3em 0;
     @media screen and (max-width: $breakpoint) {
       margin-top: -0.5em;
       padding-top: 1.5em;
@@ -91,7 +94,7 @@
     @extend p;
     &:before {
       display: inline-block;
-      content: '⚫'; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
+      content: "⚫"; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
       color: #333;
       position: absolute;
       font-size: 0.8em;
@@ -99,9 +102,9 @@
     }
   }
   blockquote {
-    border-left: .4em solid $line-color;
+    border-left: 0.4em solid $line-color;
     font-style: italic;
     margin: 0;
-    padding: 0 0 0 .4em;
+    padding: 0 0 0 0.4em;
   }
 }

@@ -16,7 +16,7 @@ const Logo = () => (
   </div>
 )
 
-const TitleBar = ({ title = 'foo' }) => (
+const TitleBar = ({ title = 'håken.no' }) => (
   <div className="TitleBar animate">
     <Link to={link('/')}>
       <Monogram className="face" />
@@ -31,13 +31,15 @@ TitleBar.propTypes = {
 class Page extends React.Component {
   render() {
     const { title, children } = this.props
-    const pageTitle = title ? `${title} | ${config.blogTitle}` : config.blogTitle
+    const pageTitle = title
+      ? `${title} | ${config.blogTitle}`
+      : config.blogTitle
     const [sidebar, ...content] = children
     return (
       <DocumentTitle title={pageTitle}>
         <article className="Page">
           <header className="PageHeader">
-            <nav className="PageNav" >
+            <nav className="PageNav">
               <TitleBar title={title} />
               <Logo />
               <section className="sidebar">
