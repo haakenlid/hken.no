@@ -7,3 +7,8 @@ Universitas special edition
 ![student politics](velkomstmagasin_04.jpg)
 ![quiz](velkomstmagasin_06.jpg)
 ![back page](velkomstmagasin_07.jpg)
+
+## About the project
+
+A special edition of Universitas. Since it was a one-off design, I played around
+with diagonal typography and some unusual layouts.

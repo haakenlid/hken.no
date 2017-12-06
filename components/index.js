@@ -6,7 +6,6 @@ export { Byline } from './Byline'
 export { CodeBlock } from './CodeBlock'
 export { CropBox } from './CropBox/CropBox'
 export { Markdown } from './Markdown'
-export { Teaser, BlogPostData } from './Teaser'
+export { FrontpageTeaser, Teaser, BlogPostData } from './Teaser'
 export { Monogram } from './Monogram'
 export { SocialMedia } from './SocialMedia'
-

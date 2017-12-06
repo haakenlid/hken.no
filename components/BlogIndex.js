@@ -1,5 +1,5 @@
 import React from 'react'
-import { Teaser } from 'components'
+import { FrontpageTeaser, Teaser } from 'components'
 
 const intersect = (a, b) => a.filter(i => b.indexOf(i) >= 0)
 const commonTags = (a, b) => intersect(a, b).length
