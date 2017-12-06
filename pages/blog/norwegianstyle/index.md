@@ -2,14 +2,14 @@
 
 Self published game anthology
 
-![front cover](norwegianstyle00.jpg)
-![text wrap photo](norwegianstyle01.jpg)
-![flow chart spread](norwegianstyle04.jpg)
-![whale actions](norwegianstyle08.jpg)
-![text wrap photo](norwegianstyle03.jpg)
-![hans xavier](norwegianstyle09.jpg)
-![text wrap photo](norwegianstyle12.jpg)
-![back cover](norwegianstyle13.jpg)
+![front cover](norwegianstyle_01.jpg)
+![text wrap photo](norwegianstyle_02.jpg)
+![flow chart spread](norwegianstyle_05.jpg)
+![whale actions](norwegianstyle_09.jpg)
+![text wrap photo](norwegianstyle_04.jpg)
+![hans xavier](norwegianstyle_10.jpg)
+![text wrap photo](norwegianstyle_13.jpg)
+![back cover](norwegianstyle_14.jpg)
 
 ## About the project
 
