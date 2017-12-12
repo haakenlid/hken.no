@@ -1,14 +1,14 @@
 <!-- vim: set ft=markdown spl=en spell :-->
-## Student housing Oslo
-Map used in a news article about planned student housing projects.
-
-![student housing map](03-nyh-boligkart-HL.jpg)
-
 ## Higher education grade distributions
 From a news article about skewed distribution of grades in different educational
 institutions, compared to the proscribed normal distribution.
 
 ![normal distribution of grades](02_nyh_karaktergraf.jpg)
+
+## Student housing Oslo
+Map used in a news article about planned student housing projects.
+
+![student housing map](03-nyh-boligkart-HL.jpg)
 
 ## Doctorates
 Diagram showing the history of doctorate degrees in Norwegion education. The
