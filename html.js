@@ -1,5 +1,5 @@
 import React from 'react'
-import DocumentTitle from 'react-document-title'
+import { Helmet } from 'react-helmet'
 import { link } from 'gatsby-helpers'
 
 const Head = ({ title }) => (
@@ -104,9 +104,9 @@ const Head = ({ title }) => (
 )
 
 /* eslint-disable react/prefer-stateless-function */
-export default class Html extends React.Component {
+class Html extends React.Component {
   render() {
-    const { body, title } = this.props
+    const { body = '<div>...</div>', title = 'håken.no' } = this.props
     return (
       <html lang="en">
         <Head title={title} />
@@ -119,7 +119,4 @@ export default class Html extends React.Component {
   }
 }
 
-Html.defaultProps = {
-  body: '<div>loading ...</div>',
-  title: DocumentTitle.rewind(),
-}
+export default Html

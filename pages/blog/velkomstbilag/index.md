@@ -1,5 +1,4 @@
 <!-- vim: set ft=markdown spl=en spell :-->
-Universitas special edition
 
 ![front page](velkomstmagasin_01.jpg)
 ![page 2](velkomstmagasin_02.jpg)
@@ -11,4 +10,4 @@ Universitas special edition
 ## About the project
 
 A special edition of Universitas. Since it was a one-off design, I played around
-with diagonal typography and some unusual layouts.
+with diagonal typography and some unusual typesetting ideas and layouts.

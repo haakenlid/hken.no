@@ -1,10 +1,15 @@
 .sidebar {
-  font-size:  0.8rem;
-  $headers: (h1: 1.3, h2: 1.2, h3: 1.1, h4: 1.0);
+  font-size: 0.8rem;
+  $headers: (
+    h1: 1.3,
+    h2: 1.2,
+    h3: 1.1,
+    h4: 1,
+  );
   @each $tag, $size in $headers {
     #{$tag} {
       font-size: #{$size}em;
-      margin: .5em 0 .2em 0;
+      margin: 0.5em 0 0.2em 0;
       // border-top: $border;
       // padding: .5em 0 0 0;
     }
@@ -49,4 +54,3 @@
     }
   }
 }
-

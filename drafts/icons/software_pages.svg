@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg style="fill:none; stroke:black; stroke-width:2;" viewBox="0 0 64 64">
-  <polygon points="11,11 32,11 32,53 1,53 1,21"/>
-  <polyline points="1,21 11,21 11,11"/>
-  <polygon points="53,11 32,11 32,53 63,53 63,21"/>
-  <polyline points="63,21 53,21 53,11"/>
-  <line x1="32" x2="32" y1="6" y2="58"/>
-</svg>

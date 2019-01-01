@@ -1,5 +1,4 @@
 <!-- vim: set ft=markdown spl=en spell :-->
-Festival magazine
 
 ![front cover](amnesty_01.jpg)
 ![leader and toc](amnesty_02.jpg)

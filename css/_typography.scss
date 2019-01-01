@@ -4,12 +4,21 @@ html {
   font-family: $body-font;
   color: $body-color;
   font-weight: 300;
-  strong, b { font-weight: 400; }
+  strong,
+  b {
+    font-weight: 400;
+  }
   overflow-y: scroll;
 }
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body { margin: 0; padding: 0; }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 
 a:hover .Icon {
   color: $link-color;
@@ -21,17 +30,37 @@ ul {
   list-style: none;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1;
   color: #333;
   font-family: $header-font;
   font-weight: 300;
 }
-h1 { font-size: 1.8rem; margin-top: 0.5rem; padding-top: 0; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.2rem; }
-h4 { font-size: 1.0rem; }
-h3, h4 { font-weight: 500; }
+h1 {
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  padding-top: 0;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.2rem;
+}
+h4 {
+  font-size: 1rem;
+}
+h3,
+h4 {
+  font-weight: 500;
+}
 
-a { text-decoration: none; color: currentColor; }
-
+a {
+  text-decoration: none;
+  color: currentColor;
+}

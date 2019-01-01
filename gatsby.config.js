@@ -11,9 +11,19 @@ module.exports = (config, env) => {
     cfg.loader = 'null'
     return cfg
   })
+  config.loader('mp4', cfg => {
+    cfg.test = /\.mp4$/
+    cfg.loader = 'null'
+    return cfg
+  })
+  config.loader('webm', cfg => {
+    cfg.test = /\.webm$/
+    cfg.loader = 'null'
+    return cfg
+  })
   // ignore python files
-  config.loader('python', cfg => {
-    cfg.test = /\.py/
+  config.loader('ignore', cfg => {
+    cfg.test = /\.(py|idml|sh)$/
     cfg.loader = 'null'
     return cfg
   })

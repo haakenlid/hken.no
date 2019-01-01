@@ -55,7 +55,7 @@
           // font-size: 80%;
           font-weight: bold;
           color: $line-color;
-          content: " 🔗";
+          content: ' 🔗';
         }
       }
     }
@@ -85,6 +85,9 @@
   p {
     font-size: 1rem;
     margin: 1em 0;
+    a {
+      font-weight: bolder;
+    }
   }
   ul {
     position: relative;
@@ -95,7 +98,7 @@
     @extend p;
     &:before {
       display: inline-block;
-      content: "⚫"; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
+      content: '⚫'; // ‣•⁂❧☞‽※ ●⚫ ⬤ 🌑
       color: #333;
       position: absolute;
       font-size: 0.8em;
